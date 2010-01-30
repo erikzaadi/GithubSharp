@@ -114,7 +114,9 @@ namespace GithubSharp.Samples.MVC.Controllers
 				return View("Index", modelError);
 			}
 			
-			return Redirect(_Github.GetBlobURL(id, sha));
+			var bytes = _Github.GetBlobBinaryContent(id, sha);
+			
+			return new FileContentResult(bytes, "unknown/unknown");
 		}
 		
 		private bool _CheckUser()
