@@ -1,7 +1,7 @@
 
 using System;
 
-namespace GithubSharp.Domain.Models
+namespace GithubSharp.Core.Models
 {
 	public class BlobItem
 	{

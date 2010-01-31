@@ -1,7 +1,7 @@
 
 using System;
 using System.Web;
-using GithubSharp.Domain.Services;
+using GithubSharp.Core.Services;
 
 namespace GithubSharp.Plugins.CacheProviders.WebCache
 {

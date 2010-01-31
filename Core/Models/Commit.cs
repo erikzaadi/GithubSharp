@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace GithubSharp.Domain.Models
+namespace GithubSharp.Core.Models
 {
 	
 	public class Commit

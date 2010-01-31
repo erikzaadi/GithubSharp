@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{44196ED8-BD8F-4D50-A906-A3B038F00570}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -41,9 +41,9 @@
     <Compile Include="ApplicationCacher.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Domain\Domain.csproj">
-      <Project>{D75509B4-743C-4659-8FCA-436372947572}</Project>
-      <Name>Domain</Name>
+    <ProjectReference Include="..\..\..\Core\Core.csproj">
+      <Project>{59C24364-8C00-46AD-9CE6-1D5630656DF9}</Project>
+      <Name>Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

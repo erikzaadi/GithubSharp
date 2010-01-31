@@ -13,26 +13,28 @@ namespace GithubSharp.Core
 	public class Github
 	{
 		private Domain.Services.ICacheProvider _CacheProvider;
-		
-		public string Username {get;set;}
-		
-		public Github(Domain.Services.ICacheProvider CacheProvider, string username)
+
+        public Domain.Models.User _User { get; set; }
+        public GithubURLs _GithubURLs { get; set; }
+
+        public Github(Domain.Services.ICacheProvider CacheProvider, Domain.Models.User user)
 		{
 			_CacheProvider = CacheProvider;
-			Username = username;
+            _User = user;
+            _GithubURLs = new GithubURLs { User = user };
 		}
 		
 		#region Public Methods
 		
 		public IList<Domain.Models.Commit> GetCommits(string Repository)
 		{
-			string cacheKey = string.Format("_CacheProvider_Commits_{0}_{1}", Username, Repository);
+			string cacheKey = string.Format("_CacheProvider_Commits_{0}_{1}_{2}", _User.Name, Repository, _User.APIToken);
             var cached = _CacheProvider.Get<IList<Domain.Models.Commit>>(
                 cacheKey);
             if (cached != null)
                 return cached;
 
-			string url = string.Format(GithubURLs.Commits, Username, Repository);
+            string url = string.Format(GithubURLs.Commits, _User.Name, Repository, _User.APIToken);
 			
             var result = _GetXMLFromURL(url);
             if (result == null)
@@ -47,13 +49,13 @@ namespace GithubSharp.Core
 		
    		public IList<Domain.Models.Repository> GetRepositories()
         {
-            string cacheKey = string.Format("_CacheProvider_Repositories_{0}", Username);
+            string cacheKey = string.Format("_CacheProvider_Repositories_{0}_{1}", _User.Name, _User.APIToken);
             var cached = _CacheProvider.Get<IList<Domain.Models.Repository>>(
                 cacheKey);
             if (cached != null)
                 return cached;
 
-            string url = string.Format(GithubURLs.GetRepos, Username);
+            string url = string.Format(GithubURLs.GetRepos, _User.Name, _User.APIToken);
             var result = _GetXMLFromURL(url);
             if (result == null)
                 return null;

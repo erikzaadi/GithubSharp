@@ -1,7 +1,7 @@
 
 using System;
 
-namespace GithubSharp.Domain.Services
+namespace GithubSharp.Core.Services
 {
 
 	public interface ICacheProvider
