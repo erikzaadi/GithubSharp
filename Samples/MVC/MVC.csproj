@@ -32,19 +32,22 @@
     <Reference Include="System" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Core" />
+    <Reference Include="System.Core">
+    </Reference>
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Web.Routing">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Extensions">
+    </Reference>
     <Reference Include="System.Web.Abstractions">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.Linq">
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -80,10 +83,6 @@
     <ProjectReference Include="..\..\Plugins\CacheProviders\WebCache\WebCache.csproj">
       <Project>{4CF09821-4DF8-4DFE-B22E-3EBAE4A01C33}</Project>
       <Name>WebCache</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Domain\Domain.csproj">
-      <Project>{D75509B4-743C-4659-8FCA-436372947572}</Project>
-      <Name>Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

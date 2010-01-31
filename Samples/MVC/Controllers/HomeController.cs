@@ -11,6 +11,7 @@ namespace GithubSharp.Samples.MVC.Controllers
 	[HandleError()]
 	public class HomeController : Controller
 	{
+		/*
 		private GithubSharp.Core.Github _Github;
 		public HomeController()
 		{
@@ -130,5 +131,6 @@ namespace GithubSharp.Samples.MVC.Controllers
 			}
 			return false;
 		}
+		*/
 	}
 }

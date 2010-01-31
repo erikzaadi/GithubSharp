@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCache", "Plugins\CachePr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{524A0064-011B-46A9-BC3D-A6ECC6E81C44}"
 EndProject
-Project("{00000000-0000-0000-0000-000000000000}") = "MVC", ".", "{6E6F792C-7692-4B41-A496-9DC7B02F40F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC", "Samples\MVC\MVC.csproj", "{6E6F792C-7692-4B41-A496-9DC7B02F40F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{59C24364-8C00-46AD-9CE6-1D5630656DF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{59C24364-8C00-46AD-9CE6-1D5630656DF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59C24364-8C00-46AD-9CE6-1D5630656DF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{59C24364-8C00-46AD-9CE6-1D5630656DF9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{44196ED8-BD8F-4D50-A906-A3B038F00570}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{44196ED8-BD8F-4D50-A906-A3B038F00570}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44196ED8-BD8F-4D50-A906-A3B038F00570}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,18 +29,29 @@ Global
 		{4CF09821-4DF8-4DFE-B22E-3EBAE4A01C33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CF09821-4DF8-4DFE-B22E-3EBAE4A01C33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CF09821-4DF8-4DFE-B22E-3EBAE4A01C33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59C24364-8C00-46AD-9CE6-1D5630656DF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59C24364-8C00-46AD-9CE6-1D5630656DF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59C24364-8C00-46AD-9CE6-1D5630656DF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59C24364-8C00-46AD-9CE6-1D5630656DF9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6E6F792C-7692-4B41-A496-9DC7B02F40F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6E6F792C-7692-4B41-A496-9DC7B02F40F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E6F792C-7692-4B41-A496-9DC7B02F40F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E6F792C-7692-4B41-A496-9DC7B02F40F7}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
+		{6E6F792C-7692-4B41-A496-9DC7B02F40F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E6F792C-7692-4B41-A496-9DC7B02F40F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E6F792C-7692-4B41-A496-9DC7B02F40F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E6F792C-7692-4B41-A496-9DC7B02F40F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{01BD6AE7-2049-46C4-94CE-A5105F8CFD16} = {0EED7BE0-C7EA-4A7F-BA45-7108319EC034}
 		{44196ED8-BD8F-4D50-A906-A3B038F00570} = {01BD6AE7-2049-46C4-94CE-A5105F8CFD16}
 		{4CF09821-4DF8-4DFE-B22E-3EBAE4A01C33} = {01BD6AE7-2049-46C4-94CE-A5105F8CFD16}
 		{6E6F792C-7692-4B41-A496-9DC7B02F40F7} = {524A0064-011B-46A9-BC3D-A6ECC6E81C44}
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Core\Core.csproj
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
