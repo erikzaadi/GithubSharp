@@ -1,6 +1,6 @@
 
 using System;
-using GithubSharp.Domain.Services;
+using GithubSharp.Core.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

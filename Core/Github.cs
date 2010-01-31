@@ -1,6 +1,4 @@
-
 using System;
-using GithubSharp.Domain;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,18 +10,18 @@ namespace GithubSharp.Core
 {
 	public class Github
 	{
-		private Domain.Services.ICacheProvider _CacheProvider;
+		private Services.ICacheProvider _CacheProvider;
 
-        public Domain.Models.User _User { get; set; }
+        public Models.User _User { get; set; }
         public GithubURLs _GithubURLs { get; set; }
 
-        public Github(Domain.Services.ICacheProvider CacheProvider, Domain.Models.User user)
+        public Github(Services.ICacheProvider CacheProvider, Models.User user)
 		{
 			_CacheProvider = CacheProvider;
             _User = user;
             _GithubURLs = new GithubURLs { User = user };
 		}
-		
+		/*
 		#region Public Methods
 		
 		public IList<Domain.Models.Commit> GetCommits(string Repository)
@@ -353,5 +351,6 @@ namespace GithubSharp.Core
 		}
 		
 		#endregion Private Helpers
+*/
 	}
 }
