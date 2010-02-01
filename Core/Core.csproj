@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\BaseAPI.cs" />
     <Compile Include="API\Gist.cs" />
     <Compile Include="API\Object.cs" />
     <Compile Include="API\Repository.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Models\Commit.cs" />
     <Compile Include="Models\Repository.cs" />
     <Compile Include="Models\Tree.cs" />
+    <Compile Include="Models\GithubUser.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Services\ICacheProvider.cs" />
   </ItemGroup>

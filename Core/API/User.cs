@@ -5,33 +5,93 @@ using System.Text;
 
 namespace GithubSharp.Core.API
 {
-    public class User
+    public class User : Base.BaseAPI
     {
-        //Search for users
-        //http://github.com/api/v2/xml/user/search/chacon
+        public User(Services.ICacheProvider cacheProvider)
+            : base(cacheProvider)
+        {
+        }
 
-        //User info
-        //http://github.com/api/v2/yaml/user/show/defunkt
-        /* if authenticated, returns:
-          total_private_repo_count: 1
-  collaborators: 3
-  disk_usage: 50384
-  owned_private_repo_count: 1
-  private_gist_count: 0
-  plan: 
-    name: mega
-    collaborators: 60
-    space: 20971520
-    private_repos: 125
-         */
+        /// <summary>
+        /// Search for users
+        /// </summary>
+        /// <param name="Search">search string</param>
+        /// <returns>Stripped down details of the users</returns>
+        public IEnumerable<Models.UserInCollection> Search(string Search)
+        {
+            var url = string.Format("{1}{2}",
+                "user/search/",
+                Search);
+            var result = ConsumeJsonUrl<Models.UsersCollection<Models.UserInCollection>>(url);
+            return result == null ? null : result.users;
+        }
+
+        /// <summary>
+        /// Gets extended details for a user
+        /// </summary>
+        /// <param name="Username"></param>
+        /// <returns></returns>
+        public Models.User Get(string Username)
+        {
+            var url = string.Format("{1}{2}",
+               "user/show/",
+               Username);
+            var result = ConsumeJsonUrl<Models.UserContainer<Models.User>>(url);
+
+            return result == null ? null : result.user;
+        }
+
+        /// <summary>
+        /// Gets extended details (including private information) for a user
+        /// </summary>
+        /// <param name="AuthenticatedUser"></param>
+        /// <returns></returns>
+        public Models.UserAuthenticated Get()
+        {
+            Authenticate();
+            var url = string.Format("{1}{2}{3}",
+                "user/show/",
+                Username);
+            var result = ConsumeJsonUrl<Models.UserContainer<Models.UserAuthenticated>>(url);
+
+            return result == null ? null : result.user;
+        }
+
+        /// <summary>
+        /// Returns a list of followers (string array of user names)
+        /// </summary>
+        /// <param name="Username"></param>
+        /// <returns></returns>
+        public string[] Followers(string Username)
+        {
+            var url = string.Format("{1}{2}/followers",
+              "user/show/",
+              Username);
+            var result = ConsumeJsonUrl<Models.UsersCollection<string>>(url);
+
+            return result == null ? null : result.users.ToArray();
+        }
+
+
+        /// <summary>
+        /// Returns a list of watched repositories
+        /// </summary>
+        /// <param name="Username"></param>
+        /// <returns></returns>
+        public IEnumerable<Models.Repository> WatchedRepositories(string Username)
+        {
+            var url = string.Format("{1}{2}",
+              "repos/watched/",
+              Username);
+            var result = ConsumeJsonUrl<Models.RepositoryCollection<Models.Repository>>(url);
+
+            return result == null ? null : result.repositories;
+        }
 
         //Authenticate
         ///Update user info (POST)
         //https://github.com/api/v2/json/user/show/schacon
         //Uses values (name, email, blog, company, location)
-
-        //Followers
-        //http://github.com/api/v2/yaml/user/show/defunkt/followers
 
         //Authenticate
         //Follow (POST)
@@ -40,10 +100,6 @@ namespace GithubSharp.Core.API
         //Authenticate
         //UnFollow (POST)
         //http://github.com/api/v2/yaml/user/defunkt/unfollow 
-
-        //Watched repositories
-        //http://github.com/api/v2/yaml/repos/watched/schacon 
-
         //Authenticate
         //Public keys
         //http://github.com/api/v2/xml/user/keys?login=erikzaadi&token=111

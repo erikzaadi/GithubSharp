@@ -5,7 +5,7 @@ namespace GithubSharp.Core
 {
     public class GithubURLs
     {
-        public Models.User User { get; set; }
+        public Models.GithubUser User { get; set; }
         private string _LoginString
         {
             get

@@ -12,10 +12,10 @@ namespace GithubSharp.Core
 	{
 		private Services.ICacheProvider _CacheProvider;
 
-        public Models.User _User { get; set; }
+        public Models.GithubUser _User { get; set; }
         public GithubURLs _GithubURLs { get; set; }
 
-        public Github(Services.ICacheProvider CacheProvider, Models.User user)
+        public Github(Services.ICacheProvider CacheProvider, Models.GithubUser user)
 		{
 			_CacheProvider = CacheProvider;
             _User = user;

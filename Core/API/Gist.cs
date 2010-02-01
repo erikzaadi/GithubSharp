@@ -33,7 +33,9 @@ namespace GithubSharp.Core.API
         //Raw
         //http://gist.github.com/{repo}.txt
 
-        //format
+        //format - Parse to get the syntax highlighted html
         //http://gist.github.com/291158.json
+
+        //http://gist.github.com/291158.js
     }
 }

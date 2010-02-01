@@ -5,10 +5,25 @@ using System.Text;
 
 namespace GithubSharp.Core.API
 {
-    public class Repository
+    public class Repository : Base.BaseAPI
     {
-        //Search
-        //http://github.com/api/v2/yaml/repos/search/:q
+        public Repository(Services.ICacheProvider cacheProvider) : base(cacheProvider) { }
+        
+        /// <summary>
+        /// Search 
+        /// </summary>
+        /// <param name="Search"></param>
+        /// <returns></returns>
+        public IEnumerable<Models.RepositoryFromSearch> Search(string Search)
+        {
+            var url = string.Format("{0}{1}",
+                "repos/search/",
+                Search);
+
+            var result =  ConsumeJsonUrl<Models.RepositoryCollection<Models.RepositoryFromSearch>>(url);
+
+            return result == null ? null : result.repositories;            
+        }
 
         //Show
         //http://github.com/api/v2/yaml/repos/show/schacon/grit
