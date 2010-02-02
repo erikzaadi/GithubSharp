@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GithubSharp.Core.Services;
 
 namespace GithubSharp.Core.API
 {
     public class Repository : Base.BaseAPI
     {
-        public Repository(Services.ICacheProvider cacheProvider) : base(cacheProvider) { }
-        
+        public Repository(
+            ICacheProvider cacheProvider,
+            ILogProvider logProvider)
+            : base(cacheProvider, logProvider) { }
+
         /// <summary>
         /// Search 
         /// </summary>
@@ -16,13 +20,15 @@ namespace GithubSharp.Core.API
         /// <returns></returns>
         public IEnumerable<Models.RepositoryFromSearch> Search(string Search)
         {
+            LogProvider.LogMessage(string.Format("Repository.Search - '{0}'", Search));
+
             var url = string.Format("{0}{1}",
                 "repos/search/",
                 Search);
 
-            var result =  ConsumeJsonUrl<Models.RepositoryCollection<Models.RepositoryFromSearch>>(url);
+            var result = ConsumeJsonUrl<Models.RepositoryCollection<Models.RepositoryFromSearch>>(url);
 
-            return result == null ? null : result.repositories;            
+            return result == null ? null : result.repositories;
         }
 
         //Show

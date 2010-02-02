@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GithubSharp.Core.Services;
+using System.Collections.Specialized;
 
 namespace GithubSharp.Core.API
 {
     public class User : Base.BaseAPI
     {
-        public User(Services.ICacheProvider cacheProvider)
-            : base(cacheProvider)
+        public User(
+            ICacheProvider cacheProvider,
+            ILogProvider logProvider)
+            : base(cacheProvider, logProvider)
         {
         }
 
@@ -19,6 +23,7 @@ namespace GithubSharp.Core.API
         /// <returns>Stripped down details of the users</returns>
         public IEnumerable<Models.UserInCollection> Search(string Search)
         {
+            LogProvider.LogMessage(string.Format("User.Search - '{0}'", Search));
             var url = string.Format("{1}{2}",
                 "user/search/",
                 Search);
@@ -33,6 +38,7 @@ namespace GithubSharp.Core.API
         /// <returns></returns>
         public Models.User Get(string Username)
         {
+            LogProvider.LogMessage(string.Format("User.Get - '{0}'", Username));
             var url = string.Format("{1}{2}",
                "user/show/",
                Username);
@@ -43,15 +49,17 @@ namespace GithubSharp.Core.API
 
         /// <summary>
         /// Gets extended details (including private information) for a user
+        ///<para>Needs to bee authenticated (with a valid Github User)</para>
         /// </summary>
         /// <param name="AuthenticatedUser"></param>
         /// <returns></returns>
         public Models.UserAuthenticated Get()
         {
+            LogProvider.LogMessage(string.Format("User.Get (Authenticated) - '{0}'", CurrentUsername));
             Authenticate();
-            var url = string.Format("{1}{2}{3}",
+            var url = string.Format("{1}{2}",
                 "user/show/",
-                Username);
+                CurrentUsername);
             var result = ConsumeJsonUrl<Models.UserContainer<Models.UserAuthenticated>>(url);
 
             return result == null ? null : result.user;
@@ -64,6 +72,7 @@ namespace GithubSharp.Core.API
         /// <returns></returns>
         public string[] Followers(string Username)
         {
+            LogProvider.LogMessage(string.Format("User.Followers - '{0}'", Username));
             var url = string.Format("{1}{2}/followers",
               "user/show/",
               Username);
@@ -80,6 +89,7 @@ namespace GithubSharp.Core.API
         /// <returns></returns>
         public IEnumerable<Models.Repository> WatchedRepositories(string Username)
         {
+            LogProvider.LogMessage(string.Format("User.WatchedRepositories - '{0}'", Username));
             var url = string.Format("{1}{2}",
               "repos/watched/",
               Username);
@@ -88,44 +98,227 @@ namespace GithubSharp.Core.API
             return result == null ? null : result.repositories;
         }
 
-        //Authenticate
-        ///Update user info (POST)
-        //https://github.com/api/v2/json/user/show/schacon
-        //Uses values (name, email, blog, company, location)
+        /// <summary>
+        /// Updates a users details
+        ///<para>Needs to bee authenticated (with a valid Github User)</para>
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="email"></param>
+        /// <param name="blog"></param>
+        /// <param name="company"></param>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        public Models.UserAuthenticated Update(
+            string name,
+            string email,
+            string blog,
+            string company,
+            string location)
+        {
+            LogProvider.LogMessage(string.Format("User.Update (Authenticated)\nName: '{0}' Email : '{1}' Blog : '{2}' Company : '{3}' Location : '{4}'",
+                name,
+                email,
+                blog,
+                company,
+                location));
 
-        //Authenticate
-        //Follow (POST)
-        //http://github.com/api/v2/yaml/user/defunkt/follow 
+            Authenticate();
 
-        //Authenticate
-        //UnFollow (POST)
-        //http://github.com/api/v2/yaml/user/defunkt/unfollow 
-        //Authenticate
-        //Public keys
-        //http://github.com/api/v2/xml/user/keys?login=erikzaadi&token=111
+            var url = string.Format("{1}{2}",
+                "user/show/",
+                CurrentUsername);
 
-        //Authenticate
-        //Public keys - Add (POST)
-        //http://github.com/api/v2/xml/user/key/add
-        //Uses values name, key
+            var formValues = new NameValueCollection();
 
-        //Authenticate
-        //Public keys - Remove (POST)
-        //http://github.com/api/v2/xml/user/key/remove
-        //Uses values id
+            if (name != null)//and empty string is ok
+                formValues.Add("name", name);
+            if (email != null)//and empty string is ok
+                formValues.Add("email", email);
+            if (blog != null)//and empty string is ok
+                formValues.Add("blog", blog);
+            if (company != null)//and empty string is ok
+                formValues.Add("company", company);
+            if (location != null)//and empty string is ok
+                formValues.Add("location", location);
 
-        //Authenticate
-        //Emails
-        //http://github.com/api/v2/xml/user/emails?login=erikzaadi&token=111
+            if (formValues.Count == 0)
+            {
+                LogProvider.HandleError(new Exception("User.Update : At least one parameter needs to either be and empty string or with content, all parameters were null"));
+                return null;
+            }
 
-        //Authenticate
-        //Emails - Add (POST)
-        //http://github.com/api/v2/xml/user/email/add
-        //Uses values ?? email
+            var result = ConsumeJsonUrlAndPostData<Models.UserContainer<Models.UserAuthenticated>>(url, formValues);
 
-        //Authenticate
-        //Emails - Remove (POST)
-        //http://github.com/api/v2/xml/user/key/remove
-        //Uses values ?? email
+            return result == null ? null : result.user;
+        }
+
+        /// <summary>
+        /// Follow user
+        ///<para>Needs to bee authenticated (with a valid Github User)</para>
+        /// </summary>
+        /// <param name="Username"></param>
+        /// <returns></returns>
+        public string[] Follow(string Username)
+        {
+            LogProvider.LogMessage(string.Format("User.Follow - '{0}'", Username));
+
+            Authenticate();
+
+            var url = string.Format("{1}{2}",
+              "user/follow/",
+              Username);
+            var result = ConsumeJsonUrlAndPostData<Models.UsersCollection<string>>(url);
+
+            return result == null ? null : result.users.ToArray();
+        }
+
+
+        /// <summary>
+        /// UnFollow user
+        ///<para>Needs to bee authenticated (with a valid Github User)</para>
+        /// 
+        /// <para>Note: Does not work <see cref="http://github.com/develop/develop.github.com/issues#issue/39"/></para>
+        /// </summary>
+        /// <param name="Username"></param>
+        /// <returns></returns>
+        public string[] UnFollow(string Username)
+        {
+            LogProvider.LogMessage(string.Format("User.UnFollow - '{0}'", Username));
+            Authenticate();
+
+            var url = string.Format("{1}{2}",
+              "user/unfollow/",
+              Username);
+            var result = ConsumeJsonUrlAndPostData<Models.UsersCollection<string>>(url);
+
+            return result == null ? null : result.users.ToArray();
+        }
+
+        /// <summary>
+        /// List all public keys
+        /// 
+        ///<para>Needs to bee authenticated (with a valid Github User)</para>
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Models.PublicKey> PublicKeys()
+        {
+            LogProvider.LogMessage("User.PublicKeys");
+
+            Authenticate();
+
+            var url = "user/keys";
+
+            var result = ConsumeJsonUrl<Models.PublicKeyCollection<Models.PublicKey>>(url);
+
+            return result == null ? null : result.public_keys.ToArray();
+        }
+
+        /// <summary>
+        /// Add a public key
+        ///<para>Needs to bee authenticated (with a valid Github User)</para>
+        /// </summary>
+        /// <param name="PublicKey"></param>
+        /// <returns></returns>
+        public IEnumerable<Models.PublicKey> AddPublicKey(Models.PublicKey PublicKey)
+        {
+            LogProvider.LogMessage(string.Format("User.AddPublicKey - Title : '{0}' Key : {1}", PublicKey.title, PublicKey.id));
+
+            Authenticate();
+
+            var url = "user/keys/add";
+
+            var formValues = new NameValueCollection();
+            formValues.Add("title", PublicKey.title);
+            formValues.Add("key", PublicKey.key);
+
+            var result = ConsumeJsonUrlAndPostData<Models.PublicKeyCollection<Models.PublicKey>>(url, formValues);
+
+            return result == null ? null : result.public_keys.ToArray();
+        }
+
+        /// <summary>
+        /// Removes a public key
+        ///<para>Needs to bee authenticated (with a valid Github User)</para>
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IEnumerable<Models.PublicKey> RemovePublicKey(int id)
+        {
+            LogProvider.LogMessage(string.Format("User.RemovePublicKey - id : '{0}' ", id));
+
+            Authenticate();
+
+            var url = "user/keys/remove";
+
+            var formValues = new NameValueCollection();
+            formValues.Add("id", id.ToString());
+
+            var result = ConsumeJsonUrlAndPostData<Models.PublicKeyCollection<Models.PublicKey>>(url, formValues);
+
+            return result == null ? null : result.public_keys.ToArray();
+        }
+
+
+        /// <summary>
+        /// Gets all the emails active for the user
+        ///<para>Needs to bee authenticated (with a valid Github User)</para>
+        /// </summary>
+        /// <returns></returns>
+        public string[] Emails()
+        {
+            LogProvider.LogMessage("User.Emails");
+
+            Authenticate();
+
+            var url = "user/emails";
+
+            var result = ConsumeJsonUrl<Models.EmailCollection>(url);
+
+            return result == null ? null : result.emails.ToArray();
+        }
+
+        /// <summary>
+        /// Adds an email to the user
+        ///<para>Needs to bee authenticated (with a valid Github User)</para>
+        /// </summary>
+        /// <param name="Email"></param>
+        /// <returns></returns>
+        public string[] AddEmail(string Email)
+        {
+            LogProvider.LogMessage("User.AddEmail {0}", Email);
+
+            Authenticate();
+
+            var url = "user/emails/add";
+
+            var formValues = new NameValueCollection();
+            formValues.Add("email", Email);
+
+            var result = ConsumeJsonUrlAndPostData<Models.EmailCollection>(url);
+
+            return result == null ? null : result.emails.ToArray();
+        }
+
+        /// <summary>
+        /// Removes an email to the user
+        /// <para>Needs to bee authenticated (with a valid Github User)</para>
+        /// </summary>
+        /// <param name="Email"></param>
+        /// <returns></returns>
+        public string[] RemoveEmail(string Email)
+        {
+            LogProvider.LogMessage("User.RemoveEmail {0}", Email);
+
+            Authenticate();
+
+            var url = "user/emails/remove";
+
+            var formValues = new NameValueCollection();
+            formValues.Add("email", Email);
+
+            var result = ConsumeJsonUrlAndPostData<Models.EmailCollection>(url);
+
+            return result == null ? null : result.emails.ToArray();
+        }
     }
 }

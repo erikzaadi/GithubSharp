@@ -55,9 +55,26 @@ namespace GithubSharp.Core.Models
         public int private_repos { get; set; }
     }
 
+    public class PublicKey
+    {
+        public string title { get; set; }
+        public int id { get; set; }
+        public string key { get; set; }
+    }
+
+    internal class PublicKeyCollection<PublicKeyType>
+    {
+        public IEnumerable<PublicKeyType> public_keys { get; set; }
+    }
+
     internal class UsersCollection<UserType>
     {
         public IEnumerable<UserType> users { get; set; }
+    }
+
+    internal class EmailCollection
+    {
+        public IEnumerable<string> emails { get; set; }
     }
 
     internal class UserContainer<UserType>

@@ -65,6 +65,7 @@
     <Compile Include="Models\GithubUser.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Services\ICacheProvider.cs" />
+    <Compile Include="Services\ILogProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
