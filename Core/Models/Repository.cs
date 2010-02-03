@@ -52,4 +52,9 @@ namespace GithubSharp.Core.Models
     {
         public IEnumerable<RepoType> repositories { get; set; }
     }
+
+    internal class RepositoryContainer<RepoType>
+    {
+        public RepoType repository { get; set; }
+    }
 }

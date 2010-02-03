@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GithubSharp.Core.Services;
+using System.Collections.Specialized;
 
 namespace GithubSharp.Core.API
 {
@@ -31,28 +32,112 @@ namespace GithubSharp.Core.API
             return result == null ? null : result.repositories;
         }
 
-        //Show
-        //http://github.com/api/v2/yaml/repos/show/schacon/grit
+        public Models.Repository Get(string Username, string RepositoryName)
+        {
+            LogProvider.LogMessage(string.Format("Repository.Get - Username : '{0}' , RepositoryName : '{1}'", Username, RepositoryName));
 
-        //List all
-        //http://github.com/api/v2/yaml/repos/show/schacon
+            var url = string.Format("{0}{1}/{2}",
+                "repos/show/",
+                Username,
+                RepositoryName);
 
-        //Authenticate
-        //Watch repository
-        //http://github.com/api/v2/yaml/repos/watch/:user/:repo
+            var result = ConsumeJsonUrl<Models.RepositoryContainer<Models.Repository>>(url);
 
-        //Authenticate
-        //Unwatch repository
-        //http://github.com/api/v2/yaml/repos/unwatch/:user/:repo
+            return result == null ? null : result.repository;
+        }
 
-        //Authenticate
-        //Fork
-        //http://github.com/api/v2/yaml/repos/fork/dim/retrospectiva
+        public IEnumerable<Models.Repository> List(string Username)
+        {
+            LogProvider.LogMessage(string.Format("Repository.List - Username : '{0}'", Username));
 
-        //Authenticate
-        //Create (POST)
-        //http://github.com/api/v2/yaml/repos/create/
-        //values = name, description, homepage, public (1 or 0)
+            var url = string.Format("{0}{1}",
+                "repos/show/",
+                Username);
+
+            var result = ConsumeJsonUrl<Models.RepositoryCollection<Models.Repository>>(url);
+
+            return result == null ? null : result.repositories;
+        }
+
+        public Models.Repository Watch(string Username, string RepositoryName)
+        {
+            LogProvider.LogMessage(string.Format("Repository.Watch - Username : '{0}' , RepositoryName : '{1}'", Username, RepositoryName));
+
+            Authenticate();
+
+            var url = string.Format("{0}{1}/{2}",
+                "repos/watch/",
+                Username,
+                RepositoryName);
+
+            var result = ConsumeJsonUrl<Models.RepositoryContainer<Models.Repository>>(url);
+
+            return result == null ? null : result.repository;
+        }
+
+        public Models.Repository Unwatch(string Username, string RepositoryName)
+        {
+            LogProvider.LogMessage(string.Format("Repository.Watch - Username : '{0}' , RepositoryName : '{1}'", Username, RepositoryName));
+
+            Authenticate();
+
+            var url = string.Format("{0}{1}/{2}",
+                "repos/unwatch/",
+                Username,
+                RepositoryName);
+
+            var result = ConsumeJsonUrl<Models.RepositoryContainer<Models.Repository>>(url);
+
+            return result == null ? null : result.repository;
+        }
+
+        public Models.Repository Fork(string Username, string RepositoryName)
+        {
+            LogProvider.LogMessage(string.Format("Repository.Fork - Username : '{0}' , RepositoryName : '{1}'", Username, RepositoryName));
+
+            Authenticate();
+
+            var url = string.Format("{0}{1}/{2}",
+                "repos/fork/",
+                Username,
+                RepositoryName);
+
+            var result = ConsumeJsonUrl<Models.RepositoryContainer<Models.Repository>>(url);
+
+            return result == null ? null : result.repository;
+        }
+
+        public Models.Repository Create(string RepositoryName, string Description, string HomePage, bool Public)
+        {
+            LogProvider.LogMessage(string.Format("Repository.Create - RepositoryName : '{0}' , Description : '{1}' , HomePage : '{2}', Public : '{3}'",
+                RepositoryName,
+                Description,
+                HomePage,
+                Public));
+
+            Authenticate();
+
+            var url = "repos/create";
+
+            var formValues = new NameValueCollection();
+            if (string.IsNullOrEmpty(RepositoryName))
+            {
+                LogProvider.HandleError(new NullReferenceException("RepositoryName was null or empty"));
+                return null;
+            }
+            formValues.Add("name", RepositoryName);
+
+            if (!string.IsNullOrEmpty(Description))
+                formValues.Add("description", Description);
+            if (!string.IsNullOrEmpty(HomePage))
+                formValues.Add("description", Description);
+
+            formValues.Add("public", (Public ? 1 : 0).ToString());
+
+            var result = ConsumeJsonUrlAndPostData<Models.RepositoryContainer<Models.Repository>>(url, formValues);
+
+            return result == null ? null : result.repository;
+        }
 
         //Authenticate
         //Delete (POST)
