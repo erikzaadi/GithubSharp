@@ -40,17 +40,18 @@ namespace GithubSharp.Samples.MvcSample.Models.HtmlHelpers
             return condition ? trueString : elseString;
         }
 
+        //TODO: add overloads => Func<string>, Url/HtmlHelperActions, string
         public static string If(this UrlHelper helper, bool condition, UrlHelperAction action)
         {
-            return If(helper, condition, action, null);
+            return If(condition, () => action(helper), null);
         }
-        public static string If(this UrlHelper helper, bool condition, UrlHelperAction action, UrlHelperAction elseAction)
+        public static string If(bool condition, Func<string> trueAction, Func<string> elseAction)
         {
             if (condition)
-                return action(helper);
+                return trueAction();
             if (elseAction == null)
                 return string.Empty;
-            return elseAction(helper);
+            return elseAction();
         }
     }
 }

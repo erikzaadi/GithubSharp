@@ -16,7 +16,7 @@
             </div>
             <div id="logindisplay">
                 &nbsp;
-                <%= Html.If(Model.CurrentUser != null,p=>p.ActionLink("Login", "Login"), "username")%>
+                <%= Html.If(Model.CurrentUser == null,p=>p.ActionLink("Login", "Login"))%>
             </div>
             <div id="menucontainer">
                 <ul id="menu">
