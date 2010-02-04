@@ -138,6 +138,8 @@ namespace GithubSharp.Core.API
 
             return result == null ? null : result.repository;
         }
+        //{"delete_token":"jhkkqrjzyz"}
+        //{"status":"deleted"}
 
         //Authenticate
         //Delete (POST)

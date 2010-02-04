@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using GithubSharp.Core.Services;
 
-namespace SimpleLogProvider
+namespace GithubSharp.Plugins.LogProviders.SimpleLogProvider
 {
     public class SimpleLogProvider : ILogProvider
     {

@@ -20,11 +20,16 @@ namespace GithubSharp.Core.Base
             Models.GithubUser CurrentUser)
         {
             _Url = new GithubSharp.Core.Base.Url(cacheProvider, logProvider);
-            _CurrentUser = CurrentUser;
+            Authenticate(CurrentUser);
         }
 
         private Models.GithubUser _CurrentUser { get; set; }
         private Base.Url _Url { get; set; }
+
+        public void Authenticate(Models.GithubUser CurrentUser)
+        {
+            _CurrentUser = CurrentUser;
+        }
 
         protected ILogProvider LogProvider { get { return _Url._LogProvider; } }
 
