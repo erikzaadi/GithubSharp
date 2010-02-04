@@ -1,4 +1,4 @@
-<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage<GithubSharp.Samples.MvcSample.Models.ViewModels.BaseViewModel>" %>
+<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage<GithubSharp.Samples.MvcSample.Models.ViewModels.IBaseViewModel>" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -12,11 +12,11 @@
         <div id="header">
             <div id="title">
                 <h1>
-                    My MVC Application</h1>
+                    Github Sharp</h1>
             </div>
             <div id="logindisplay">
                 &nbsp;
-                <%= Html.If(Model.CurrentUser == null,p=>p.ActionLink("Login", "Login"))%>
+                <%= Html.If(Model.CurrentUser == null,()=> Html.ActionLink("Login", "Login"), ()=> string.Format("{0} : ({1})",Model.CurrentUser.Name, Html.ActionLink("Change","Login")))%>
             </div>
             <div id="menucontainer">
                 <ul id="menu">
@@ -29,5 +29,7 @@
             </div>
         </div>
     </div>
+    <script type="application/javascript" src="<%= Url.Content("~/js/jquery-1.4.1.min.js") %>"></script>
+    
 </body>
 </html>

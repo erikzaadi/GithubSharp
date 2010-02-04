@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +24,7 @@ namespace GithubSharp.Core.API
         public IEnumerable<Models.UserInCollection> Search(string Search)
         {
             LogProvider.LogMessage(string.Format("User.Search - '{0}'", Search));
-            var url = string.Format("{1}{2}",
+            var url = string.Format("{0}{1}",
                 "user/search/",
                 Search);
             var result = ConsumeJsonUrl<Models.UsersCollection<Models.UserInCollection>>(url);
@@ -39,7 +39,7 @@ namespace GithubSharp.Core.API
         public Models.User Get(string Username)
         {
             LogProvider.LogMessage(string.Format("User.Get - '{0}'", Username));
-            var url = string.Format("{1}{2}",
+            var url = string.Format("{0}{1}",
                "user/show/",
                Username);
             var result = ConsumeJsonUrl<Models.UserContainer<Models.User>>(url);
@@ -57,7 +57,7 @@ namespace GithubSharp.Core.API
         {
             LogProvider.LogMessage(string.Format("User.Get (Authenticated) - '{0}'", CurrentUsername));
             Authenticate();
-            var url = string.Format("{1}{2}",
+            var url = string.Format("{0}{1}",
                 "user/show/",
                 CurrentUsername);
             var result = ConsumeJsonUrl<Models.UserContainer<Models.UserAuthenticated>>(url);
@@ -73,7 +73,7 @@ namespace GithubSharp.Core.API
         public string[] Followers(string Username)
         {
             LogProvider.LogMessage(string.Format("User.Followers - '{0}'", Username));
-            var url = string.Format("{1}{2}/followers",
+            var url = string.Format("{0}{1}/followers",
               "user/show/",
               Username);
             var result = ConsumeJsonUrl<Models.UsersCollection<string>>(url);
@@ -90,7 +90,7 @@ namespace GithubSharp.Core.API
         public IEnumerable<Models.Repository> WatchedRepositories(string Username)
         {
             LogProvider.LogMessage(string.Format("User.WatchedRepositories - '{0}'", Username));
-            var url = string.Format("{1}{2}",
+            var url = string.Format("{0}{1}",
               "repos/watched/",
               Username);
             var result = ConsumeJsonUrl<Models.RepositoryCollection<Models.Repository>>(url);
@@ -124,21 +124,21 @@ namespace GithubSharp.Core.API
 
             Authenticate();
 
-            var url = string.Format("{1}{2}",
+            var url = string.Format("{0}{1}",
                 "user/show/",
                 CurrentUsername);
 
             var formValues = new NameValueCollection();
 
-            if (name != null)//and empty string is ok
+            if (name != null)//an empty string is ok
                 formValues.Add("name", name);
-            if (email != null)//and empty string is ok
+            if (email != null)//an empty string is ok
                 formValues.Add("email", email);
-            if (blog != null)//and empty string is ok
+            if (blog != null)//an empty string is ok
                 formValues.Add("blog", blog);
-            if (company != null)//and empty string is ok
+            if (company != null)//an empty string is ok
                 formValues.Add("company", company);
-            if (location != null)//and empty string is ok
+            if (location != null)//an empty string is ok
                 formValues.Add("location", location);
 
             if (formValues.Count == 0)
@@ -164,7 +164,7 @@ namespace GithubSharp.Core.API
 
             Authenticate();
 
-            var url = string.Format("{1}{2}",
+            var url = string.Format("{0}{1}",
               "user/follow/",
               Username);
             var result = ConsumeJsonUrlAndPostData<Models.UsersCollection<string>>(url);
@@ -186,7 +186,7 @@ namespace GithubSharp.Core.API
             LogProvider.LogMessage(string.Format("User.UnFollow - '{0}'", Username));
             Authenticate();
 
-            var url = string.Format("{1}{2}",
+            var url = string.Format("{0}{1}",
               "user/unfollow/",
               Username);
             var result = ConsumeJsonUrlAndPostData<Models.UsersCollection<string>>(url);

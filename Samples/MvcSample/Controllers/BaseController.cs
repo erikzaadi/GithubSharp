@@ -17,9 +17,10 @@ namespace GithubSharp.Samples.MvcSample.Controllers
         }
         public ActionResult Index()
         {
-            return View(new GithubSharp.Samples.MvcSample.Models.ViewModels.BaseViewModel { CurrentUser = CurrentUser });
+            return View(GetBaseView(""));
         }
-        public GithubSharp.Core.Models.GithubUser CurrentUser
+		
+        protected GithubSharp.Core.Models.GithubUser CurrentUser
         {
             get
             {
@@ -31,7 +32,11 @@ namespace GithubSharp.Samples.MvcSample.Controllers
                 Session["GithubUser"] = value;
             }
         }
-        public GithubSharp.Plugins.CacheProviders.WebCache.WebCacher WebCacher { get; set; }
-        public GithubSharp.Plugins.LogProviders.SimpleLogProvider.SimpleLogProvider LogProvider { get; set; }
+        protected GithubSharp.Plugins.CacheProviders.WebCache.WebCacher WebCacher { get; set; }
+        protected GithubSharp.Plugins.LogProviders.SimpleLogProvider.SimpleLogProvider LogProvider { get; set; }
+		protected Models.ViewModels.BaseViewModel<T> GetBaseView<T>(T ModelParam) where T : class
+		{
+			return new GithubSharp.Samples.MvcSample.Models.ViewModels.BaseViewModel<T> { CurrentUser = CurrentUser, ModelParameter = ModelParam };
+		}
     }
 }
