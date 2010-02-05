@@ -7,15 +7,8 @@ using System.Collections.Specialized;
 
 namespace GithubSharp.Core.API
 {
-    public class User : Base.BaseAPI
+    public class User : Base.BaseAPI, Base.IBaseAPI
     {
-        public User(
-            ICacheProvider cacheProvider,
-            ILogProvider logProvider)
-            : base(cacheProvider, logProvider)
-        {
-        }
-
         /// <summary>
         /// Search for users
         /// </summary>
@@ -143,10 +136,13 @@ namespace GithubSharp.Core.API
 
             if (formValues.Count == 0)
             {
-                LogProvider.HandleError(new Exception("User.Update : At least one parameter needs to either be and empty string or with content, all parameters were null"));
-                return null;
-            }
-
+				var error = new Exception("User.Update : At least one parameter needs to either be and empty string or with content, all parameters were null");
+				if (LogProvider.HandleAndReturnIfToThrowError(error))
+					throw error;
+			
+				return null;
+			}
+				
             var result = ConsumeJsonUrlAndPostData<Models.UserContainer<Models.UserAuthenticated>>(url, formValues);
 
             return result == null ? null : result.user;

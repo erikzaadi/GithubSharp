@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.master" Inherits="System.Web.Mvc.ViewPage<GithubSharp.Core.Models.Repository>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.master" Inherits="System.Web.Mvc.ViewPage<GithubSharp.Samples.MvcSample.Models.ViewModels.BaseViewModel<GithubSharp.Core.Models.Repository>>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Get
@@ -12,91 +12,91 @@
         <legend>Fields</legend>
         <p>
             url:
-            <%= Html.Encode(Model.url) %>
+            <%= Html.Encode(Model.ModelParameter.url) %>
         </p>
         <p>
             description:
-            <%= Html.Encode(Model.description) %>
+            <%= Html.Encode(Model.ModelParameter.description) %>
         </p>
         <p>
             homepage:
-            <%= Html.Encode(Model.homepage) %>
+            <%= Html.Encode(Model.ModelParameter.homepage) %>
         </p>
         <p>
             name:
-            <%= Html.Encode(Model.name) %>
+            <%= Html.Encode(Model.ModelParameter.name) %>
         </p>
         <p>
             owner:
-            <%= Html.Encode(Model.owner) %>
+            <%= Html.Encode(Model.ModelParameter.owner) %>
         </p>
         <p>
             fork:
-            <%= Html.Encode(Model.fork) %>
+            <%= Html.Encode(Model.ModelParameter.fork) %>
         </p>
         <p>
             private:
-            <%= Html.Encode(Model.@private) %>
+            <%= Html.Encode(Model.ModelParameter.@private) %>
         </p>
         <p>
             open_issues:
-            <%= Html.Encode(Model.open_issues) %>
+            <%= Html.Encode(Model.ModelParameter.open_issues) %>
         </p>
         <p>
             watchers:
-            <%= Html.Encode(Model.watchers) %>
+            <%= Html.Encode(Model.ModelParameter.watchers) %>
         </p>
         <p>
             forks:
-            <%= Html.Encode(Model.forks) %>
+            <%= Html.Encode(Model.ModelParameter.forks) %>
         </p>
         <p>
             WatchersURL:
-            <%= Html.Encode(Model.WatchersURL) %>
+            <%= Html.Encode(Model.ModelParameter.WatchersURL) %>
         </p>
         <p>
             DownloadURL:
-            <%= Html.Encode(Model.DownloadURL) %>
+            <%= Html.Encode(Model.ModelParameter.DownloadURL) %>
         </p>
         <p>
             ForksURL:
-            <%= Html.Encode(Model.ForksURL) %>
+            <%= Html.Encode(Model.ModelParameter.ForksURL) %>
         </p>
         <p>
             IssuesURL:
-            <%= Html.Encode(Model.IssuesURL) %>
+            <%= Html.Encode(Model.ModelParameter.IssuesURL) %>
         </p>
         <p>
             WikiURL:
-            <%= Html.Encode(Model.WikiURL) %>
+            <%= Html.Encode(Model.ModelParameter.WikiURL) %>
         </p>
         <p>
             GraphsURL:
-            <%= Html.Encode(Model.GraphsURL) %>
+            <%= Html.Encode(Model.ModelParameter.GraphsURL) %>
         </p>
         <p>
             ForkQuoueURL:
-            <%= Html.Encode(Model.ForkQuoueURL) %>
+            <%= Html.Encode(Model.ModelParameter.ForkQuoueURL) %>
         </p>
         <p>
             GitCloneURL:
-            <%= Html.Encode(Model.GitCloneURL) %>
+            <%= Html.Encode(Model.ModelParameter.GitCloneURL) %>
         </p>
         <p>
             HttpCloneURL:
-            <%= Html.Encode(Model.HttpCloneURL) %>
+            <%= Html.Encode(Model.ModelParameter.HttpCloneURL) %>
         </p>
         <p>
             ForkURL:
-            <%= Html.Encode(Model.ForkURL) %>
+            <%= Html.Encode(Model.ModelParameter.ForkURL) %>
         </p>
         <p>
             WatchURL:
-            <%= Html.Encode(Model.WatchURL) %>
+            <%= Html.Encode(Model.ModelParameter.WatchURL) %>
         </p>
     </fieldset>
     <p>
-        <%=Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) %> |
+        <%=Html.ActionLink("Edit", "Edit", new { /* id=Model.ModelParameter.PrimaryKey */ }) %> |
         <%=Html.ActionLink("Back to List", "Index") %>
     </p>
 

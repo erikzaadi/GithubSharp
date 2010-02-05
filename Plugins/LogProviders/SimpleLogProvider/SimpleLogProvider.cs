@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,12 +22,10 @@ namespace GithubSharp.Plugins.LogProviders.SimpleLogProvider
                 WriteToLog(DatePrefix + " " + string.Format(Message, Arguments));
         }
 
-        public void HandleError(Exception error)
+        public bool HandleAndReturnIfToThrowError(Exception error)
         {
-            if (!DebugMode)
-                return;
-            WriteToLog(DatePrefix + " " + string.Format("\n{0}\n{1}\n", error.Message, DebugMode ? error.StackTrace : ""));
-            throw error;
+            WriteToLog(DatePrefix + " " + string.Format("{2}{0}{2}{1}{2}", error.Message, DebugMode ? error.StackTrace : "", Environment.NewLine));
+            return DebugMode;
         }
 
         #endregion
@@ -36,7 +34,7 @@ namespace GithubSharp.Plugins.LogProviders.SimpleLogProvider
         {
             try
             {
-                System.IO.File.AppendAllText(LogFilePath, Message);
+                System.IO.File.AppendAllText(LogFilePath, Message, Encoding.UTF8);
             }
             catch
             {

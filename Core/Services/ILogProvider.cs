@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +9,6 @@ namespace GithubSharp.Core.Services
     {
         bool DebugMode { get; set; }
         void LogMessage(string Message, params object[] Arguments);
-        void HandleError(Exception error);
+        bool HandleAndReturnIfToThrowError(Exception error);
     }
 }

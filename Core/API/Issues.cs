@@ -1,12 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GithubSharp.Core.Services;
 
 namespace GithubSharp.Core.API
 {
-    public class Issues
+    public class Issues : Base.BaseAPI, Base.IBaseAPI
     {
+
         //Search issues
         //issues/search/:user/:repo/:state/:search_term 
         //Where state can be closed, open

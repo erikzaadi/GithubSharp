@@ -16,10 +16,11 @@
             </div>
             <div id="logindisplay">
                 &nbsp;
-                <%= Html.If(Model.CurrentUser == null,()=> Html.ActionLink("Login", "Login"), ()=> string.Format("{0} : ({1})",Model.CurrentUser.Name, Html.ActionLink("Change","Login")))%>
+                <%= Html.If(Model.CurrentUser == null,()=> Html.ActionLink("Login", "Login", "Home"), ()=> string.Format("{0} : ({1})",Model.CurrentUser.Name, Html.ActionLink("Change","Login", "Home")))%>
             </div>
             <div id="menucontainer">
                 <ul id="menu">
+                <li><%= Html.ActionLink("Repository", "Index", "Repository") %>
                 </ul>
             </div>
         </div>

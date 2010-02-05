@@ -1,13 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GithubSharp.Core.Services;
 
 namespace GithubSharp.Core.API
 {
-    public class Object
+    public class Object : Base.BaseAPI, Base.IBaseAPI
     {
-        //Trees
+		//Trees
         //tree/show/:user/:repo/:tree_sha
 
         //Blobs

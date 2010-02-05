@@ -1,11 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GithubSharp.Core.Services;
 
 namespace GithubSharp.Core.API
 {
-    public class Gist
+    public class Gist : Base.BaseAPI, Base.IBaseAPI
     {
         //http://github.com/mattikus/pygist/blob/master/pygist.py
         //http://github.com/miyagawa/gistp/blob/master/gistp

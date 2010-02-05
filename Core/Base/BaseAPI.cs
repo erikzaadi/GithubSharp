@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,39 +7,58 @@ using System.Collections.Specialized;
 
 namespace GithubSharp.Core.Base
 {
-    public class BaseAPI
+	public interface IBaseAPI
+	{
+        void Authenticate();
+        void Authenticate(Models.GithubUser CurrentUser);
+		ILogProvider LogProvider { get; set;}
+		ICacheProvider CacheProvider { get;set;}
+	}
+	
+    public class BaseAPI : IBaseAPI
     {
-        protected BaseAPI(
-            ICacheProvider cacheProvider,
-            ILogProvider logProvider)
-            : this(cacheProvider, logProvider, null) { }
-
-        protected BaseAPI(
-            ICacheProvider cacheProvider,
-            ILogProvider logProvider,
-            Models.GithubUser CurrentUser)
-        {
-            _Url = new GithubSharp.Core.Base.Url(cacheProvider, logProvider);
-            Authenticate(CurrentUser);
-        }
-
         private Models.GithubUser _CurrentUser { get; set; }
-        private Base.Url _Url { get; set; }
+        private Base.Url UrlConsumer
+		{
+			get
+			{ 
+				if (_Url == null)
+					_Url = new Url(CacheProvider, LogProvider);
+				return _Url;
+			}
+			set
+			{
+				_Url = value;
+			}
+		}
+        private Base.Url _Url;
 
         public void Authenticate(Models.GithubUser CurrentUser)
         {
+			if (CurrentUser == null)
+				LogProvider.LogMessage("Authenticate => Null user");
+			else
+				LogProvider.LogMessage("Authenticate => Name : {0}, APIToken : {1}", CurrentUser.Name, CurrentUser.APIToken);
+			
             _CurrentUser = CurrentUser;
-        }
+		}
 
-        protected ILogProvider LogProvider { get { return _Url._LogProvider; } }
+        public ICacheProvider CacheProvider { get;set;}
+        public ILogProvider LogProvider { get;set;}
 
-        protected T ConsumeJsonUrl<T>(string Url) where T : class
+        public T ConsumeJsonUrl<T>(string Url) where T : class
         {
             var url = string.Format("{0}{1}{2}",
-                _Url.GithubBaseURL,
+                UrlConsumer.GithubBaseURL,
                 Url,
-                _Url.GithubAuthenticationQueryString(_CurrentUser));
-            var result = _Url.GetStringFromURL(url);
+                UrlConsumer.GithubAuthenticationQueryString(_CurrentUser));
+			
+			LogProvider.LogMessage("HasUser : {0}, UserString : {1}", HasUser, _Url.GithubAuthenticationQueryString(_CurrentUser));
+			
+			
+			LogProvider.LogMessage("Fetching URL : {0}", url);
+			
+            var result = UrlConsumer.GetStringFromURL(url);
             if (result == null)
                 return null;
             try
@@ -48,24 +67,25 @@ namespace GithubSharp.Core.Base
             }
             catch (Exception error)
             {
-                LogProvider.HandleError(error);
+                if (LogProvider.HandleAndReturnIfToThrowError(error))
+					throw;
                 return null;
             }
         }
 
-        protected T ConsumeJsonUrlAndPostData<T>(string Url) where T : class
+        public T ConsumeJsonUrlAndPostData<T>(string Url) where T : class
         {
             return ConsumeJsonUrlAndPostData<T>(Url, new NameValueCollection());
         }
 
-        protected T ConsumeJsonUrlAndPostData<T>(string Url, NameValueCollection FormValues) where T : class
+        public T ConsumeJsonUrlAndPostData<T>(string Url, NameValueCollection FormValues) where T : class
         {
             var url = string.Format("{0}{1}{2}",
-                _Url.GithubBaseURL,
+                UrlConsumer.GithubBaseURL,
                 Url,
-                _Url.GithubAuthenticationQueryString(_CurrentUser));
+                UrlConsumer.GithubAuthenticationQueryString(_CurrentUser));
 
-            var result = _Url.UploadValuesAndGetString(url, FormValues);
+            var result = UrlConsumer.UploadValuesAndGetString(url, FormValues);
             if (result == null)
                 return null;
             try
@@ -74,21 +94,24 @@ namespace GithubSharp.Core.Base
             }
             catch (Exception error)
             {
-                LogProvider.HandleError(error);
+                if (LogProvider.HandleAndReturnIfToThrowError(error))
+					throw;
                 return null;
             }
         }
 
-        protected void Authenticate()
+        public void Authenticate()
         {
             if (!HasUser)
             {
-                LogProvider.HandleError(new Exception("You need to provide a valid GithubUser with an api token (see http://github.com/blog/170-token-authentication)"));
+				var error = new Exception("You need to provide a valid GithubUser with an api token (see http://github.com/blog/170-token-authentication)");
+                if (LogProvider.HandleAndReturnIfToThrowError(error))
+					throw error;
             }
         }
 
-        protected string CurrentUsername { get { return HasUser ? _CurrentUser.Name : string.Empty; } }
+        public string CurrentUsername { get { return HasUser ? _CurrentUser.Name : string.Empty; } }
 
-        protected bool HasUser { get { return _CurrentUser != null && !string.IsNullOrEmpty(_CurrentUser.Name) && !string.IsNullOrEmpty(_CurrentUser.APIToken); } }
+        public bool HasUser { get { return _CurrentUser != null && !string.IsNullOrEmpty(_CurrentUser.Name) && !string.IsNullOrEmpty(_CurrentUser.APIToken); } }
     }
 }

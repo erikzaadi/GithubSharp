@@ -1,12 +1,15 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GithubSharp.Core.Services;
 
 namespace GithubSharp.Core.API
 {
-    public class Commits
+    public class Commits : Base.BaseAPI, Base.IBaseAPI
     {
+
+		
         //Listing Commits on a Branch
         //commits/list/:user_id/:repository/:branch
 

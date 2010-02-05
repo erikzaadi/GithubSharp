@@ -7,33 +7,30 @@ using System.Web.Mvc.Ajax;
 
 namespace GithubSharp.Samples.MvcSample.Controllers
 {
-    public class RepositoryController : BaseController
+    public class RepositoryController : BaseAPIController<GithubSharp.Core.API.Repository>
     {
-        public GithubSharp.Core.API.Repository Repository { get; set; }
-        public RepositoryController()
-            : base()
-        {
-            Repository = new GithubSharp.Core.API.Repository(WebCacher, LogProvider);
-            Repository.Authenticate(CurrentUser);
-        }
-
+		public ActionResult Index()
+		{
+			return View("Search",GetBaseView<IEnumerable<GithubSharp.Core.Models.RepositoryFromSearch>>(new List<GithubSharp.Core.Models.RepositoryFromSearch>()));
+		}
+		
         public ActionResult Search(string id)
         {
-            var repos = Repository.Search(id);
-            return View("Index", repos);
+            var repos = BaseAPI.Search(id);
+            return View(GetBaseView(repos));
         }
 
         public ActionResult Get(string RepositoryName, string Username)
         {
-            var repo = Repository.Get(Username, RepositoryName);
-            return View(repo);
+            var repo = BaseAPI.Get(Username, RepositoryName);
+            return View(GetBaseView(repo));
         }
 
         public ActionResult List(string id)
         {
-            var repos = Repository.List(id);
+            var repos = BaseAPI.List(id);
 
-            return View(repos);
+            return View(GetBaseView(repos));
         }
     }
 }

@@ -1,13 +1,15 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GithubSharp.Core.Services;
 
 namespace GithubSharp.Core.API
 {
-    //need to generate classes and parse json?
-    public class Network
+    public class Network : Base.BaseAPI, Base.IBaseAPI
     {
+
+		
         //Get Meta
         //http://github.com/erikzaadi/jQueryPlugins/network_meta
         /*

@@ -8,6 +8,11 @@ namespace GithubSharp.Samples.MvcSample.Controllers
 {
     public class HomeController : BaseController
     {
+		public ActionResult Index()
+		{
+			return View(GetBaseView(""));
+		}
+		
 		public ActionResult Login()
 		{
 			return View(GetBaseView(""));
@@ -16,7 +21,7 @@ namespace GithubSharp.Samples.MvcSample.Controllers
 		[AcceptVerbs(HttpVerbs.Post)]
 		public ActionResult Login(string user, string apitoken)
 		{
-			var userAPI = new GithubSharp.Core.API.User(WebCacher, LogProvider);
+			var userAPI = new GithubSharp.Core.API.User { CacheProvider= WebCacher, LogProvider= LogProvider};
 			userAPI.Authenticate(new GithubSharp.Core.Models.GithubUser { Name=user, APIToken = apitoken});
 			try
 			{
@@ -35,7 +40,7 @@ namespace GithubSharp.Samples.MvcSample.Controllers
 			{
 				if (Request.IsAjaxRequest())
 					return Json(new{ success = false, message = error.Message});
-				return View(new Models.ViewModels.BaseViewModel<string> { CurrentUser = CurrentUser, ModelParameter = error.Message});
+				return View(GetBaseView(error.Message));
 			}
 
 		}

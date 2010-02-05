@@ -8,16 +8,12 @@ using System.Web.Mvc.Ajax;
 namespace GithubSharp.Samples.MvcSample.Controllers
 {
     [HandleError]
-    public class BaseController : Controller
+    public class BaseController: Controller 
     {
-        public BaseController()
+		public BaseController()
         {
             WebCacher = new GithubSharp.Plugins.CacheProviders.WebCache.WebCacher();
-            LogProvider = new GithubSharp.Plugins.LogProviders.SimpleLogProvider.SimpleLogProvider();
-        }
-        public ActionResult Index()
-        {
-            return View(GetBaseView(""));
+            LogProvider = new GithubSharp.Plugins.LogProviders.SimpleLogProvider.SimpleLogProvider { DebugMode = true };
         }
 		
         protected GithubSharp.Core.Models.GithubUser CurrentUser
@@ -38,5 +34,7 @@ namespace GithubSharp.Samples.MvcSample.Controllers
 		{
 			return new GithubSharp.Samples.MvcSample.Models.ViewModels.BaseViewModel<T> { CurrentUser = CurrentUser, ModelParameter = ModelParam };
 		}
+		
+		
     }
 }

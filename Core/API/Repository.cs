@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,12 +7,8 @@ using System.Collections.Specialized;
 
 namespace GithubSharp.Core.API
 {
-    public class Repository : Base.BaseAPI
+    public class Repository : Base.BaseAPI, Base.IBaseAPI
     {
-        public Repository(
-            ICacheProvider cacheProvider,
-            ILogProvider logProvider)
-            : base(cacheProvider, logProvider) { }
 
         /// <summary>
         /// Search 
@@ -122,7 +118,9 @@ namespace GithubSharp.Core.API
             var formValues = new NameValueCollection();
             if (string.IsNullOrEmpty(RepositoryName))
             {
-                LogProvider.HandleError(new NullReferenceException("RepositoryName was null or empty"));
+				var error = new NullReferenceException("RepositoryName was null or empty");
+                if (LogProvider.HandleAndReturnIfToThrowError(error))
+					throw error;
                 return null;
             }
             formValues.Add("name", RepositoryName);

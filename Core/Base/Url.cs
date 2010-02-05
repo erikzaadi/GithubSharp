@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -50,7 +50,8 @@ namespace GithubSharp.Core.Base
             }
             catch (Exception error)
             {
-                _LogProvider.HandleError(error);
+                if (_LogProvider.HandleAndReturnIfToThrowError(error))
+					throw;
                 return null;
             }
 
@@ -95,7 +96,8 @@ namespace GithubSharp.Core.Base
             }
             catch (Exception error)
             {
-                _LogProvider.HandleError(error);
+                if (_LogProvider.HandleAndReturnIfToThrowError(error))
+					throw;
                 return null;
             }
 
@@ -138,7 +140,8 @@ namespace GithubSharp.Core.Base
             }
             catch (Exception error)
             {
-                _LogProvider.HandleError(error);
+                if (_LogProvider.HandleAndReturnIfToThrowError(error))
+					throw;
                 return null;
             }
 
