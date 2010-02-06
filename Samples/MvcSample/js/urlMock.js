@@ -1,4 +1,0 @@
-﻿var UrlHelper = 
-{
-    LoginURL : ''
-};

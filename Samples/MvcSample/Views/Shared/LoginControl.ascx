@@ -1,6 +1,5 @@
 <%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<GithubSharp.Samples.MvcSample.Models.ViewModels.LoginViewModel>" %>
 <div class="login">
-	<div class="error"><%= Model.Message %></div>  
 	<% using(Html.BeginForm("Login", "Home")){ %>
 		<fieldset>
 			<legend>Login</legend>
@@ -11,7 +10,7 @@
 				<label for="apitoken">APIToken : </label><%= Html.TextBox("apitoken") %>
 			</div>
 			<%= Html.Hidden("returnURL", Model.ReturnURL) %>
-			<label class="error" id="errormessage">&nbsp;</label><button type="submit">GO</button>
+			<label class="error" id="errormessage"><%= Model.Message %>&nbsp;</label><button type="submit">GO</button>
 		</fieldset>
 	<% } %>
 </div>

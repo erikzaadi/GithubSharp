@@ -5,9 +5,9 @@
 </asp:Content>
 <asp:Content ID="indexContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
-    Welcome to the Github Sharp sample Project
+        Welcome to the Github Sharp sample Project
     </h2>
     <p>
-    	Click on the links to browse the various apis
+        Click on the links to browse the various apis
     </p>
 </asp:Content>

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.IO;
 using GithubSharp.Samples.MvcSample.Models.ControllerExtensions;
+using System.Text;
 
 namespace GithubSharp.Samples.MvcSample.Controllers
 {
@@ -47,14 +48,10 @@ namespace GithubSharp.Samples.MvcSample.Controllers
 			{
 				if (Request.IsAjaxRequest())
 					return Json(new{ success = false, message = error.Message});
-				return View(GetBaseView(error.Message));
+                return View(GetBaseView(new Models.ViewModels.LoginViewModel { Message = error.Message, ReturnURL = returnURL }));
 			}
 
 		}
 
-        public ActionResult Urls()
-        {
-            return View();
-        }
     }
 }

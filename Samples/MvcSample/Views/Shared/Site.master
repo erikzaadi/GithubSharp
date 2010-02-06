@@ -1,12 +1,26 @@
 <%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage<GithubSharp.Samples.MvcSample.Models.ViewModels.IBaseViewModel>" %>
 
+<% Html.Telerik()
+             .ScriptRegistrar()
+             .DefaultGroup(p=>p.Enabled(false))
+             .Scripts(p =>
+                     p.AddSharedGroup("jQuery")
+                     .AddSharedGroup("GithubSharpSample"))                    
+             .OnDocumentReady(() =>
+             {%>
+InitMaster('<%= Url.Content("~/")%>');
+<%}); %>
+<% Html.Telerik()
+           .StyleSheetRegistrar()
+           .DefaultGroup(p => p.Add("main.css"));
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>
         <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
     </title>
-    <link href="<%= Url.Content("~/css/main.css") %>" rel="stylesheet" />
+    <%= Html.Telerik().StyleSheetRegistrar() %>
 </head>
 <body>
     <div class="page">
@@ -15,10 +29,11 @@
                 <h1>
                     Github Sharp</h1>
             </div>
-           	<% Html.RenderPartial("LoginDisplay"); %>
+            <% Html.RenderPartial("LoginDisplay"); %>
             <div id="menucontainer">
                 <ul id="menu">
-                <li><%= Html.ActionLink("Repository", "Index", "Repository") %></li>
+                    <li>
+                        <%= Html.ActionLink("Repository", "Index", "Repository") %></li>
                 </ul>
             </div>
         </div>
@@ -28,13 +43,6 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="<%= Url.Content("~/js/jquery-1.4.1.min.js") %>"></script>
-    <script type="text/javascript" src="<%= Url.Content("~/js/jquery.blockUI.js") %>"></script>
-    <script type="text/javascript" src="<%= Url.Action("Urls", "Home") %>"></script>
-    <script type="text/javascript" src="<%= Url.Content("~/js/main.js") %>"></script>
-    <script type="text/javascript">
-        $(document).ready(InitMaster);
-    </script>
-    
+    <%= Html.Telerik().ScriptRegistrar() %>
 </body>
 </html>

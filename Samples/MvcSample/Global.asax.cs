@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Telerik.Web.Mvc;
 
 namespace GithubSharp.Samples.MvcSample
 {
@@ -22,6 +23,12 @@ namespace GithubSharp.Samples.MvcSample
                 new { controller = "Home", action = "Index", id = "" }  // Parameter defaults
             );
 
+            WebAssetDefaultSettings.StyleSheetFilesPath = "~/css";
+            WebAssetDefaultSettings.ScriptFilesPath = "~/js";
+            WebAssetDefaultSettings.Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            WebAssetDefaultSettings.CacheDurationInDays = 25;
+            WebAssetDefaultSettings.Combined = 
+            WebAssetDefaultSettings.Compress = true;
         }
 
         protected void Application_Start()
