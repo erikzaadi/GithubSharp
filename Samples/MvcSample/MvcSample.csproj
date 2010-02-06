@@ -102,6 +102,7 @@
     <Content Include="js\main.min.js" />
     <Content Include="Views\Commit\Index.aspx" />
     <Content Include="Views\Gists\Index.aspx" />
+    <Content Include="Views\Repository\PublicKeys.aspx" />
     <Content Include="Views\User\Index.aspx" />
     <Content Include="Views\Issues\Index.aspx" />
     <Content Include="Views\Network\Index.aspx" />

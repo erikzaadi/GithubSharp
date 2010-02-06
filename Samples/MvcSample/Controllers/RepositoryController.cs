@@ -74,9 +74,10 @@ namespace GithubSharp.Samples.MvcSample.Controllers
                     ReturnURL = Url.Action("Create", "Repository")
                 }));
 
-            return View(GetBaseView(""));
+            return View();
         }
 
+        [ValidateAntiForgeryToken()]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Create(string RepositoryName, string Description, string HomePage, bool Public)
         {
@@ -105,7 +106,6 @@ namespace GithubSharp.Samples.MvcSample.Controllers
             return View(GetBaseView(RepositoryName));
         }
 
-
         [ValidateAntiForgeryToken()]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Delete(string RepositoryName, bool Delete)
@@ -128,6 +128,20 @@ namespace GithubSharp.Samples.MvcSample.Controllers
             SetTemporaryNotification("Repository '{0}' was {1}deleted", RepositoryName, success ? string.Empty : "not ");
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult PublicKeys(string RepositoryName)
+        {
+            if (!Authenticate())
+                return View("Login", GetBaseView(new Models.ViewModels.LoginViewModel
+                {
+                    Message = "You need to authenticate before being able to view public keys for a project",
+                    ReturnURL = Url.Action("PublicKeys", "Repository", new { RepositoryName = RepositoryName })
+                }));
+
+            var keys = BaseAPI.PublicKeys(RepositoryName);
+
+            return View(GetBaseView(keys));
         }
     }
 }

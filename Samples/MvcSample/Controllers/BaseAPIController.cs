@@ -21,7 +21,7 @@ namespace GithubSharp.Samples.MvcSample.Controllers
 			BaseAPI.Authenticate(CurrentUser);
 			base.OnActionExecuting (filterContext);
 		}
-		
+
 		protected bool Authenticate()
 		{
 			var userAPI = new GithubSharp.Core.API.User { CacheProvider= WebCacher, LogProvider= LogProvider};

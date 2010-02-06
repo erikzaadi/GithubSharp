@@ -13,6 +13,7 @@
             <%= Html.TextBox("apitoken") %>
         </div>
         <%= Html.Hidden("returnURL", Model.ReturnURL) %>
+        <%= Html.AntiForgeryToken() %>
         <div>
             <span>&nbsp;</span>
             <input type="submit" value="GO" />
@@ -20,8 +21,8 @@
         <div id="errormessage">
             <% Html.If(!string.IsNullOrEmpty(Model.Message), () =>
                { %>
-            <span class="error">
-                <%=Model.Message%></span>
+            <div class="error span-8">
+                <%=Model.Message%></div>
             <%}); %>
         </div>
     </fieldset>

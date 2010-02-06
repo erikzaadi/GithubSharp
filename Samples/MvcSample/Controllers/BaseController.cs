@@ -58,6 +58,19 @@ namespace GithubSharp.Samples.MvcSample.Controllers
             };
         }
 
+        protected override ViewResult View(IView view, object model)
+        {
+            if (model == null)
+                model = GetBaseView("");
+            return base.View(view, model);
+        }
+
+        protected override ViewResult View(string viewName, string masterName, object model)
+        {
+            if (model == null)
+                model = GetBaseView("");
+            return base.View(viewName, masterName, model);
+        }
 
     }
 }

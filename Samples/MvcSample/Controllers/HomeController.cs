@@ -12,7 +12,7 @@ namespace GithubSharp.Samples.MvcSample.Controllers
     {
         public ActionResult Index()
         {
-            return View(GetBaseView(""));
+            return View();
         }
 
         public ActionResult Login(string id)
@@ -23,6 +23,7 @@ namespace GithubSharp.Samples.MvcSample.Controllers
             return View(GetBaseView(model));
         }
 
+        [ValidateAntiForgeryToken()]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Login(string user, string apitoken, string returnURL)
         {
@@ -40,7 +41,7 @@ namespace GithubSharp.Samples.MvcSample.Controllers
                     if (Request.IsAjaxRequest())
                         return Json(new { success = true, Name = user });
                     if (string.IsNullOrEmpty(returnURL))
-                        return View("Index", GetBaseView(""));
+                        return View("Index");
                     return Redirect(returnURL);
                 }
                 else throw new Exception("Invalid user");
@@ -51,7 +52,6 @@ namespace GithubSharp.Samples.MvcSample.Controllers
                     return Json(new { success = false, message = error.Message });
                 return View(GetBaseView(new Models.ViewModels.LoginViewModel { Message = error.Message, ReturnURL = returnURL }));
             }
-
         }
 
     }
