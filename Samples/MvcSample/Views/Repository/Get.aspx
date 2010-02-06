@@ -6,8 +6,12 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Get</h2>
-
+    <h2>Repository Details</h2>
+    <p>
+        <%=Html.ActionLink("Edit", "Edit", new { /* id=Model.ModelParameter.PrimaryKey */ }) %> |
+        <%=Html.ActionLink("Back to Search", "Index") %>
+        <%=Html.ActionLink("Fork", "Fork", new {RepositoryName = Model.ModelParameter.name , Username = Model.ModelParameter.owner}) %>
+    </p>
     <fieldset>
         <legend>Fields</legend>
         <p>
@@ -95,10 +99,7 @@
             <%= Html.Encode(Model.ModelParameter.WatchURL) %>
         </p>
     </fieldset>
-    <p>
-        <%=Html.ActionLink("Edit", "Edit", new { /* id=Model.ModelParameter.PrimaryKey */ }) %> |
-        <%=Html.ActionLink("Back to List", "Index") %>
-    </p>
+
 
 </asp:Content>
 

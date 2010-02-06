@@ -32,5 +32,56 @@ namespace GithubSharp.Samples.MvcSample.Controllers
 
             return View(GetBaseView(repos));
         }
+		
+		public ActionResult Fork(string RepositoryName , string Username)
+		{
+			if (!Authenticate())
+				return View("Login", 
+				            GetBaseView(new Models.ViewModels.LoginViewModel 
+				                        {
+											Message= "You need to authenticate before being able to fork a project", 
+											ReturnURL = Url.Action("Fork","Repository", new {RepositoryName = RepositoryName , Username = Username})
+										}));
+			var repo = BaseAPI.Fork(Username, RepositoryName);
+			
+			return View("Get", GetBaseView(repo));
+		}
+		
+		public ActionResult Watch(string RepositoryName , string Username)
+		{
+			if (!Authenticate())
+				return View("Login", GetBaseView("You need to authenticate before being able to watch a project"));
+			var repo = BaseAPI.Watch(Username, RepositoryName);
+			
+			return View("Get", GetBaseView(repo));
+		}
+		
+		public ActionResult Unwatch(string RepositoryName , string Username)
+		{
+			if (!Authenticate())
+				return View("Login", GetBaseView("You need to authenticate before being able to unwatch a project"));
+			var repo = BaseAPI.Unwatch(Username, RepositoryName);
+			
+			return View("Get", GetBaseView(repo));
+		}
+		
+		public ActionResult Create()
+		{
+			if (!Authenticate())
+				return View("Login", GetBaseView("You need to authenticate before being able to create a project"));
+		
+			return View(GetBaseView(""));
+		}
+		
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult Create(string RepositoryName, string Description, string HomePage, bool Public)
+		{
+			if (!Authenticate())
+				return View("Login", GetBaseView("You need to authenticate before being able to create a project"));
+		
+			var repo = BaseAPI.Create(RepositoryName, Description, HomePage, Public);
+			
+			return View("Get", GetBaseView(repo));
+		}
     }
 }

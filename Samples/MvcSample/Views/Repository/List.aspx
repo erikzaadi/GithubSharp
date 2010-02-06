@@ -6,7 +6,11 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>List</h2>
+    <h2>User repositories	</h2>
+
+	<p>
+        <%=Html.ActionLink("Back to Search", "Index") %>
+    </p>
 
     <table>
         <tr>
@@ -81,7 +85,7 @@
         <tr>
             <td>
                 <%= Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) %> |
-                <%= Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })%>
+                <%= Html.ActionLink("Details", "Get", new { RepositoryName = item.name, Username = item.owner })%>
             </td>
             <td>
                 <%= Html.Encode(item.url) %>
@@ -152,9 +156,7 @@
 
     </table>
 
-    <p>
-        <%= Html.ActionLink("Create New", "Create") %>
-    </p>
+    
 
 </asp:Content>
 

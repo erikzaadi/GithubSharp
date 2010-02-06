@@ -1,0 +1,19 @@
+.login fieldset
+{
+	width : 340px;
+}
+.login label
+{
+	width : 100px;
+	display : block;
+	float:left;
+}
+.login button
+{
+	margin-left:100px;
+}
+
+.error
+{
+	color:red;
+}

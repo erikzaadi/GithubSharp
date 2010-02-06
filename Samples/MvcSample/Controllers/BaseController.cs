@@ -13,7 +13,7 @@ namespace GithubSharp.Samples.MvcSample.Controllers
 		public BaseController()
         {
             WebCacher = new GithubSharp.Plugins.CacheProviders.WebCache.WebCacher();
-            LogProvider = new GithubSharp.Plugins.LogProviders.SimpleLogProvider.SimpleLogProvider { DebugMode = true };
+            LogProvider = new GithubSharp.Plugins.LogProviders.SimpleLogProvider.SimpleLogProvider { DebugMode = false };
         }
 		
         protected GithubSharp.Core.Models.GithubUser CurrentUser

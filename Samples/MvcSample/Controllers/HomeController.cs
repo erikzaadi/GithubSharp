@@ -13,13 +13,16 @@ namespace GithubSharp.Samples.MvcSample.Controllers
 			return View(GetBaseView(""));
 		}
 		
-		public ActionResult Login()
+		public ActionResult Login(string id)
 		{
-			return View(GetBaseView(""));
+			var model = new Models.ViewModels.LoginViewModel { ReturnURL= id};
+			if (Request.IsAjaxRequest())
+				return PartialView("LoginControl",  model);
+			return View(GetBaseView(model));
 		}
 		
 		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult Login(string user, string apitoken)
+		public ActionResult Login(string user, string apitoken, string returnURL)
 		{
 			var userAPI = new GithubSharp.Core.API.User { CacheProvider= WebCacher, LogProvider= LogProvider};
 			userAPI.Authenticate(new GithubSharp.Core.Models.GithubUser { Name=user, APIToken = apitoken});
@@ -31,8 +34,10 @@ namespace GithubSharp.Samples.MvcSample.Controllers
 					CurrentUser = new GithubSharp.Core.Models.GithubUser { Name = user, APIToken = apitoken } ;
 			
 					if (Request.IsAjaxRequest())
-						return Json(new{ success = true});
-					return View("Index",GetBaseView(""));
+						return Json(new{ success = true, Name= user});
+					if (string.IsNullOrEmpty(returnURL))
+						return View("Index",GetBaseView(""));
+					return Redirect(returnURL);
 				}
 				else throw new Exception("Invalid user");
 			}

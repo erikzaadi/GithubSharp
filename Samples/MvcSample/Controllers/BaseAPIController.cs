@@ -18,9 +18,24 @@ namespace GithubSharp.Samples.MvcSample.Controllers
         protected ApiType BaseAPI { get; set; }
 		protected override void OnActionExecuting (ActionExecutingContext filterContext)
 		{
-			if (BaseAPI != null)
-				BaseAPI.Authenticate(CurrentUser);
+			BaseAPI.Authenticate(CurrentUser);
 			base.OnActionExecuting (filterContext);
+		}
+		
+		protected bool Authenticate()
+		{
+			var userAPI = new GithubSharp.Core.API.User { CacheProvider= WebCacher, LogProvider= LogProvider};
+			userAPI.Authenticate(CurrentUser);
+			try
+			{
+				return userAPI.Get() != null;
+			}
+			catch (Exception error)
+			{
+				if (LogProvider.HandleAndReturnIfToThrowError(error))
+					throw error;
+				return false;
+			}
 		}
 
 	}
