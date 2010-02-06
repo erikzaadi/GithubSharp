@@ -23,7 +23,7 @@ namespace GithubSharp.Core.API
                 "repos/search/",
                 Search);
 
-            var result = ConsumeJsonUrl<Models.RepositoryCollection<Models.RepositoryFromSearch>>(url);
+            var result = ConsumeJsonUrl<Models.Internal.RepositoryCollection<Models.RepositoryFromSearch>>(url);
 
             return result == null ? null : result.repositories;
         }
@@ -37,7 +37,7 @@ namespace GithubSharp.Core.API
                 Username,
                 RepositoryName);
 
-            var result = ConsumeJsonUrl<Models.RepositoryContainer<Models.Repository>>(url);
+            var result = ConsumeJsonUrl<Models.Internal.RepositoryContainer<Models.Repository>>(url);
 
             return result == null ? null : result.repository;
         }
@@ -50,7 +50,7 @@ namespace GithubSharp.Core.API
                 "repos/show/",
                 Username);
 
-            var result = ConsumeJsonUrl<Models.RepositoryCollection<Models.Repository>>(url);
+            var result = ConsumeJsonUrl<Models.Internal.RepositoryCollection<Models.Repository>>(url);
 
             return result == null ? null : result.repositories;
         }
@@ -66,7 +66,7 @@ namespace GithubSharp.Core.API
                 Username,
                 RepositoryName);
 
-            var result = ConsumeJsonUrl<Models.RepositoryContainer<Models.Repository>>(url);
+            var result = ConsumeJsonUrl<Models.Internal.RepositoryContainer<Models.Repository>>(url);
 
             return result == null ? null : result.repository;
         }
@@ -82,7 +82,7 @@ namespace GithubSharp.Core.API
                 Username,
                 RepositoryName);
 
-            var result = ConsumeJsonUrl<Models.RepositoryContainer<Models.Repository>>(url);
+            var result = ConsumeJsonUrl<Models.Internal.RepositoryContainer<Models.Repository>>(url);
 
             return result == null ? null : result.repository;
         }
@@ -98,7 +98,7 @@ namespace GithubSharp.Core.API
                 Username,
                 RepositoryName);
 
-            var result = ConsumeJsonUrl<Models.RepositoryContainer<Models.Repository>>(url);
+            var result = ConsumeJsonUrl<Models.Internal.RepositoryContainer<Models.Repository>>(url);
 
             return result == null ? null : result.repository;
         }
@@ -132,7 +132,7 @@ namespace GithubSharp.Core.API
 
             formValues.Add("public", (Public ? 1 : 0).ToString());
 
-            var result = ConsumeJsonUrlAndPostData<Models.RepositoryContainer<Models.Repository>>(url, formValues);
+            var result = ConsumeJsonUrlAndPostData<Models.Internal.RepositoryContainer<Models.Repository>>(url, formValues);
 
             return result == null ? null : result.repository;
         }
@@ -145,7 +145,7 @@ namespace GithubSharp.Core.API
 
             var url = "repos/delete/" + RepositoryName;
 
-            var result = ConsumeJsonUrlAndPostData<GithubSharp.Core.Models.RepositoryDelete>(url);
+            var result = ConsumeJsonUrlAndPostData<GithubSharp.Core.Models.Internal.RepositoryDelete>(url);
 
             if (result == null)
                 return false;
@@ -153,28 +153,39 @@ namespace GithubSharp.Core.API
             var formValues = new NameValueCollection();
             formValues.Add("delete_token", result.delete_token);
 
-            var status = ConsumeJsonUrlAndPostData<GithubSharp.Core.Models.RepositoryDeleted>(url, formValues);
+            var status = ConsumeJsonUrlAndPostData<GithubSharp.Core.Models.Internal.RepositoryDeleted>(url, formValues);
 
             return status != null && status.status == "deleted";
         }
 
-        //{"delete_token":"jhkkqrjzyz"}
-        //{"status":"deleted"}
+        public Models.Repository SetVisibility(string RepositoryName, bool Visibility)
+        {
+            LogProvider.LogMessage("Repository.SetVisibility - RepositoryName : '{0}'", RepositoryName);
 
-        //Authenticate
-        //Delete (POST)
-        //http://github.com/api/v2/yaml/repos/delete/:repo
-        //Returns a token called 'delete_token', which you need to repost to (the token is a url)
+            Authenticate();
 
-        //Authenticate
-        //Repository Visibility
-        //http://github.com/api/v2/yaml/repos/set/:state/:repo
-        //where state is public/private
+            var url = string.Format("{0}{1}/{2}",
+                "repos/set/",
+                Visibility ? "public" : "private",
+                RepositoryName);
 
-        //Authenticate
-        //Deploy Keys
-        //http://github.com/api/v2/yaml/repos/keys/:repo
-        //returns title, id, key
+            var result = ConsumeJsonUrl<Models.Internal.RepositoryContainer<Models.Repository>>(url);
+
+            return result == null ? null : result.repository;
+        }
+
+        public IEnumerable<Models.PublicKey> PublicKeys(string RepositoryName)
+        {
+            LogProvider.LogMessage("Repository.PublicKeys - RepositoryName : '{0}'", RepositoryName);
+
+            Authenticate();
+
+            var url = string.Format("repos/keys/{0}", RepositoryName);
+
+            var result = ConsumeJsonUrl<Models.Internal.PublicKeyCollection<Models.PublicKey>>(url);
+
+            return result == null ? null : result.public_keys.ToArray();
+        }
 
         //Authenticate
         //Add Deploy Keys (POST)

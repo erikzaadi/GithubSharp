@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.IO;
-using GithubSharp.Samples.MvcSample.Models.ControllerExtensions;
 using System.Text;
 
 namespace GithubSharp.Samples.MvcSample.Controllers

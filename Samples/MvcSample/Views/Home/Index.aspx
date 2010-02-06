@@ -8,6 +8,6 @@
         Welcome to the Github Sharp sample Project
     </h2>
     <p>
-        Click on the links to browse the various apis
+        Click on the links to browse the various api's
     </p>
 </asp:Content>

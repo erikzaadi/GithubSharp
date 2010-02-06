@@ -60,8 +60,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CommitController.cs" />
+    <Compile Include="Controllers\GistsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IssuesController.cs" />
+    <Compile Include="Controllers\NetworkController.cs" />
+    <Compile Include="Controllers\ObjectController.cs" />
     <Compile Include="Controllers\RepositoryController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -69,7 +75,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ControllerExtensions\RenderViewToStringExtensions.cs" />
     <Compile Include="Models\HtmlHelpers\AdditionalHtmlAndUrlHelpers.cs" />
     <Compile Include="Models\ViewModels\BaseViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,19 +84,34 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\forms.css" />
+    <Content Include="css\forms.min.css" />
     <Content Include="css\grid.css" />
+    <Content Include="css\grid.min.css" />
     <Content Include="css\grid.png" />
     <Content Include="css\ie.css" />
+    <Content Include="css\ie.min.css" />
+    <Content Include="css\main.min.css" />
     <Content Include="css\print.css" />
+    <Content Include="css\print.min.css" />
     <Content Include="css\reset.css" />
+    <Content Include="css\reset.min.css" />
     <Content Include="css\typography.css" />
+    <Content Include="css\typography.min.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="js\main.min.js" />
+    <Content Include="Views\Commit\Index.aspx" />
+    <Content Include="Views\Gists\Index.aspx" />
+    <Content Include="Views\User\Index.aspx" />
+    <Content Include="Views\Issues\Index.aspx" />
+    <Content Include="Views\Network\Index.aspx" />
+    <Content Include="Views\Object\Index.aspx" />
     <Content Include="Views\Repository\Create.aspx" />
     <Content Include="Views\Repository\Delete.aspx" />
     <Content Include="Views\Repository\Get.aspx" />
     <Content Include="Views\Repository\List.aspx" />
+    <Content Include="Views\Shared\Footer.ascx" />
+    <Content Include="Views\Shared\Menu.ascx" />
     <Content Include="Web.config" />
     <Content Include="js\jquery-1.4.1.min.js" />
     <Content Include="js\jquery-1.4.1.min-vsdoc.js" />

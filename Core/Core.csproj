@@ -60,15 +60,14 @@
     <Compile Include="Base\JsonConverter.cs" />
     <Compile Include="Models\BlobItem.cs" />
     <Compile Include="Models\Commit.cs" />
+    <Compile Include="Models\Internal\Repository.cs" />
+    <Compile Include="Models\Internal\User.cs" />
     <Compile Include="Models\Repository.cs" />
     <Compile Include="Models\Tree.cs" />
     <Compile Include="Models\GithubUser.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Services\ICacheProvider.cs" />
     <Compile Include="Services\ILogProvider.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\Internal\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

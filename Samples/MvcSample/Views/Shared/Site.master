@@ -38,10 +38,7 @@ InitMaster('<%= Url.Content("~/")%>');
                 <% Html.RenderPartial("LoginDisplay"); %>
             </div>
             <div id="menucontainer" class="span-20 prepend-2 append-2 last">
-                <ul id="menu">
-                    <li>
-                        <%= Html.ActionLink("Repository", "Index", "Repository") %></li>
-                </ul>
+               <% Html.RenderPartial("Menu"); %>
             </div>
         </div>
         <div id="main" class="span-20 prepend-2 append-2 last">
@@ -56,6 +53,7 @@ InitMaster('<%= Url.Content("~/")%>');
                 <asp:ContentPlaceHolder ID="MainContent" runat="server" />
             </div>
             <div id="footer" class="span-20 last">
+            <% Html.RenderPartial("Footer"); %>
             </div>
         </div>
     </div>

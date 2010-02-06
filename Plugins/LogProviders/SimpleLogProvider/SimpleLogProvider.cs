@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GithubSharp.Core.Services;
+using System.IO;
 
 namespace GithubSharp.Plugins.LogProviders.SimpleLogProvider
 {
@@ -34,19 +35,22 @@ namespace GithubSharp.Plugins.LogProviders.SimpleLogProvider
         {
             try
             {
-                System.IO.File.AppendAllText(LogFilePath, Message, Encoding.UTF8);
+                if (!Directory.Exists(LogDirPath))
+                    Directory.CreateDirectory(LogDirPath);
+                File.AppendAllText(LogFilePath, Message, Encoding.UTF8);
             }
             catch
             {
             }
         }
 
+        private string LogDirPath
+        {
+            get { return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs"); }
+        }
         private string LogFilePath
         {
-            get
-            {
-                return System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DatePrefix);
-            }
+            get { return Path.Combine(LogDirPath, DatePrefix); }
         }
 
         private string DatePrefix

@@ -21,6 +21,13 @@
     list-style: none;
 }
 
+#menu li
+{
+    float: left;
+    display: block;
+    padding: 15px;
+}
+
 #menu li a
 {
 }
@@ -30,6 +37,23 @@
     margin: -1px;
 }
 
+.CurrentAPI
+{
+    background: #FAFAFA !important;
+    border: solid thin #CCCCCC !important;
+    color: Navy !important;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    padding : 5px !important;
+    margin : -5px !important;
+}
+
+.CurrentAPI:hover
+{
+    background: #CACACA !important;
+    color : #FAFAFA !important;
+}
 
 #main
 {
@@ -48,16 +72,26 @@
 {
     text-align: left;
 }
+.login legend
+{
+    padding : 5px;
+}
+
+
 .login fieldset
 {
-    padding: 5px;
+    border : solid thin black;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px; padding: 5px;
     width: 340px;
 }
 .login div span
 {
-    width: 100px;
-    display: block;
-    float: left;
+    display:block;
+    float:left;
+    margin-top:5px;
+    width:75px;
 }
 .login div
 {
@@ -67,8 +101,8 @@
 
 #errormessage
 {
-    width:0px;
-    overflow:visible;
+    width: 0px;
+    overflow: visible;
 }
 
 #blocker
@@ -83,8 +117,7 @@
     padding: 5px;
     position: fixed;
     text-align: center;
-    top: 40%;
-    width: 30%;
+    top: 20px;
     z-index: 1001;
     display: none;
 }

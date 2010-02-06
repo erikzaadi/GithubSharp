@@ -20,7 +20,7 @@ namespace GithubSharp.Core.API
             var url = string.Format("{0}{1}",
                 "user/search/",
                 Search);
-            var result = ConsumeJsonUrl<Models.UsersCollection<Models.UserInCollection>>(url);
+            var result = ConsumeJsonUrl<Models.Internal.UsersCollection<Models.UserInCollection>>(url);
             return result == null ? null : result.users;
         }
 
@@ -35,7 +35,7 @@ namespace GithubSharp.Core.API
             var url = string.Format("{0}{1}",
                "user/show/",
                Username);
-            var result = ConsumeJsonUrl<Models.UserContainer<Models.User>>(url);
+            var result = ConsumeJsonUrl<Models.Internal.UserContainer<Models.User>>(url);
 
             return result == null ? null : result.user;
         }
@@ -53,7 +53,7 @@ namespace GithubSharp.Core.API
             var url = string.Format("{0}{1}",
                 "user/show/",
                 CurrentUsername);
-            var result = ConsumeJsonUrl<Models.UserContainer<Models.UserAuthenticated>>(url);
+            var result = ConsumeJsonUrl<Models.Internal.UserContainer<Models.UserAuthenticated>>(url);
 
             return result == null ? null : result.user;
         }
@@ -69,7 +69,7 @@ namespace GithubSharp.Core.API
             var url = string.Format("{0}{1}/followers",
               "user/show/",
               Username);
-            var result = ConsumeJsonUrl<Models.UsersCollection<string>>(url);
+            var result = ConsumeJsonUrl<Models.Internal.UsersCollection<string>>(url);
 
             return result == null ? null : result.users.ToArray();
         }
@@ -86,7 +86,7 @@ namespace GithubSharp.Core.API
             var url = string.Format("{0}{1}",
               "repos/watched/",
               Username);
-            var result = ConsumeJsonUrl<Models.RepositoryCollection<Models.Repository>>(url);
+            var result = ConsumeJsonUrl<Models.Internal.RepositoryCollection<Models.Repository>>(url);
 
             return result == null ? null : result.repositories;
         }
@@ -142,8 +142,8 @@ namespace GithubSharp.Core.API
 			
 				return null;
 			}
-				
-            var result = ConsumeJsonUrlAndPostData<Models.UserContainer<Models.UserAuthenticated>>(url, formValues);
+
+            var result = ConsumeJsonUrlAndPostData<Models.Internal.UserContainer<Models.UserAuthenticated>>(url, formValues);
 
             return result == null ? null : result.user;
         }
@@ -163,7 +163,7 @@ namespace GithubSharp.Core.API
             var url = string.Format("{0}{1}",
               "user/follow/",
               Username);
-            var result = ConsumeJsonUrlAndPostData<Models.UsersCollection<string>>(url);
+            var result = ConsumeJsonUrlAndPostData<Models.Internal.UsersCollection<string>>(url);
 
             return result == null ? null : result.users.ToArray();
         }
@@ -185,7 +185,7 @@ namespace GithubSharp.Core.API
             var url = string.Format("{0}{1}",
               "user/unfollow/",
               Username);
-            var result = ConsumeJsonUrlAndPostData<Models.UsersCollection<string>>(url);
+            var result = ConsumeJsonUrlAndPostData<Models.Internal.UsersCollection<string>>(url);
 
             return result == null ? null : result.users.ToArray();
         }
@@ -204,7 +204,7 @@ namespace GithubSharp.Core.API
 
             var url = "user/keys";
 
-            var result = ConsumeJsonUrl<Models.PublicKeyCollection<Models.PublicKey>>(url);
+            var result = ConsumeJsonUrl<Models.Internal.PublicKeyCollection<Models.PublicKey>>(url);
 
             return result == null ? null : result.public_keys.ToArray();
         }
@@ -227,7 +227,7 @@ namespace GithubSharp.Core.API
             formValues.Add("title", PublicKey.title);
             formValues.Add("key", PublicKey.key);
 
-            var result = ConsumeJsonUrlAndPostData<Models.PublicKeyCollection<Models.PublicKey>>(url, formValues);
+            var result = ConsumeJsonUrlAndPostData<Models.Internal.PublicKeyCollection<Models.PublicKey>>(url, formValues);
 
             return result == null ? null : result.public_keys.ToArray();
         }
@@ -249,7 +249,7 @@ namespace GithubSharp.Core.API
             var formValues = new NameValueCollection();
             formValues.Add("id", id.ToString());
 
-            var result = ConsumeJsonUrlAndPostData<Models.PublicKeyCollection<Models.PublicKey>>(url, formValues);
+            var result = ConsumeJsonUrlAndPostData<Models.Internal.PublicKeyCollection<Models.PublicKey>>(url, formValues);
 
             return result == null ? null : result.public_keys.ToArray();
         }
@@ -268,7 +268,7 @@ namespace GithubSharp.Core.API
 
             var url = "user/emails";
 
-            var result = ConsumeJsonUrl<Models.EmailCollection>(url);
+            var result = ConsumeJsonUrl<Models.Internal.EmailCollection>(url);
 
             return result == null ? null : result.emails.ToArray();
         }
@@ -290,7 +290,7 @@ namespace GithubSharp.Core.API
             var formValues = new NameValueCollection();
             formValues.Add("email", Email);
 
-            var result = ConsumeJsonUrlAndPostData<Models.EmailCollection>(url);
+            var result = ConsumeJsonUrlAndPostData<Models.Internal.EmailCollection>(url);
 
             return result == null ? null : result.emails.ToArray();
         }
@@ -312,7 +312,7 @@ namespace GithubSharp.Core.API
             var formValues = new NameValueCollection();
             formValues.Add("email", Email);
 
-            var result = ConsumeJsonUrlAndPostData<Models.EmailCollection>(url);
+            var result = ConsumeJsonUrlAndPostData<Models.Internal.EmailCollection>(url);
 
             return result == null ? null : result.emails.ToArray();
         }
