@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
+using GithubSharp.Samples.MvcSample.Models.ControllerExtensions;
 
 namespace GithubSharp.Samples.MvcSample.Controllers
 {
@@ -49,5 +51,10 @@ namespace GithubSharp.Samples.MvcSample.Controllers
 			}
 
 		}
+
+        public ActionResult Urls()
+        {
+            return View();
+        }
     }
 }

@@ -28,7 +28,13 @@
             </div>
         </div>
     </div>
-    <script type="application/javascript" src="<%= Url.Content("~/js/jquery-1.4.1.min.js") %>"></script>
-    <script type="application/javascript" src="<%= Url.Content("~/js/main.js") %>"></script>
+    <script type="text/javascript" src="<%= Url.Content("~/js/jquery-1.4.1.min.js") %>"></script>
+    <script type="text/javascript" src="<%= Url.Content("~/js/jquery.blockUI.js") %>"></script>
+    <script type="text/javascript" src="<%= Url.Action("Urls", "Home") %>"></script>
+    <script type="text/javascript" src="<%= Url.Content("~/js/main.js") %>"></script>
+    <script type="text/javascript">
+        $(document).ready(InitMaster);
+    </script>
+    
 </body>
 </html>

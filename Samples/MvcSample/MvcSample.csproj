@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -65,6 +65,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ControllerExtensions\RenderViewToStringExtensions.cs" />
     <Compile Include="Models\HtmlHelpers\AdditionalHtmlAndUrlHelpers.cs" />
     <Compile Include="Models\ViewModels\BaseViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,6 +76,8 @@
   <ItemGroup>
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="js\jquery.blockUI.js" />
+    <Content Include="js\urlMock.js" />
     <Content Include="Views\Repository\Get.aspx" />
     <Content Include="Views\Repository\List.aspx" />
     <Content Include="Web.config" />
@@ -106,7 +109,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="css\" />
     <Folder Include="images\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -120,7 +122,7 @@
   </Target>
   <ProjectExtensions>
     <VisualStudio>
-      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+      <FlavorProperties GUID="{349C5851-65DF-11DA-9384-00065B846F21}">
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>

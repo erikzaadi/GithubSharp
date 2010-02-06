@@ -1,5 +1,10 @@
+.login
+{
+    text-align : left;
+}
 .login fieldset
 {
+    padding : 5px;
 	width : 340px;
 }
 .login label
@@ -8,9 +13,10 @@
 	display : block;
 	float:left;
 }
-.login button
+.login div
 {
-	margin-left:100px;
+    float:none;
+    clear:both;
 }
 
 .error

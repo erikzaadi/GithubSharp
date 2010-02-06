@@ -3,7 +3,7 @@
 	<div class="error"><%= Model.Message %></div>  
 	<% using(Html.BeginForm("Login", "Home")){ %>
 		<fieldset>
-			<legend><h3>Login</h3></legend>
+			<legend>Login</legend>
 			<div>
 				<label for="user">User : </label><%= Html.TextBox("user") %>
 			</div>
@@ -11,7 +11,7 @@
 				<label for="apitoken">APIToken : </label><%= Html.TextBox("apitoken") %>
 			</div>
 			<%= Html.Hidden("returnURL", Model.ReturnURL) %>
-			<button type="submit">GO</button>
+			<label class="error" id="errormessage">&nbsp;</label><button type="submit">GO</button>
 		</fieldset>
 	<% } %>
 </div>
