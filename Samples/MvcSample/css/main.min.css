@@ -1,0 +1,6 @@
+#menu{display:block;float:left;list-style:none;}#menu li a:hover{border:solid thin silver;margin:-1px;}
+#logindisplay{margin-top:10px;}.login{text-align:left;}.login fieldset{padding:5px;width:340px;}
+.login div span{width:100px;display:block;float:left;}.login div{float:none;clear:both;}
+#errormessage{width:0;overflow:visible;}#blocker{background-color:#FFF;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;border:solid 3px #FCFCFC;left:35%;margin:0;padding:5px;position:fixed;text-align:center;top:40%;width:30%;z-index:1001;display:none;}
+.overlayed{border:medium none;cursor:wait;height:100%;left:0;margin:0;padding:0;position:fixed;top:0;width:100%;z-index:1000;}
+.overlayedReady{background-color:#666;}

@@ -1,20 +1,19 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.master" Inherits="System.Web.Mvc.ViewPage<GithubSharp.Samples.MvcSample.Models.ViewModels.BaseViewModel<IEnumerable<GithubSharp.Core.Models.Repository>>>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	List
+    List
 </asp:Content>
-
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
-    <h2>User repositories	</h2>
-
-	<p>
+    <h2>
+        User repositories
+    </h2>
+    <p>
         <%=Html.ActionLink("Back to Search", "Index") %>
     </p>
-
     <table>
         <tr>
-            <th></th>
+            <th>
+            </th>
             <th>
                 url
             </th>
@@ -79,13 +78,14 @@
                 WatchURL
             </th>
         </tr>
-
-    <% foreach (var item in Model.ModelParameter) { %>
-    
+        <% foreach (var item in Model.ModelParameter)
+           { %>
         <tr>
             <td>
-                <%= Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) %> |
+                <%= Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) %>
+                |
                 <%= Html.ActionLink("Details", "Get", new { RepositoryName = item.name, Username = item.owner })%>
+                <%= Html.If(Model.CurrentUser != null && item.owner == Model.CurrentUser.Name, ()=> Html.ActionLink("Delete", "Delete", new { RepositoryName = item.name, Username = item.owner }))%>
             </td>
             <td>
                 <%= Html.Encode(item.url) %>
@@ -151,12 +151,6 @@
                 <%= Html.Encode(item.WatchURL) %>
             </td>
         </tr>
-    
-    <% } %>
-
+        <% } %>
     </table>
-
-    
-
 </asp:Content>
-

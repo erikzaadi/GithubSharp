@@ -1,16 +1,29 @@
 <%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<GithubSharp.Samples.MvcSample.Models.ViewModels.LoginViewModel>" %>
 <div class="login">
-	<% using(Html.BeginForm("Login", "Home")){ %>
-		<fieldset>
-			<legend>Login</legend>
-			<div>
-				<label for="user">User : </label><%= Html.TextBox("user") %>
-			</div>
-			<div>
-				<label for="apitoken">APIToken : </label><%= Html.TextBox("apitoken") %>
-			</div>
-			<%= Html.Hidden("returnURL", Model.ReturnURL) %>
-			<label class="error" id="errormessage"><%= Model.Message %>&nbsp;</label><button type="submit">GO</button>
-		</fieldset>
-	<% } %>
+    <% using (Html.BeginForm("Login", "Home"))
+       { %>
+    <fieldset>
+        <legend>Login</legend>
+        <div>
+            <span>User : </span>
+            <%= Html.TextBox("user") %>
+        </div>
+        <div>
+            <span>APIToken : </span>
+            <%= Html.TextBox("apitoken") %>
+        </div>
+        <%= Html.Hidden("returnURL", Model.ReturnURL) %>
+        <div>
+            <span>&nbsp;</span>
+            <input type="submit" value="GO" />
+        </div>
+        <div id="errormessage">
+            <% Html.If(!string.IsNullOrEmpty(Model.Message), () =>
+               { %>
+            <span class="error">
+                <%=Model.Message%></span>
+            <%}); %>
+        </div>
+    </fieldset>
+    <% } %>
 </div>

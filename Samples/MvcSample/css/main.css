@@ -16,7 +16,20 @@
 
 #menu
 {
+    display: block;
+    float: left;
+    list-style: none;
 }
+
+#menu li a
+{
+}
+#menu li a:hover
+{
+    border: solid thin silver;
+    margin: -1px;
+}
+
 
 #main
 {
@@ -28,30 +41,69 @@
 
 #logindisplay
 {
+    margin-top: 10px;
 }
 
 .login
 {
-    text-align : left;
+    text-align: left;
 }
 .login fieldset
 {
-    padding : 5px;
-	width : 340px;
+    padding: 5px;
+    width: 340px;
 }
-.login label
+.login div span
 {
-	width : 100px;
-	display : block;
-	float:left;
+    width: 100px;
+    display: block;
+    float: left;
 }
 .login div
 {
-    float:none;
-    clear:both;
+    float: none;
+    clear: both;
 }
 
-.error
+#errormessage
 {
-	color:red;
+    width:0px;
+    overflow:visible;
+}
+
+#blocker
+{
+    background-color: #FFFFFF;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border: solid 3px #FCFCFC;
+    left: 35%;
+    margin: 0;
+    padding: 5px;
+    position: fixed;
+    text-align: center;
+    top: 40%;
+    width: 30%;
+    z-index: 1001;
+    display: none;
+}
+
+.overlayed
+{
+    border: medium none;
+    cursor: wait;
+    height: 100%;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.overlayedReady
+{
+    background-color: #666666;
 }

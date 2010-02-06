@@ -118,9 +118,9 @@ namespace GithubSharp.Core.API
             var formValues = new NameValueCollection();
             if (string.IsNullOrEmpty(RepositoryName))
             {
-				var error = new NullReferenceException("RepositoryName was null or empty");
+                var error = new NullReferenceException("RepositoryName was null or empty");
                 if (LogProvider.HandleAndReturnIfToThrowError(error))
-					throw error;
+                    throw error;
                 return null;
             }
             formValues.Add("name", RepositoryName);
@@ -128,7 +128,7 @@ namespace GithubSharp.Core.API
             if (!string.IsNullOrEmpty(Description))
                 formValues.Add("description", Description);
             if (!string.IsNullOrEmpty(HomePage))
-                formValues.Add("description", Description);
+                formValues.Add("homepage", HomePage);
 
             formValues.Add("public", (Public ? 1 : 0).ToString());
 
@@ -136,6 +136,28 @@ namespace GithubSharp.Core.API
 
             return result == null ? null : result.repository;
         }
+
+        public bool Delete(string RepositoryName)
+        {
+            LogProvider.LogMessage("Repository.Delete - RepositoryName : '{0}'", RepositoryName);
+
+            Authenticate();
+
+            var url = "repos/delete/" + RepositoryName;
+
+            var result = ConsumeJsonUrlAndPostData<GithubSharp.Core.Models.RepositoryDelete>(url);
+
+            if (result == null)
+                return false;
+
+            var formValues = new NameValueCollection();
+            formValues.Add("delete_token", result.delete_token);
+
+            var status = ConsumeJsonUrlAndPostData<GithubSharp.Core.Models.RepositoryDeleted>(url, formValues);
+
+            return status != null && status.status == "deleted";
+        }
+
         //{"delete_token":"jhkkqrjzyz"}
         //{"status":"deleted"}
 

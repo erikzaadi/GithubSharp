@@ -11,6 +11,8 @@
     <%= Html.TextBox("id")%>
     <button type="submit">
         GO</button>
+    <div>
+        <%= Html.ActionLink("Create New","Create") %></div>
     <%} %>
     <hr />
     <% if (Model.ModelParameter != null && Model.ModelParameter.Count() > 0)

@@ -10,36 +10,46 @@ var UrlHelper =
 function InitMaster(BaseURL) {
     UrlHelper.Base = BaseURL;
     $("#logindisplay a").live('click', LoginPopup);
+    RemoveNotification();
+    InitPopup();
+}
+
+function InitPopup() {
+    var $blocker = $("#blocker");
+    $('<input type="button" id="CancelButton" value="Cancel" />').insertAfter("#blocker input[type='submit']");
+    $("#CancelButton", $blocker).click(function() {
+        $blocker.slideUp('fast');
+        $(".overlayed").remove();
+        return false;
+    });
+}
+
+function RemoveNotification() {
+    setTimeout(function() { $("#notification").fadeOut('slow'); }, 3500);
 }
 
 function LoginPopup() {
-    $.blockUI({ message: $('<div id="blocker">Loading...</div>'), css: { width: '370px', padding: '5px'} });
-    $.get(UrlHelper.LoginURL(), {}, function(data) {
-        $("#blocker").html(data);
-        $('<input type="button" id="CancelButton" value="Cancel" />').insertAfter("#blocker button");
-        $("#blocker #CancelButton").click(function() {
-            $.unblockUI();
-            $("#blocker").unblock();
-            return false;
-        });
-
-        $("#blocker form").submit(function() {
-            $("#blocker").block();
-            $.post(UrlHelper.LoginURL(), $("#blocker form").serialize(), function(data) {
-                if (data) {
-                    if (data.success) {
-                        $.unblockUI();
-                        $("#logindisplay").html(data.Name + ' <a href="' + UrlHelper.LoginURL() + '">Change</a>');
-                    }
-                    else {
-                        $("#blocker #errormessage").html(data.message);
-                    }
+    var $blocker = $("#blocker");
+    $("form", $blocker).submit(function() {
+        $.post(UrlHelper.LoginURL(), $(this).serialize(), function(data) {
+            if (data) {
+                if (data.success) {
+                    $blocker.slideUp('fast');
+                    $(".overlayed").remove();
+                    $("#logindisplay").html(data.Name + ' <a href="' + UrlHelper.LoginURL() + '">Change</a>');
+                    $("#notificationwrapper").html('<span class="notice" id="notification">Login succeeded</span>');
+                    RemoveNotification();
                 }
-                $("#blocker").unblock();
-            }, "json");
-
-            return false;
-        });
+                else {
+                    $("#errormessage", $blocker).html('<span class="error">' + data.message + '</span>');
+                }
+            }
+        }, "json");
+        return false;
+    });
+    $('<div class="overlayed" />').appendTo("body").fadeTo('slow', 0.4, function() {
+        $(this).toggleClass('overlayedReady', true);
+        $blocker.slideDown('fast');
     });
 
     return false;

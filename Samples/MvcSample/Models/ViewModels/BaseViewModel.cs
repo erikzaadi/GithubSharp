@@ -9,10 +9,12 @@ namespace GithubSharp.Samples.MvcSample.Models.ViewModels
     {
         public GithubSharp.Core.Models.GithubUser CurrentUser { get; set; }
         public T ModelParameter { get; set; }
+        public string Notification { get; set; }
     }
 	
 	public interface IBaseViewModel
 	{
 		GithubSharp.Core.Models.GithubUser CurrentUser { get; set; }
+        string Notification { get; set; }
 	}
 }

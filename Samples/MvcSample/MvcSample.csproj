@@ -78,9 +78,18 @@
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\forms.css" />
+    <Content Include="css\grid.css" />
+    <Content Include="css\grid.png" />
+    <Content Include="css\ie.css" />
+    <Content Include="css\print.css" />
+    <Content Include="css\reset.css" />
+    <Content Include="css\typography.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="js\jquery.blockUI.js" />
+    <Content Include="js\main.min.js" />
+    <Content Include="Views\Repository\Create.aspx" />
+    <Content Include="Views\Repository\Delete.aspx" />
     <Content Include="Views\Repository\Get.aspx" />
     <Content Include="Views\Repository\List.aspx" />
     <Content Include="Web.config" />

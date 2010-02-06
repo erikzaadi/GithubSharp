@@ -19,7 +19,7 @@ namespace GithubSharp.Plugins.LogProviders.SimpleLogProvider
         public void LogMessage(string Message, params object[] Arguments)
         {
             if (DebugMode)
-                WriteToLog(DatePrefix + " " + string.Format(Message, Arguments));
+                WriteToLog(DateTime.Now.ToString() + " " + string.Format(Message, Arguments));
         }
 
         public bool HandleAndReturnIfToThrowError(Exception error)

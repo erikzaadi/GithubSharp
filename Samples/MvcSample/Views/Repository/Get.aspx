@@ -1,16 +1,17 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.master" Inherits="System.Web.Mvc.ViewPage<GithubSharp.Samples.MvcSample.Models.ViewModels.BaseViewModel<GithubSharp.Core.Models.Repository>>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Get
+    Get
 </asp:Content>
-
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
-    <h2>Repository Details</h2>
+    <h2>
+        Repository Details</h2>
     <p>
-        <%=Html.ActionLink("Edit", "Edit", new { /* id=Model.ModelParameter.PrimaryKey */ }) %> |
         <%=Html.ActionLink("Back to Search", "Index") %>
-        <%=Html.ActionLink("Fork", "Fork", new {RepositoryName = Model.ModelParameter.name , Username = Model.ModelParameter.owner}) %>
+        <%= Html.If(Model.CurrentUser != null && Model.ModelParameter.owner == Model.CurrentUser.Name, ()=> 
+    string.Format(" | {0} | {1} ", 
+        Html.ActionLink("Delete", "Delete", new { RepositoryName = Model.ModelParameter.name, Username = Model.ModelParameter.owner }) ,
+        Html.ActionLink("Edit", "Edit", new { /* id=Model.ModelParameter.PrimaryKey */ })), ()=> Html.ActionLink("Fork", "Fork", new {RepositoryName = Model.ModelParameter.name , Username = Model.ModelParameter.owner})) %>
     </p>
     <fieldset>
         <legend>Fields</legend>
@@ -99,7 +100,4 @@
             <%= Html.Encode(Model.ModelParameter.WatchURL) %>
         </p>
     </fieldset>
-
-
 </asp:Content>
-
