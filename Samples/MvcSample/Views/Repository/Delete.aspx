@@ -11,8 +11,8 @@
         Are you sure you want to delete '<%= Model.ModelParameter %>'?</div>
     <% using (Html.BeginForm())
        { %>
-    <%= Html.AntiForgeryToken() %>
-    <%= Html.Hidden("RepositoryName", Model.ModelParameter )%>
+    <%--= Html.AntiForgeryToken() Doesn't work on mono :( --%>
+  <%= Html.Hidden("RepositoryName", Model.ModelParameter )%>
     <%= Html.CheckBox("Delete") %>
     <button type="submit">
         Continue</button>

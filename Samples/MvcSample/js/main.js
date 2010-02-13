@@ -1,5 +1,5 @@
 /// <reference path="jquery-1.4.1.min-vsdoc.js" />
-/// <reference path="jquery.blockUI.js" />
+
 
 var UrlHelper =
 {

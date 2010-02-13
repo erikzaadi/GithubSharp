@@ -1,18 +1,44 @@
 <%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage<GithubSharp.Samples.MvcSample.Models.ViewModels.IBaseViewModel>" %>
 
-<% Html.Telerik()
-             .ScriptRegistrar()
-             .DefaultGroup(p => p.Enabled(false))
-             .Scripts(p =>
-                     p.AddSharedGroup("jQuery")
-                     .AddSharedGroup("GithubSharpSampleJs"))
-             .OnDocumentReady(() =>
-             {%>
-InitMaster('<%= Url.Content("~/")%>');
-<%}); %>
-<% Html.Telerik()
-           .StyleSheetRegistrar()
-           .StyleSheets(p => p.AddSharedGroup("GithubSharpSampleCss"));
+<% Model.DebugScripts.AddRange(new GithubSharp.Samples.MvcSample.Models.ViewModels.IncludeItem[] {
+       new GithubSharp.Samples.MvcSample.Models.ViewModels.IncludeItem
+       {
+           Source = "~/js/jquery-1.4.1.min.js",
+           CDN = "http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"
+       },
+       new GithubSharp.Samples.MvcSample.Models.ViewModels.IncludeItem
+       {
+           Source = "~/js/main.js"
+       }
+   });
+   Model.ReleaseScripts.AddRange(new GithubSharp.Samples.MvcSample.Models.ViewModels.IncludeItem[] {
+       new GithubSharp.Samples.MvcSample.Models.ViewModels.IncludeItem
+       {
+           Source = "~/js/jquery-1.4.1.min.js",
+           CDN = "http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"
+       },
+       new GithubSharp.Samples.MvcSample.Models.ViewModels.IncludeItem
+       {
+           Source = "~/js/main.min.js"
+       }
+   });
+   Model.DebugStyleSheets.AddRange(new GithubSharp.Samples.MvcSample.Models.ViewModels.IncludeItem[]{
+       new GithubSharp.Samples.MvcSample.Models.ViewModels.IncludeItem
+       {
+           Source = "~/css/main.css",
+       },
+       new GithubSharp.Samples.MvcSample.Models.ViewModels.IncludeItem
+       {
+           Source = "~/css/blueprint.css",
+       },
+   });
+   Model.ReleaseStyleSheets.AddRange(new GithubSharp.Samples.MvcSample.Models.ViewModels.IncludeItem[]{
+       new GithubSharp.Samples.MvcSample.Models.ViewModels.IncludeItem
+       {
+           Source = "~/css/all.min.css",
+       }
+   });
+   Model.DocumentReadies.Add(string.Format("InitMaster('{0}');", Url.Content("~/")));
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -20,10 +46,10 @@ InitMaster('<%= Url.Content("~/")%>');
     <title>
         <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
     </title>
+    <%= Html.RenderStyleSheets(Model) %>
     <!--[if lt IE 8]>
         <link rel="Stylesheet" href="<%= Url.Content("~/css/ie.min.css") %>" />
      <![endif]-->
-    <%= Html.Telerik().StyleSheetRegistrar() %>
 </head>
 <body>
     <div class="container">
@@ -38,7 +64,7 @@ InitMaster('<%= Url.Content("~/")%>');
                 <% Html.RenderPartial("LoginDisplay"); %>
             </div>
             <div id="menucontainer" class="span-20 prepend-2 append-2 last">
-               <% Html.RenderPartial("Menu"); %>
+                <% Html.RenderPartial("Menu"); %>
             </div>
         </div>
         <div id="main" class="span-20 prepend-2 append-2 last">
@@ -53,13 +79,13 @@ InitMaster('<%= Url.Content("~/")%>');
                 <asp:ContentPlaceHolder ID="MainContent" runat="server" />
             </div>
             <div id="footer" class="span-20 last">
-            <% Html.RenderPartial("Footer"); %>
+                <% Html.RenderPartial("Footer"); %>
             </div>
         </div>
     </div>
     <div id="blocker">
         <% Html.RenderPartial("LoginControl", new GithubSharp.Samples.MvcSample.Models.ViewModels.LoginViewModel()); %>
     </div>
-    <%= Html.Telerik().ScriptRegistrar() %>
+    <%= Html.RenderScripts(Model) %>
 </body>
 </html>

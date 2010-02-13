@@ -77,7 +77,7 @@ namespace GithubSharp.Samples.MvcSample.Controllers
             return View();
         }
 
-        [ValidateAntiForgeryToken()]
+        //[ValidateAntiForgeryToken()] Doesn't work on mono :(
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Create(string RepositoryName, string Description, string HomePage, bool Public)
         {
@@ -106,7 +106,7 @@ namespace GithubSharp.Samples.MvcSample.Controllers
             return View(GetBaseView(RepositoryName));
         }
 
-        [ValidateAntiForgeryToken()]
+        //[ValidateAntiForgeryToken()] Doesn't work on mono :(
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Delete(string RepositoryName, bool Delete)
         {

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Telerik.Web.Mvc;
 
 namespace GithubSharp.Samples.MvcSample
 {
@@ -18,17 +17,23 @@ namespace GithubSharp.Samples.MvcSample
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                "Scripts",
+                "scripts/{script}.js",
+                 new { controller = "Home", action = "Script", script="" }
+            );
+
+            routes.MapRoute(
+                "StyleSheets",
+                "style/{stylesheet}.css",
+                 new { controller = "Home", action = "StyleSheet", stylesheet = "" }
+            );
+
+            routes.MapRoute(
                 "Default",                                              // Route name
                 "{controller}/{action}/{id}",                           // URL with parameters
                 new { controller = "Home", action = "Index", id = "" }  // Parameter defaults
             );
 
-            WebAssetDefaultSettings.StyleSheetFilesPath = "~/css";
-            WebAssetDefaultSettings.ScriptFilesPath = "~/js";
-            WebAssetDefaultSettings.Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            WebAssetDefaultSettings.CacheDurationInDays = 25;
-            WebAssetDefaultSettings.Combined = 
-            WebAssetDefaultSettings.Compress = true;
         }
 
         protected void Application_Start()

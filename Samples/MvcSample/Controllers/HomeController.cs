@@ -23,7 +23,7 @@ namespace GithubSharp.Samples.MvcSample.Controllers
             return View(GetBaseView(model));
         }
 
-        [ValidateAntiForgeryToken()]
+        //[ValidateAntiForgeryToken()] Doesn't work on mono :(
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Login(string user, string apitoken, string returnURL)
         {
