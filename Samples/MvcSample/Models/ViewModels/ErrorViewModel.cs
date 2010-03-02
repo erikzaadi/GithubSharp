@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 
 namespace GithubSharp.Samples.MvcSample.Models.ViewModels
 {
@@ -22,6 +23,44 @@ namespace GithubSharp.Samples.MvcSample.Models.ViewModels
         public string Notification { get; set; }
 
         #endregion
-        public ErrorViewModel(Exception exception, string controller, string action) : base(exception, controller, action) { }
+        public ErrorViewModel(Exception exception, string controller, string action) : base(exception, controller, action)
+        {
+            ReleaseScripts = new List<IncludeItem>();
+            ReleaseStyleSheets = new List<IncludeItem>();
+            DebugScripts = new List<IncludeItem>();
+            DebugStyleSheets = new List<IncludeItem>();
+            DocumentReadies = new List<string>();
+        }
+
+
+        public System.Collections.Generic.List<IncludeItem> ReleaseScripts
+        {
+            get;set;
+        }
+
+        public System.Collections.Generic.List<IncludeItem> ReleaseStyleSheets
+        {
+            get;
+            set;
+        }
+
+        public System.Collections.Generic.List<IncludeItem> DebugScripts
+        {
+            get;
+            set;
+        }
+
+        public System.Collections.Generic.List<IncludeItem> DebugStyleSheets
+        {
+            get;
+            set;
+        }
+
+
+        public List<string> DocumentReadies
+        {
+            get;
+            set;
+        }
     }
 }

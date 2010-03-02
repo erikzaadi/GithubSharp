@@ -53,6 +53,5 @@ namespace GithubSharp.Samples.MvcSample.Controllers
                 return View(GetBaseView(new Models.ViewModels.LoginViewModel { Message = error.Message, ReturnURL = returnURL }));
             }
         }
-
     }
 }
