@@ -36,7 +36,7 @@
             <input type="submit" value="Create" />
         </p>
     </fieldset>
-    <%= Html.AntiForgeryToken() %>
+    <%--= Html.AntiForgeryToken() Doesn't work on mono :( --%>
     <% } %>
     <div>
         <%=Html.ActionLink("Back to List", "Index") %>

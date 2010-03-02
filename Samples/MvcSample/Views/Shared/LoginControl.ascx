@@ -13,8 +13,8 @@
             <%= Html.TextBox("apitoken") %>
         </div>
         <%= Html.Hidden("returnURL", Model.ReturnURL) %>
-        <%-- Not supported yet in mono = Html.AntiForgeryToken() --%>
-        <div>
+        <%= Html.AntiForgeryToken() %>
+ 		<div>
             <span>&nbsp;</span>
             <input type="submit" value="GO" />
         </div>

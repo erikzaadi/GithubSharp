@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using System.Net;
-
+//add commit compare : http://github.com/blog/612-introducing-github-compare-view
 
 namespace GithubSharp.Core
 {
