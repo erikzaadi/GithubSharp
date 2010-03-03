@@ -8,6 +8,7 @@ namespace GithubSharp.Core.API
 {
     public class Gist : Base.BaseAPI, Base.IBaseAPI
     {
+        public Gist(ICacheProvider cacheProvider, ILogProvider logProvider) : base(cacheProvider, logProvider) { }
         //http://github.com/mattikus/pygist/blob/master/pygist.py
         //http://github.com/miyagawa/gistp/blob/master/gistp
         //http://github.com/defunkt/gist/blob/master/gist.rb

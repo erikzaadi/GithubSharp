@@ -8,6 +8,7 @@ namespace GithubSharp.Core.API
 {
     public class Commits : Base.BaseAPI, Base.IBaseAPI
     {
+        public Commits(ICacheProvider cacheProvider, ILogProvider logProvider) : base(cacheProvider, logProvider) { }
 
 		
         //Listing Commits on a Branch

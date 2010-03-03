@@ -9,6 +9,7 @@ namespace GithubSharp.Core.API
 {
     public class User : Base.BaseAPI, Base.IBaseAPI
     {
+        public User(ICacheProvider cacheProvider, ILogProvider logProvider) : base(cacheProvider, logProvider) { }
         /// <summary>
         /// Search for users
         /// </summary>

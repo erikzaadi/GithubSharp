@@ -8,6 +8,7 @@ namespace GithubSharp.Core.API
 {
     public class Object : Base.BaseAPI, Base.IBaseAPI
     {
+        public Object(ICacheProvider cacheProvider, ILogProvider logProvider) : base(cacheProvider, logProvider) { }
 		//Trees
         //tree/show/:user/:repo/:tree_sha
 

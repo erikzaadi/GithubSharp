@@ -17,6 +17,12 @@ namespace GithubSharp.Core.Base
 	
     public class BaseAPI : IBaseAPI
     {
+        public BaseAPI(ICacheProvider cacheProvider, ILogProvider logProvider)
+        {
+            CacheProvider = cacheProvider;
+            LogProvider = logProvider;
+        }
+
         private Models.GithubUser _CurrentUser { get; set; }
         private Base.Url UrlConsumer
 		{

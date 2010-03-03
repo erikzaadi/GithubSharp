@@ -38,15 +38,18 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.ComponentModel.DataAnnotations">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libs\mvc\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -59,25 +62,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="css\all.min.css" />
-    <Content Include="css\blueprint.css" />
-    <Content Include="css\forms.css" />
-    <Content Include="css\forms.min.css" />
-    <Content Include="css\grid.css" />
-    <Content Include="css\grid.min.css" />
+    <Content Include="css\blueprint.min.css" />
     <Content Include="css\grid.png" />
-    <Content Include="css\ie.css" />
     <Content Include="css\ie.min.css" />
     <Content Include="css\main.css" />
     <Content Include="css\main.min.css" />
-    <Content Include="css\print.css" />
-    <Content Include="css\print.min.css" />
-    <Content Include="css\reset.css" />
-    <Content Include="css\reset.min.css" />
-    <Content Include="css\typography.css" />
-    <Content Include="css\typography.min.css" />
-    <Content Include="default.aspx" />
+    <Content Include="images\favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="images\githubsharp.png" />
     <Content Include="js\jquery-1.4.1.min-vsdoc.js" />
     <Content Include="js\jquery-1.4.1.min.js" />
     <Content Include="js\main.js" />
@@ -85,6 +77,7 @@
     <Content Include="Views\Commit\Index.aspx" />
     <Content Include="Views\Gists\Index.aspx" />
     <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\Home\test.aspx" />
     <Content Include="Views\Issues\Index.aspx" />
     <Content Include="Views\Network\Index.aspx" />
     <Content Include="Views\Object\Index.aspx" />
@@ -111,9 +104,6 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="images\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\MvcApplication\MvcApplication.csproj">
       <Project>{308EBC64-BFA7-40E3-9855-20099B94C665}</Project>
       <Name>MvcApplication</Name>
@@ -122,6 +112,7 @@
   <ItemGroup>
     <Content Include="Views\Shared\Site.master" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

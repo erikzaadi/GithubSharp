@@ -8,7 +8,7 @@ namespace GithubSharp.Core.API
 {
     public class Network : Base.BaseAPI, Base.IBaseAPI
     {
-
+        public Network(ICacheProvider cacheProvider, ILogProvider logProvider) : base(cacheProvider, logProvider) { }
 		
         //Get Meta
         //http://github.com/erikzaadi/jQueryPlugins/network_meta

@@ -8,6 +8,7 @@ namespace GithubSharp.Core.API
 {
     public class Issues : Base.BaseAPI, Base.IBaseAPI
     {
+        public Issues(ICacheProvider cacheProvider, ILogProvider logProvider) : base(cacheProvider, logProvider) { }
 
         //Search issues
         //issues/search/:user/:repo/:state/:search_term 

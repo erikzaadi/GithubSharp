@@ -5,19 +5,15 @@ using System.Web;
 using System.Web.Mvc;
 using System.IO;
 using System.Text;
+using GithubSharp.Core.Services;
 
 namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
 {
     public class HomeController : BaseController
     {
-        public HomeController()
-            : base()
+        public HomeController(ICacheProvider cacheProvider, ILogProvider logProvider) : base(cacheProvider, logProvider)
         {
-
-        }
-        public ActionResult Index()
-        {
-            return View();
+        
         }
 
         public ActionResult Login(string id)
@@ -28,11 +24,10 @@ namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
             return View(GetBaseView(model));
         }
 
-        //[ValidateAntiForgeryToken()] Doesn't work on mono :(
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Login(string user, string apitoken, string returnURL)
         {
-            var userAPI = new GithubSharp.Core.API.User { CacheProvider = WebCacher, LogProvider = LogProvider };
+            var userAPI = new GithubSharp.Core.API.User(CacheProvider, LogProvider);
             userAPI.Authenticate(new GithubSharp.Core.Models.GithubUser { Name = user, APIToken = apitoken });
             try
             {

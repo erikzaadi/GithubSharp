@@ -1,52 +1,16 @@
 <%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage<GithubSharp.Samples.MvcSample.MvcApplication.Models.ViewModels.IBaseViewModel>" %>
 
-<% Model.DebugScripts.AddRange(new GithubSharp.Samples.MvcSample.MvcApplication.Models.ViewModels.IncludeItem[] {
-       new GithubSharp.Samples.MvcSample.MvcApplication.Models.ViewModels.IncludeItem
-       {
-           Source = "~/js/jquery-1.4.1.min.js",
-           CDN = "http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"
-       },
-       new GithubSharp.Samples.MvcSample.MvcApplication.Models.ViewModels.IncludeItem
-       {
-           Source = "~/js/main.js"
-       }
-   });
-   Model.ReleaseScripts.AddRange(new GithubSharp.Samples.MvcSample.MvcApplication.Models.ViewModels.IncludeItem[] {
-       new GithubSharp.Samples.MvcSample.MvcApplication.Models.ViewModels.IncludeItem
-       {
-           Source = "~/js/jquery-1.4.1.min.js",
-           CDN = "http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"
-       },
-       new GithubSharp.Samples.MvcSample.MvcApplication.Models.ViewModels.IncludeItem
-       {
-           Source = "~/js/main.min.js"
-       }
-   });
-   Model.DebugStyleSheets.AddRange(new GithubSharp.Samples.MvcSample.MvcApplication.Models.ViewModels.IncludeItem[]{
-       new GithubSharp.Samples.MvcSample.MvcApplication.Models.ViewModels.IncludeItem
-       {
-           Source = "~/css/main.css",
-       },
-       new GithubSharp.Samples.MvcSample.MvcApplication.Models.ViewModels.IncludeItem
-       {
-           Source = "~/css/blueprint.css",
-       },
-   });
-   Model.ReleaseStyleSheets.AddRange(new GithubSharp.Samples.MvcSample.MvcApplication.Models.ViewModels.IncludeItem[]{
-       new GithubSharp.Samples.MvcSample.MvcApplication.Models.ViewModels.IncludeItem
-       {
-           Source = "~/css/all.min.css",
-       }
-   });
-   Model.DocumentReadies.Add(string.Format("InitMaster('{0}');", Url.Content("~/")));
-%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>
         <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
     </title>
-    <%= Html.RenderStyleSheets(Model) %>
+    <link rel="Stylesheet" href="<%= Url.Content("~/css/blueprint.min.css") %>" media="screen" />
+    <link rel="Stylesheet" href="<%= Url.Content("~/css/main.min.css") %>" media="screen" />
+    <link rel="icon" type="image/png" href="<%= Url.Content("~/images/githubsharp.png") %>" />
+    <link rel="icon" type="image/vnd.microsoft.icon" href="<%= Url.Content("~/images/favicon.ico") %>" />
+    <link rel="apple-touch-icon" href="<%= Url.Content("~/images/githubsharp.png") %>" />
     <!--[if lt IE 8]>
         <link rel="Stylesheet" href="<%= Url.Content("~/css/ie.min.css") %>" />
      <![endif]-->
@@ -58,6 +22,7 @@
         <div id="header" class="span-24 last">
             <div id="title" class="span-16">
                 <h1>
+                    <img src="<%= Url.Content("~/images/githubsharp.png") %>" alt="GithubSharp" />
                     Github Sharp</h1>
             </div>
             <div class="span-4 append-4 last">
@@ -69,11 +34,11 @@
         </div>
         <div id="main" class="span-20 prepend-2 append-2 last">
             <div id="notificationwrapper" class="span-13 last">
-                <% Html.If(!string.IsNullOrEmpty(Model.Notification), () =>
-               { %>
+                <% if (Model != null && !string.IsNullOrEmpty(Model.Notification))
+                   { %>
                 <span class="notice" id="notification">
                     <%= Model.Notification%></span>
-                <%}); %>
+                <%} %>
             </div>
             <div class="span-20 last">
                 <asp:ContentPlaceHolder ID="MainContent" runat="server" />
@@ -86,6 +51,16 @@
     <div id="blocker">
         <% Html.RenderPartial("LoginControl", new GithubSharp.Samples.MvcSample.MvcApplication.Models.ViewModels.LoginViewModel()); %>
     </div>
-    <%= Html.RenderScripts(Model) %>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="<%= Url.Content("~/js/main.min.js") %>"></script>
+    <asp:ContentPlaceHolder runat="server" ID="ScriptsIncludes">
+    </asp:ContentPlaceHolder>
+    <script type="text/javascript">
+        $(document).ready(function () {
+         InitMaster('<%= Url.Content("~/") %>');
+           <asp:ContentPlaceHolder runat="server" ID="DocumentReadies">
+    </asp:ContentPlaceHolder>
+        });
+    </script>
 </body>
 </html>

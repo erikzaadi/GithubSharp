@@ -6,7 +6,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
         PublicKeys</h2>
-    <% Html.If(Model.ModelParameter != null && Model.ModelParameter.Count() > 0, () =>
+    <% if (Model.ModelParameter != null && Model.ModelParameter.Count() > 0)
        { %>
     <table>
         <tr>
@@ -41,11 +41,12 @@
         </tr>
         <% } %>
     </table>
-    <%}, () =>
-      { %>
+    <%}
+       else
+       { %>
     <div class="notice">
         No public keys available</div>
-    <%}); %>
+    <%} %>
     <p>
         <%= Html.ActionLink("Create New Public Key", "CreatePublicKey") %>
     </p>

@@ -5,38 +5,39 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
+using GithubSharp.Core.Services;
 
 namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
 {
-	public class BaseAPIController<ApiType> : BaseController where ApiType : Core.Base.IBaseAPI, new()
-	{
-		public BaseAPIController():base()
-		{
-			BaseAPI = new ApiType { CacheProvider = new GithubSharp.Plugins.CacheProviders.WebCache.WebCacher(), LogProvider = new GithubSharp.Plugins.LogProviders.SimpleLogProvider.SimpleLogProvider() };
-		}
-		
-        protected ApiType BaseAPI { get; set; }
-		protected override void OnActionExecuting (ActionExecutingContext filterContext)
-		{
-			BaseAPI.Authenticate(CurrentUser);
-			base.OnActionExecuting (filterContext);
-		}
+    public class BaseAPIController<ApiType> : BaseController where ApiType : Core.Base.IBaseAPI
+    {
+        public BaseAPIController(ICacheProvider cacheProvider, ILogProvider logProvider)
+            : base(cacheProvider, logProvider)
+        {
+        }
 
-		protected bool Authenticate()
-		{
-			var userAPI = new GithubSharp.Core.API.User { CacheProvider= WebCacher, LogProvider= LogProvider};
-			userAPI.Authenticate(CurrentUser);
-			try
-			{
-				return userAPI.Get() != null;
-			}
-			catch (Exception error)
-			{
-				if (LogProvider.HandleAndReturnIfToThrowError(error))
-					throw error;
-				return false;
-			}
-		}
+        protected virtual ApiType BaseAPI { get; set; }
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            BaseAPI.Authenticate(CurrentUser);
+            base.OnActionExecuting(filterContext);
+        }
 
-	}
+        protected virtual bool Authenticate()
+        {
+            var userAPI = new GithubSharp.Core.API.User(CacheProvider, LogProvider);
+            userAPI.Authenticate(CurrentUser);
+            try
+            {
+                return userAPI.Get() != null;
+            }
+            catch (Exception error)
+            {
+                if (LogProvider.HandleAndReturnIfToThrowError(error))
+                    throw error;
+                return false;
+            }
+        }
+
+    }
 }

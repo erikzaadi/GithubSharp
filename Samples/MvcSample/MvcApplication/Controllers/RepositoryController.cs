@@ -4,11 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
+using GithubSharp.Core.Services;
 
 namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
 {
-    public class RepositoryController : BaseAPIController<GithubSharp.Core.API.Repository>
+    public class RepositoryController : BaseAPIController<Core.API.Repository>
     {
+        public RepositoryController(ICacheProvider cacheProvider, ILogProvider logProvider)
+            : base(cacheProvider, logProvider)
+        {
+            BaseAPI = new GithubSharp.Core.API.Repository(cacheProvider, logProvider);
+        }
+
         public ActionResult Index()
         {
             return View("Search", GetBaseView<IEnumerable<GithubSharp.Core.Models.RepositoryFromSearch>>(new List<GithubSharp.Core.Models.RepositoryFromSearch>()));
@@ -77,7 +84,6 @@ namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
             return View();
         }
 
-        //[ValidateAntiForgeryToken()] Doesn't work on mono :(
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Create(string RepositoryName, string Description, string HomePage, bool Public)
         {
@@ -106,7 +112,6 @@ namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
             return View(GetBaseView(RepositoryName));
         }
 
-        //[ValidateAntiForgeryToken()] Doesn't work on mono :(
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Delete(string RepositoryName, bool Delete)
         {
@@ -143,5 +148,7 @@ namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
 
             return View(GetBaseView(keys));
         }
+
+      
     }
 }

@@ -4,16 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
+using GithubSharp.Core.Services;
 
 namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
 {
     [HandleError]
     public class BaseController : Controller
     {
-        public BaseController()
+        public BaseController(ICacheProvider cacheProvider, ILogProvider logProvider)
         {
-            WebCacher = new GithubSharp.Plugins.CacheProviders.WebCache.WebCacher();
-            LogProvider = new GithubSharp.Plugins.LogProviders.SimpleLogProvider.SimpleLogProvider { DebugMode = false };
+            CacheProvider = cacheProvider;
+            LogProvider = logProvider;
         }
 
         protected GithubSharp.Core.Models.GithubUser CurrentUser
@@ -29,9 +30,9 @@ namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
             }
         }
 
-        protected GithubSharp.Plugins.CacheProviders.WebCache.WebCacher WebCacher { get; set; }
+        protected ICacheProvider CacheProvider { get; set; }
 
-        protected GithubSharp.Plugins.LogProviders.SimpleLogProvider.SimpleLogProvider LogProvider { get; set; }
+        protected ILogProvider LogProvider { get; set; }
 
         protected void SetTemporaryNotification(string Notification, params object[] args)
         {
@@ -72,5 +73,7 @@ namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
             return base.View(viewName, masterName, model);
         }
 
+
+     
     }
 }

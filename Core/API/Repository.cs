@@ -9,6 +9,7 @@ namespace GithubSharp.Core.API
 {
     public class Repository : Base.BaseAPI, Base.IBaseAPI
     {
+        public Repository(ICacheProvider cacheProvider, ILogProvider logProvider) : base(cacheProvider, logProvider) { }
 
         /// <summary>
         /// Search 

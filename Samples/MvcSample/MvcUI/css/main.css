@@ -1,113 +1,77 @@
-.page
-{
-}
-
-#header
-{
-}
-
-#title
-{
-}
-
-#menucontainer
-{
-}
-
 #menu
 {
     display: block;
     float: left;
     list-style: none;
 }
-
 #menu li
 {
     float: left;
     display: block;
     padding: 15px;
 }
-
-#menu li a
-{
-}
 #menu li a:hover
 {
     border: solid thin silver;
     margin: -1px;
 }
-
 .CurrentAPI
 {
     background: #FAFAFA !important;
-    border: solid thin #CCCCCC !important;
+    border: solid thin #CCC !important;
     color: Navy !important;
     -webkit-border-radius: 3px 3px 3px 3px;
     border-radius: 3px 3px 3px 3px;
     -moz-border-radius: 3px 3px 3px 3px;
-    padding : 5px !important;
-    margin : -5px !important;
+    padding: 5px !important;
+    margin: -5px !important;
 }
-
 .CurrentAPI:hover
 {
     background: #CACACA !important;
-    color : #FAFAFA !important;
+    color: #FAFAFA !important;
 }
-
-#main
-{
-}
-
-#footer
-{
-}
-
 #logindisplay
 {
     margin-top: 10px;
 }
-
 .login
 {
     text-align: left;
 }
 .login legend
 {
-    padding : 5px;
+    padding: 5px;
 }
-
-
 .login fieldset
 {
-    border : solid thin black;
+    border: solid thin black;
     -webkit-border-radius: 3px 3px 3px 3px;
     border-radius: 3px 3px 3px 3px;
-    -moz-border-radius: 3px 3px 3px 3px; padding: 5px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    padding: 5px;
     width: 340px;
 }
 .login div span
 {
-    display:block;
-    float:left;
-    margin-top:5px;
-    width:75px;
+    display: block;
+    float: left;
+    margin-top: 5px;
+    width: 75px;
 }
 .login div
 {
     float: none;
     clear: both;
 }
-
 #errormessage
 {
-    width: 0px;
+    width: 0;
     overflow: visible;
 }
-
 #blocker
 {
-    background-color: #FFFFFF;
+    background-color: #FFF;
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -121,7 +85,6 @@
     z-index: 1001;
     display: none;
 }
-
 .overlayed
 {
     border: medium none;
@@ -135,8 +98,7 @@
     width: 100%;
     z-index: 1000;
 }
-
 .overlayedReady
 {
-    background-color: #666666;
+    background-color: #666;
 }
