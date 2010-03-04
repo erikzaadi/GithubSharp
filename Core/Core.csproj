@@ -66,6 +66,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Internal\Issues.cs" />
+    <Compile Include="Models\Issue.cs" />
     <Compile Include="Base\BaseAPI.cs" />
     <Compile Include="API\Gist.cs" />
     <Compile Include="API\Object.cs" />

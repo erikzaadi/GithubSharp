@@ -78,7 +78,12 @@
     <Content Include="Views\Gists\Index.aspx" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Home\test.aspx" />
+    <Content Include="Views\Issues\Comments.aspx" />
     <Content Include="Views\Issues\Index.aspx" />
+    <Content Include="Views\Issues\Issue.ascx" />
+    <Content Include="Views\Issues\Labels.aspx" />
+    <Content Include="Views\Issues\List.aspx" />
+    <Content Include="Views\Issues\View.aspx" />
     <Content Include="Views\Network\Index.aspx" />
     <Content Include="Views\Object\Index.aspx" />
     <Content Include="Views\Repository\Branches.aspx" />

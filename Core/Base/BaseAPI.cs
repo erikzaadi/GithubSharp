@@ -52,7 +52,7 @@ namespace GithubSharp.Core.Base
         public ICacheProvider CacheProvider { get;set;}
         public ILogProvider LogProvider { get;set;}
 
-        public T ConsumeJsonUrl<T>(string Url) where T : class
+        internal T ConsumeJsonUrl<T>(string Url) where T : class
         {
             var url = string.Format("{0}{1}{2}",
                 UrlConsumer.GithubBaseURL,
@@ -79,12 +79,12 @@ namespace GithubSharp.Core.Base
             }
         }
 
-        public T ConsumeJsonUrlAndPostData<T>(string Url) where T : class
+        internal T ConsumeJsonUrlAndPostData<T>(string Url) where T : class
         {
             return ConsumeJsonUrlAndPostData<T>(Url, new NameValueCollection());
         }
 
-        public T ConsumeJsonUrlAndPostData<T>(string Url, NameValueCollection FormValues) where T : class
+        internal T ConsumeJsonUrlAndPostData<T>(string Url, NameValueCollection FormValues) where T : class
         {
             var url = string.Format("{0}{1}{2}",
                 UrlConsumer.GithubBaseURL,
