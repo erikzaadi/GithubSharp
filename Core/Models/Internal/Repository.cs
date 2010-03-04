@@ -15,6 +15,11 @@ namespace GithubSharp.Core.Models.Internal
         public RepoType repository { get; set; }
     }
 
+    internal class RepositoryFromNetworkContainer
+    {
+        public IEnumerable<Models.Repository> network { get; set; }
+
+    }
     internal class RepositoryDelete
     {
         public string delete_token { get; set; }
@@ -23,5 +28,18 @@ namespace GithubSharp.Core.Models.Internal
     internal class RepositoryDeleted
     {
         public string status { get; set; }
+    }
+
+    internal class LanguagesCollection
+    {
+        public Dictionary<string, int> languages { get; set; }
+    }
+    internal class TagCollection
+    {
+        public Dictionary<string, string> tags { get; set; }
+    }
+    internal class BranchesCollection
+    {
+        public Dictionary<string, string> branches { get; set; }
     }
 }

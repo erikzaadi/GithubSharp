@@ -24,4 +24,9 @@ namespace GithubSharp.Core.Models.Internal
     {
         public UserType user { get; set; }
     }
+
+    internal class CollaboratorsCollection
+    {
+        public IEnumerable<string> collaborators { get; set; }
+    }
 }

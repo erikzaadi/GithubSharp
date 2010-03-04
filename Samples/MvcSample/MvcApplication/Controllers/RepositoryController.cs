@@ -149,6 +149,32 @@ namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
             return View(GetBaseView(keys));
         }
 
-      
+        public ActionResult Languages(string RepositoryName, string Username)
+        {
+            var languages = BaseAPI.LanguageBreakDown(RepositoryName, Username);
+
+            return View(GetBaseView(languages));
+        }
+
+        public ActionResult Tags(string RepositoryName, string Username)
+        {
+            var tags = BaseAPI.Tags(RepositoryName, Username);
+
+            return View(GetBaseView(tags));
+        }
+
+        public ActionResult Branches(string RepositoryName, string Username)
+        {
+            var tags = BaseAPI.Branches(RepositoryName, Username);
+
+            return View(GetBaseView(tags));
+        }
+
+        public ActionResult Network(string RepositoryName, string Username)
+        {
+            var network = BaseAPI.Network(RepositoryName, Username);
+
+            return View(GetBaseView(network));
+        }
     }
 }

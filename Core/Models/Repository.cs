@@ -48,5 +48,15 @@ namespace GithubSharp.Core.Models
         public DateTime created { get; set; }
     }
 
-    
+    public class Language
+    {
+        public string Name { get; set; }
+        public int CalculatedBytes { get; set; }
+    }
+
+    public class TagOrBranch
+    {
+        public string Name { get; set; }
+        public string Sha { get; set; }
+    }
 }

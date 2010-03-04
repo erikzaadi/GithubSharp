@@ -81,12 +81,16 @@
     <Content Include="Views\Issues\Index.aspx" />
     <Content Include="Views\Network\Index.aspx" />
     <Content Include="Views\Object\Index.aspx" />
+    <Content Include="Views\Repository\Branches.aspx" />
     <Content Include="Views\Repository\Create.aspx" />
     <Content Include="Views\Repository\Delete.aspx" />
     <Content Include="Views\Repository\Get.aspx" />
+    <Content Include="Views\Repository\Languages.aspx" />
     <Content Include="Views\Repository\List.aspx" />
+    <Content Include="Views\Repository\Network.aspx" />
     <Content Include="Views\Repository\PublicKeys.aspx" />
     <Content Include="Views\Repository\Search.aspx" />
+    <Content Include="Views\Repository\Tags.aspx" />
     <Content Include="Views\Shared\Error.aspx" />
     <Content Include="Views\Shared\Footer.ascx" />
     <Content Include="Views\Shared\Login.aspx" />

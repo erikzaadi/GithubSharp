@@ -11,11 +11,6 @@ namespace GithubSharp.Core.API
     {
         public Repository(ICacheProvider cacheProvider, ILogProvider logProvider) : base(cacheProvider, logProvider) { }
 
-        /// <summary>
-        /// Search 
-        /// </summary>
-        /// <param name="Search"></param>
-        /// <returns></returns>
         public IEnumerable<Models.RepositoryFromSearch> Search(string Search)
         {
             LogProvider.LogMessage(string.Format("Repository.Search - '{0}'", Search));
@@ -188,80 +183,122 @@ namespace GithubSharp.Core.API
             return result == null ? null : result.public_keys.ToArray();
         }
 
-        //Authenticate
-        //Add Deploy Keys (POST)
-        //http://github.com/api/v2/yaml/repos/keys/:repo/add
-        //values title, key
+        public IEnumerable<Models.PublicKey> AddDeployKeys(string RepositoryName, string Title, string Key)
+        {
+            LogProvider.LogMessage("Repository.AddDeployKeys - RepositoryName : '{0}'", RepositoryName);
 
-        //Authenticate
-        //Remove Deploy Keys (POST)
-        //http://github.com/api/v2/yaml/repos/keys/:repo/remove
-        //values id
+            Authenticate();
 
-        //Get Collaborators (Authenticate to see private)
-        //http://github.com/api/v2/xml/repos/show/erikzaadi/jQueryPlugins/collaborators
+            var url = string.Format("repos/keys/{0}/add", RepositoryName);
 
-        //Authenticate
-        //Add Collaborator (POST)
-        //http://github.com/api/v2/xml/repos/collaborators/:repo/add/:user
+            var formValues = new NameValueCollection();
+            formValues.Add("title", Title);
+            formValues.Add("key", Key);
 
-        //Authenticate
-        //Remove Collaborator (POST)
-        //http://github.com/api/v2/xml/repos/collaborators/:repo/remove/:user
+            var result = ConsumeJsonUrlAndPostData<Models.Internal.PublicKeyCollection<Models.PublicKey>>(url, formValues);
 
-        //Show network (forkers)
-        //http://github.com/api/v2/xml/repos/show/:user/:repo/network
-        /*
-         <network type="array"> 
-          <network> 
-            <description>Collection of jQuery plugins</description> 
-            <url>http://github.com/erikzaadi/jQueryPlugins</url> 
-            <homepage></homepage> 
-            <fork type="boolean">false</fork> 
-            <forks type="integer">1</forks> 
-            <open-issues type="integer">3</open-issues> 
-            <private type="boolean">false</private> 
-            <name>jQueryPlugins</name> 
-            <watchers type="integer">7</watchers> 
-            <owner>erikzaadi</owner> 
-          </network> 
-          <network> 
-            <description>Collection of jQuery plugins</description> 
-            <url>http://github.com/vandalo/jQueryPlugins</url> 
-            <homepage></homepage> 
-            <fork type="boolean">true</fork> 
-            <forks type="integer">0</forks> 
-            <open-issues type="integer">0</open-issues> 
-            <private type="boolean">false</private> 
-            <name>jQueryPlugins</name> 
-            <watchers type="integer">1</watchers> 
-            <owner>vandalo</owner> 
-          </network> 
-        </network> 
-         */
+            return result == null ? null : result.public_keys.ToArray();
+        }
 
-        //Language Breakdown
-        //http://github.com/api/v2/xml/repos/show/:user/:repo/languages
+        public IEnumerable<Models.PublicKey> RemovePublicKey(string RepositoryName, int id)
+        {
+            LogProvider.LogMessage(string.Format("Repository.RemovePublicKey - RepositoryName : '{0}' , id : '{1}' ", RepositoryName, id));
 
-        //Repository Refs (Tags)
-        //http://github.com/api/v2/xml/repos/show/:user/:repo/tags
-        //Might be broken as xml, use json?
-        /*
-         <tags> 
-  <v1.2.0>cfad76700b3d38eb3be97e2d5ef75cc0a398f818</v1.2.0> 
-  <1.0.3>be47ad8aea4f854fc2d6773456fb28f3e9f519e7</1.0.3> 
-  <v1.2.1>f85cef0b1916f09ceb38f778ada98b23c8610da7</v1.2.1> 
-  <v1.2.2>85fa6ec3a68b6ff8acfa69c59fbdede1385f63bb</v1.2.2> 
-  <1.0.5>6c4af60f5fc5193b956a4698b604ad96ef3c51c6</1.0.5> 
-  <v1.2.3>2962356828cc0ce07674b1c1fa39fde893732344</v1.2.3> 
-  <1.0.5.1>ae106e2a3569e5ea874852c613ed060d8e232109</1.0.5.1> 
-  <v1.2.4>1987b5010ed1abff915bd87146753323754bfb13</v1.2.4> 
-  <v1.2.5>94f389bf5d9af4511597d035e69d1be9510b50c7</v1.2.5> 
-  <v1.0.7>1adc5b8136c2cd6c694629947e1dbc49c8bffe6a</v1.0.7> 
-</tags>
-         */
+            Authenticate();
 
-        //To get a list of remote branches
-        //http://github.com/api/v2/yaml/repos/show/schacon/ruby-git/branches
+            var url = string.Format("repos/keys/{0}/remove", RepositoryName);
+
+            var formValues = new NameValueCollection();
+            formValues.Add("id", id.ToString());
+
+            var result = ConsumeJsonUrlAndPostData<Models.Internal.PublicKeyCollection<Models.PublicKey>>(url, formValues);
+
+            return result == null ? null : result.public_keys.ToArray();
+        }
+
+        public string[] GetCollaborators(string Username, string RepositoryName)
+        {
+            LogProvider.LogMessage(string.Format("Repository.GetCollaborators - RepositoryName : '{0}' , Username : '{1}'", RepositoryName, Username));
+
+            var url = string.Format("repos/show/{0}/{1}/collaborators", Username, RepositoryName);
+
+            var result = ConsumeJsonUrl<Models.Internal.CollaboratorsCollection>(url);
+
+            return result == null ? null : result.collaborators.ToArray();
+        }
+
+        public string[] AddCollaborator(string RepositoryName, string Username)
+        {
+            LogProvider.LogMessage(string.Format("Repository.AddCollaborator - RepositoryName : '{0}' , Username : '{1}' ", RepositoryName, Username));
+
+            Authenticate();
+
+            var url = string.Format("repos/collaborators/{0}/add/{1}", RepositoryName, Username);
+
+            var formValues = new NameValueCollection();
+
+            var result = ConsumeJsonUrlAndPostData<Models.Internal.CollaboratorsCollection>(url, formValues);
+
+            return result == null ? null : result.collaborators.ToArray();
+        }
+
+        public string[] RemoveCollaborator(string RepositoryName, string Username)
+        {
+            LogProvider.LogMessage(string.Format("Repository.RemoveCollaborator - RepositoryName : '{0}' , Username : '{1}' ", RepositoryName, Username));
+
+            Authenticate();
+
+            var url = string.Format("repos/collaborators/{0}/remove/{1}", RepositoryName, Username);
+
+            var formValues = new NameValueCollection();
+
+            var result = ConsumeJsonUrlAndPostData<Models.Internal.CollaboratorsCollection>(url, formValues);
+
+            return result == null ? null : result.collaborators.ToArray();
+        }
+
+        public IEnumerable<Models.Repository> Network(string RepositoryName, string Username)
+        {
+            LogProvider.LogMessage(string.Format("Repository.Network - RepositoryName : '{0}' , Username : '{1}' ", RepositoryName, Username));
+
+            var url = string.Format("repos/show/{1}/{0}/network", RepositoryName, Username);
+
+            var result = ConsumeJsonUrl<Models.Internal.RepositoryFromNetworkContainer>(url);
+
+            return result == null ? null : result.network.ToArray();
+        }
+
+        public IEnumerable<Models.Language> LanguageBreakDown(string RepositoryName, string Username)
+        {
+            LogProvider.LogMessage(string.Format("Repository.LanguageBreakDown - RepositoryName : '{0}' , Username : '{1}' ", RepositoryName, Username));
+
+            var url = string.Format("repos/show/{1}/{0}/languages", RepositoryName, Username);
+
+            var result = ConsumeJsonUrl<Models.Internal.LanguagesCollection>(url);
+
+            return result == null ? null : result.languages.ToList().Select(p => new Models.Language { Name = p.Key, CalculatedBytes = p.Value }).ToArray();
+        }
+
+        public IEnumerable<Models.TagOrBranch> Tags(string RepositoryName, string Username)
+        {
+            LogProvider.LogMessage(string.Format("Repository.Tags - RepositoryName : '{0}' , Username : '{1}' ", RepositoryName, Username));
+
+            var url = string.Format("repos/show/{1}/{0}/tags", RepositoryName, Username);
+
+            var result = ConsumeJsonUrl<Models.Internal.TagCollection>(url);
+
+            return result == null ? null : result.tags.ToList().Select(p => new Models.TagOrBranch { Name = p.Key, Sha = p.Value }).ToArray();
+        }
+
+        public IEnumerable<Models.TagOrBranch> Branches(string RepositoryName, string Username)
+        {
+            LogProvider.LogMessage(string.Format("Repository.Branches - RepositoryName : '{0}' , Username : '{1}' ", RepositoryName, Username));
+
+            var url = string.Format("repos/show/{1}/{0}/branches", RepositoryName, Username);
+
+            var result = ConsumeJsonUrl<Models.Internal.BranchesCollection>(url);
+
+            return result == null ? null : result.branches.ToList().Select(p => new Models.TagOrBranch { Name = p.Key, Sha = p.Value }).ToArray();
+        }
     }
 }
