@@ -10,8 +10,6 @@ namespace GithubSharp.Core.Base
 {
     internal class Url
     {
-
-        //TODO: Add ILogger for all the try-catch.. debug parameter?
         internal Url(ICacheProvider cacheProvider, ILogProvider logProvider)
         {
             _CacheProvider = cacheProvider;

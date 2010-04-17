@@ -3,92 +3,64 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GithubSharp.Core.Services;
+using GithubSharp.Core.Models;
 
 namespace GithubSharp.Core.API
 {
     public class Network : Base.BaseAPI, Base.IBaseAPI
     {
         public Network(ICacheProvider cacheProvider, ILogProvider logProvider) : base(cacheProvider, logProvider) { }
-		
-        //Get Meta
-        //http://github.com/erikzaadi/jQueryPlugins/network_meta
-        /*
-     {
-  "focus": 78,
-  "nethash": "fa8fe264b926cdebaab36420b6501bd74402a6ff",
-  "dates": [
-    "2008-03-15",
-    "2008-03-15",
-    "2008-03-17",
-    "2008-03-17",
-    ...
-    "2009-02-15",
-    "2009-02-15",
-    "2009-03-19"
-  ],
-  "users": [
-    {
-      "name": "schacon",
-      "repo": "simplegit",
-      "heads": [ { "name": "master",
-       "id": "96476742093b8a53947564b16a691349dad846e5" } ]
-    },
-    {
-      "name": "tamtam",
-      "repo": "tam_repo",
-      "heads": [ { "name": "master",
- 	  "id": "8bf4aeae935422e7bdbb30660b4f3642728a1397" } ]
-    }
-  ],
-  "blocks": [
-    { "name": "schacon", "start": 0, "count": 3 },
-    { "name": "tamtam", "start": 3,  "count": 1 },
-  ]
-}       */
+
+        public NetworkMeta Meta(
+            string Username,
+            string RepositoryName)
+        {
+            LogProvider.LogMessage(string.Format("Network.Meta - Username : '{0}', RepositoryName : '{1}'",
+                Username,
+                RepositoryName));
+
+            var url = string.Format("http://github.com/{0}/{1}/network_meta",
+                Username,
+                RepositoryName);
+
+            return ConsumeJsonUrl<NetworkMeta>(url);
+        }
+
+        public IEnumerable<NetworkChunk> MetaChunks(
+                   string Username,
+                   string RepositoryName,
+                   string NetworkHash)
+        {
+            return MetaChunks(Username,
+                RepositoryName,
+                NetworkHash,
+                -1,
+                -1);
+        }
 
 
-        //Network Data
-        //http://github.com/schacon/simplegit/network_data_chunk?nethash=fa8fe264b926cdebaab36420b6501bd74402a6ff
-        //Optional, add range "start" and "end"
-        /*
-         {
-	  "commits": [
-	    {
-	      "message": "my second commit, which is better than the first",
-	      "time": 1,
-	      "parents": [
-	        [
-	          "a11bef06a3f659402fe7563abf99ad00de2209e6",
-	          0,
-	          1
-	        ]
-	      ],
-	      "date": "2008-03-15 16:40:33",
-	      "author": "Scott Chacon",
-	      "id": "0576fac355dd17e39fd2671b010e36299f713b4d",
-	      "space": 1,
-	      "gravatar": "9375a9529679f1b42b567a640d775e7d",
-	      "login": "schacon"
-	    },
-	    {
-	      "message": "changed the verison number",
-	      "time": 2,
-	      "parents": [
-	        [
-	          "0576fac355dd17e39fd2671b010e36299f713b4d",
-	          1,
-	          1
-	        ]
-	      ],
-	      "date": "2008-03-17 21:52:11",
-	      "author": "Scott Chacon",
-	      "id": "0c8a9ec46029a4e92a428cb98c9693f09f69a3ff",
-	      "space": 1,
-	      "gravatar": "9375a9529679f1b42b567a640d775e7d",
-	      "login": "schacon"
-	    }
-	  ]
-	}
-         */
+        public IEnumerable<NetworkChunk> MetaChunks(
+                    string Username,
+                    string RepositoryName,
+                    string NetworkHash,
+                    int Start,
+                    int End)
+        {
+            LogProvider.LogMessage(string.Format("Network.MetaChunks - Username : '{0}', RepositoryName : '{1}', NetworkHash : '{2}'",
+                Username,
+                RepositoryName,
+                NetworkHash));
+
+            var url = string.Format("http://github.com/{0}/{1}/network_data_chunk?nethash={2}{3}",
+                Username,
+                RepositoryName,
+                NetworkHash,
+                End > 0 && Start > -1 ?
+                    string.Format("?start={0}&end={1}", Start, End) : string.Empty);
+
+            var result = ConsumeJsonUrl<Models.Internal.NetworkChunkContainer>(url);
+
+            return result != null ? result.commits : null;
+        }
     }
 }

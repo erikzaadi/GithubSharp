@@ -66,7 +66,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Internal\Commit.cs" />
     <Compile Include="Models\Internal\Issues.cs" />
+    <Compile Include="Models\Internal\Network.cs" />
+    <Compile Include="Models\Internal\Object.cs" />
     <Compile Include="Models\Issue.cs" />
     <Compile Include="Base\BaseAPI.cs" />
     <Compile Include="API\Gist.cs" />
@@ -81,12 +84,12 @@
     <Compile Include="API\Network.cs" />
     <Compile Include="API\User.cs" />
     <Compile Include="Base\JsonConverter.cs" />
-    <Compile Include="Models\BlobItem.cs" />
     <Compile Include="Models\Commit.cs" />
     <Compile Include="Models\Internal\Repository.cs" />
     <Compile Include="Models\Internal\User.cs" />
+    <Compile Include="Models\Network.cs" />
+    <Compile Include="Models\Object.cs" />
     <Compile Include="Models\Repository.cs" />
-    <Compile Include="Models\Tree.cs" />
     <Compile Include="Models\GithubUser.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Services\ICacheProvider.cs" />
