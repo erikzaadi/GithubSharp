@@ -21,7 +21,7 @@ namespace GithubSharp.Core.API
                 RepositoryName,
                 BranchName));
 
-            var url = string.Format("commits/list/{0}/{1}/{3}",
+            var url = string.Format("commits/list/{0}/{1}/{2}",
                 Username,
                 RepositoryName,
                 BranchName);
@@ -56,7 +56,7 @@ namespace GithubSharp.Core.API
         }
 
 
-        public SingleFileCommit CommitForFile(
+        public SingleFileCommit CommitForSingleFile(
             string Username,
             string RepositoryName,
             string CommitShaId)

@@ -75,10 +75,13 @@
     <Content Include="js\jquery-1.4.1.min.js" />
     <Content Include="js\main.js" />
     <Content Include="js\main.min.js" />
+    <Content Include="Views\Commit\CommitRenderer.ascx" />
+    <Content Include="Views\Commit\Commits.aspx" />
+    <Content Include="Views\Commit\Commit.aspx" />
     <Content Include="Views\Commit\Index.aspx" />
+    <Content Include="Views\Commit\SingleFileCommitRenderer.ascx" />
     <Content Include="Views\Gists\Index.aspx" />
     <Content Include="Views\Home\Index.aspx" />
-    <Content Include="Views\Home\test.aspx" />
     <Content Include="Views\Issues\Comments.aspx" />
     <Content Include="Views\Issues\Index.aspx" />
     <Content Include="Views\Issues\Issue.ascx" />
