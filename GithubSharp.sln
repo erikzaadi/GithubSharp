@@ -25,6 +25,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MvcSample", "MvcSample", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcUI", "Samples\MvcSample\MvcUI\MvcUI.csproj", "{33D4B918-DCF3-4A85-A353-ED141ECF7E3B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_READMES", "_READMES", "{A80BD636-8C82-49C2-A519-D73D26A30C3E}"
+	ProjectSection(SolutionItems) = preProject
+		NOTES = NOTES
+		README = README
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
