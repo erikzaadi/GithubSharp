@@ -1,15 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using GithubSharp.Core.Services;
 using System.Collections.Specialized;
 
 namespace GithubSharp.Core.API
 {
-    public class User : Base.BaseAPI, Base.IBaseAPI
+    public class User : Base.BaseAPI
     {
-        public User(ICacheProvider cacheProvider, ILogProvider logProvider) : base(cacheProvider, logProvider) { }
+        public User(ICacheProvider CacheProvider, ILogProvider LogProvider) : base(CacheProvider, LogProvider) { }
         /// <summary>
         /// Search for users
         /// </summary>
@@ -45,8 +44,7 @@ namespace GithubSharp.Core.API
         /// Gets extended details (including private information) for a user
         ///<para>Needs to bee authenticated (with a valid Github User)</para>
         /// </summary>
-        /// <param name="AuthenticatedUser"></param>
-        /// <returns></returns>
+        ///<returns></returns>
         public Models.UserAuthenticated Get()
         {
             LogProvider.LogMessage(string.Format("User.Get (Authenticated) - '{0}'", CurrentUsername));
@@ -96,25 +94,25 @@ namespace GithubSharp.Core.API
         /// Updates a users details
         ///<para>Needs to bee authenticated (with a valid Github User)</para>
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="email"></param>
-        /// <param name="blog"></param>
-        /// <param name="company"></param>
-        /// <param name="location"></param>
+        /// <param name="Name"></param>
+        /// <param name="Email"></param>
+        /// <param name="Blog"></param>
+        /// <param name="Company"></param>
+        /// <param name="Location"></param>
         /// <returns></returns>
         public Models.UserAuthenticated Update(
-            string name,
-            string email,
-            string blog,
-            string company,
-            string location)
+            string Name,
+            string Email,
+            string Blog,
+            string Company,
+            string Location)
         {
             LogProvider.LogMessage(string.Format("User.Update (Authenticated)\nName: '{0}' Email : '{1}' Blog : '{2}' Company : '{3}' Location : '{4}'",
-                name,
-                email,
-                blog,
-                company,
-                location));
+                Name,
+                Email,
+                Blog,
+                Company,
+                Location));
 
             Authenticate();
 
@@ -124,16 +122,16 @@ namespace GithubSharp.Core.API
 
             var formValues = new NameValueCollection();
 
-            if (name != null)//an empty string is ok
-                formValues.Add("name", name);
-            if (email != null)//an empty string is ok
-                formValues.Add("email", email);
-            if (blog != null)//an empty string is ok
-                formValues.Add("blog", blog);
-            if (company != null)//an empty string is ok
-                formValues.Add("company", company);
-            if (location != null)//an empty string is ok
-                formValues.Add("location", location);
+            if (Name != null)//an empty string is ok
+                formValues.Add("name", Name);
+            if (Email != null)//an empty string is ok
+                formValues.Add("email", Email);
+            if (Blog != null)//an empty string is ok
+                formValues.Add("blog", Blog);
+            if (Company != null)//an empty string is ok
+                formValues.Add("company", Company);
+            if (Location != null)//an empty string is ok
+                formValues.Add("location", Location);
 
             if (formValues.Count == 0)
             {
@@ -237,18 +235,18 @@ namespace GithubSharp.Core.API
         /// Removes a public key
         ///<para>Needs to bee authenticated (with a valid Github User)</para>
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="Id"></param>
         /// <returns></returns>
-        public IEnumerable<Models.PublicKey> RemovePublicKey(int id)
+        public IEnumerable<Models.PublicKey> RemovePublicKey(int Id)
         {
-            LogProvider.LogMessage(string.Format("User.RemovePublicKey - id : '{0}' ", id));
+            LogProvider.LogMessage(string.Format("User.RemovePublicKey - id : '{0}' ", Id));
 
             Authenticate();
 
             var url = "user/keys/remove";
 
             var formValues = new NameValueCollection();
-            formValues.Add("id", id.ToString());
+            formValues.Add("id", Id.ToString());
 
             var result = ConsumeJsonUrlAndPostData<Models.Internal.PublicKeyCollection<Models.PublicKey>>(url, formValues);
 
@@ -286,12 +284,12 @@ namespace GithubSharp.Core.API
 
             Authenticate();
 
-            var url = "user/emails/add";
+            var url = "user/email/add";
 
             var formValues = new NameValueCollection();
             formValues.Add("email", Email);
 
-            var result = ConsumeJsonUrlAndPostData<Models.Internal.EmailCollection>(url);
+            var result = ConsumeJsonUrlAndPostData<Models.Internal.EmailCollection>(url, formValues);
 
             return result == null ? null : result.emails.ToArray();
         }
@@ -308,12 +306,12 @@ namespace GithubSharp.Core.API
 
             Authenticate();
 
-            var url = "user/emails/remove";
+            var url = "user/email/remove";
 
             var formValues = new NameValueCollection();
             formValues.Add("email", Email);
 
-            var result = ConsumeJsonUrlAndPostData<Models.Internal.EmailCollection>(url);
+            var result = ConsumeJsonUrlAndPostData<Models.Internal.EmailCollection>(url, formValues);
 
             return result == null ? null : result.emails.ToArray();
         }
