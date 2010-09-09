@@ -1,20 +1,17 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using GithubSharp.Core.Services;
 using System.Collections.Specialized;
 
 namespace GithubSharp.Core.API
 {
-    public class Issues : Base.BaseAPI, Base.IBaseAPI
+    public class Issues : Base.BaseAPI
     {
-        public Issues(ICacheProvider cacheProvider, ILogProvider logProvider) : base(cacheProvider, logProvider) { }
+        public Issues(ICacheProvider CacheProvider, ILogProvider LogProvider) : base(CacheProvider, LogProvider) { }
 
         public IEnumerable<Models.Issue> Search(
             string RepositoryName,
             string Username,
-            GithubSharp.Core.Models.IssueState State,
+            Models.IssueState State,
             string Search)
         {
             string state = State == Models.IssueState.open ? "open" : "closed";
@@ -35,7 +32,7 @@ namespace GithubSharp.Core.API
         public IEnumerable<Models.Issue> List(
          string RepositoryName,
          string Username,
-         GithubSharp.Core.Models.IssueState State)
+         Models.IssueState State)
         {
             string state = State == Models.IssueState.open ? "open" : "closed";
             LogProvider.LogMessage(string.Format("Issues.List - RepositoryName : '{0}', Username : '{1}', State : '{2}'", RepositoryName, Username, state));
@@ -53,14 +50,14 @@ namespace GithubSharp.Core.API
         public Models.Issue View(
             string RepositoryName,
             string Username,
-            int id)
+            int Id)
         {
-            LogProvider.LogMessage(string.Format("Issues.View - RepositoryName: '{0}', Username : '{1}', Id : '{2}'", RepositoryName, Username, id));
+            LogProvider.LogMessage(string.Format("Issues.View - RepositoryName: '{0}', Username : '{1}', Id : '{2}'", RepositoryName, Username, Id));
 
             var url = string.Format("issues/show/{0}/{1}/{2}",
                 Username,
                 RepositoryName,
-                id);
+                Id);
 
             var result = ConsumeJsonUrl<Models.Internal.IssueContainer>(url);
 
@@ -94,7 +91,8 @@ namespace GithubSharp.Core.API
 
             var url = string.Format("issues/reopen/{0}/{1}/{2}",
                Username,
-               RepositoryName);
+               RepositoryName,
+               Id);
 
             var formValues = new NameValueCollection();
 
@@ -111,7 +109,8 @@ namespace GithubSharp.Core.API
 
             var url = string.Format("issues/close/{0}/{1}/{2}",
                Username,
-               RepositoryName);
+               RepositoryName,
+               Id);
 
             var formValues = new NameValueCollection();
 
