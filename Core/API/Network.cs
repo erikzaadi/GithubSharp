@@ -1,15 +1,12 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using GithubSharp.Core.Services;
 using GithubSharp.Core.Models;
 
 namespace GithubSharp.Core.API
 {
-    public class Network : Base.BaseAPI, Base.IBaseAPI
+    public class Network : Base.BaseAPI
     {
-        public Network(ICacheProvider cacheProvider, ILogProvider logProvider) : base(cacheProvider, logProvider) { }
+        public Network(ICacheProvider CacheProvider, ILogProvider LogProvider) : base(CacheProvider, LogProvider) { }
 
         public NetworkMeta Meta(
             string Username,
@@ -46,10 +43,12 @@ namespace GithubSharp.Core.API
                     int Start,
                     int End)
         {
-            LogProvider.LogMessage(string.Format("Network.MetaChunks - Username : '{0}', RepositoryName : '{1}', NetworkHash : '{2}'",
+            LogProvider.LogMessage(string.Format("Network.MetaChunks - Username : '{0}', RepositoryName : '{1}', NetworkHash : '{2}', Start : '{3}', End : '{4}'",
                 Username,
                 RepositoryName,
-                NetworkHash));
+                NetworkHash,
+                Start,
+                End));
 
             var url = string.Format("http://github.com/{0}/{1}/network_data_chunk?nethash={2}{3}",
                 Username,

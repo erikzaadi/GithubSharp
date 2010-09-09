@@ -122,7 +122,7 @@ namespace GithubSharp.Core.API
 
         public Models.Issue Edit(string RepositoryName, string Username, int Id, string Title, string Body)
         {
-            LogProvider.LogMessage(string.Format("Issues.Open - RepositoryName: '{0}', Username : '{1}', Title : '{2}', Id : '{3}'", RepositoryName, Username, Title, Id));
+            LogProvider.LogMessage(string.Format("Issues.Edit - RepositoryName: '{0}', Username : '{1}', Title : '{2}', Id : '{3}'", RepositoryName, Username, Title, Id));
 
             Authenticate();
 
@@ -142,7 +142,7 @@ namespace GithubSharp.Core.API
 
         public string[] Labels(string RepositoryName, string Username)
         {
-            LogProvider.LogMessage(string.Format("Issues.List - Labels : RepositoryName '{0}', Username : '{1}'", RepositoryName, Username));
+            LogProvider.LogMessage(string.Format("Issues.Labels - Labels : RepositoryName '{0}', Username : '{1}'", RepositoryName, Username));
 
             var url = string.Format("issues/labels/{0}/{1} ",
                 Username,

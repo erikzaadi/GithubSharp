@@ -1,15 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using GithubSharp.Core.Services;
 using System.Collections.Specialized;
 
 namespace GithubSharp.Core.API
 {
-    public class Repository : Base.BaseAPI, Base.IBaseAPI
+    public class Repository : Base.BaseAPI
     {
-        public Repository(ICacheProvider cacheProvider, ILogProvider logProvider) : base(cacheProvider, logProvider) { }
+        public Repository(ICacheProvider CacheProvider, ILogProvider LogProvider) : base(CacheProvider, LogProvider) { }
 
         public IEnumerable<Models.RepositoryFromSearch> Search(string Search)
         {
@@ -57,8 +56,7 @@ namespace GithubSharp.Core.API
 
             Authenticate();
 
-            var url = string.Format("{0}{1}/{2}",
-                "repos/watch/",
+            var url = string.Format("repos/watch/{0}/{1}",
                 Username,
                 RepositoryName);
 
@@ -69,12 +67,11 @@ namespace GithubSharp.Core.API
 
         public Models.Repository Unwatch(string Username, string RepositoryName)
         {
-            LogProvider.LogMessage(string.Format("Repository.Watch - Username : '{0}' , RepositoryName : '{1}'", Username, RepositoryName));
+            LogProvider.LogMessage(string.Format("Repository.Unwatch - Username : '{0}' , RepositoryName : '{1}'", Username, RepositoryName));
 
             Authenticate();
 
-            var url = string.Format("{0}{1}/{2}",
-                "repos/unwatch/",
+            var url = string.Format("repos/unwatch/{0}/{1}",
                 Username,
                 RepositoryName);
 
@@ -89,8 +86,7 @@ namespace GithubSharp.Core.API
 
             Authenticate();
 
-            var url = string.Format("{0}{1}/{2}",
-                "repos/fork/",
+            var url = string.Format("repos/fork/{0}/{1}",
                 Username,
                 RepositoryName);
 
@@ -160,8 +156,7 @@ namespace GithubSharp.Core.API
 
             Authenticate();
 
-            var url = string.Format("{0}{1}/{2}",
-                "repos/set/",
+            var url = string.Format("repos/set/{0}/{1}",
                 Visibility ? "public" : "private",
                 RepositoryName);
 
@@ -200,16 +195,16 @@ namespace GithubSharp.Core.API
             return result == null ? null : result.public_keys.ToArray();
         }
 
-        public IEnumerable<Models.PublicKey> RemovePublicKey(string RepositoryName, int id)
+        public IEnumerable<Models.PublicKey> RemovePublicKey(string RepositoryName, int Id)
         {
-            LogProvider.LogMessage(string.Format("Repository.RemovePublicKey - RepositoryName : '{0}' , id : '{1}' ", RepositoryName, id));
+            LogProvider.LogMessage(string.Format("Repository.RemovePublicKey - RepositoryName : '{0}' , id : '{1}' ", RepositoryName, Id));
 
             Authenticate();
 
             var url = string.Format("repos/keys/{0}/remove", RepositoryName);
 
             var formValues = new NameValueCollection();
-            formValues.Add("id", id.ToString());
+            formValues.Add("id", Id.ToString());
 
             var result = ConsumeJsonUrlAndPostData<Models.Internal.PublicKeyCollection<Models.PublicKey>>(url, formValues);
 

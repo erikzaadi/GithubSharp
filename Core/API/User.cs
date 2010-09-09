@@ -116,9 +116,7 @@ namespace GithubSharp.Core.API
 
             Authenticate();
 
-            var url = string.Format("{0}{1}",
-                "user/show/",
-                CurrentUsername);
+            var url = string.Format("user/show/{0}", CurrentUsername);
 
             var formValues = new NameValueCollection();
 
@@ -159,9 +157,8 @@ namespace GithubSharp.Core.API
 
             Authenticate();
 
-            var url = string.Format("{0}{1}",
-              "user/follow/",
-              Username);
+            var url = string.Format("user/follow/{0}", Username);
+
             var result = ConsumeJsonUrlAndPostData<Models.Internal.UsersCollection<string>>(url);
 
             return result == null ? null : result.users.ToArray();
@@ -220,7 +217,7 @@ namespace GithubSharp.Core.API
 
             Authenticate();
 
-            var url = "user/keys/add";
+            var url = "user/key/add";
 
             var formValues = new NameValueCollection();
             formValues.Add("title", PublicKey.title);
@@ -243,7 +240,7 @@ namespace GithubSharp.Core.API
 
             Authenticate();
 
-            var url = "user/keys/remove";
+            var url = "user/key/remove";
 
             var formValues = new NameValueCollection();
             formValues.Add("id", Id.ToString());

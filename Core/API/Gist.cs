@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using GithubSharp.Core.Services;
 
 namespace GithubSharp.Core.API
 {
-    public class Gist : Base.BaseAPI, Base.IBaseAPI
+    public class Gist : Base.BaseAPI
     {
-        public Gist(ICacheProvider cacheProvider, ILogProvider logProvider) : base(cacheProvider, logProvider) { }
+        public Gist(ICacheProvider CacheProvider, ILogProvider LogProvider) : base(CacheProvider, LogProvider) { }
         //http://github.com/mattikus/pygist/blob/master/pygist.py
         //http://github.com/miyagawa/gistp/blob/master/gistp
         //http://github.com/defunkt/gist/blob/master/gist.rb
@@ -16,7 +12,6 @@ namespace GithubSharp.Core.API
 
         //http://gist.github.com/api/v1/xml/search/gist
         //http://gist.github.com/api/v1/xml/new
-        ///gists/update_description - description
 
         //Delete
         //http://gist.github.com/delete/:id

@@ -1,15 +1,12 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using GithubSharp.Core.Services;
 using GithubSharp.Core.Models;
 
 namespace GithubSharp.Core.API
 {
-    public class Commits : Base.BaseAPI, Base.IBaseAPI
+    public class Commits : Base.BaseAPI
     {
-        public Commits(ICacheProvider cacheProvider, ILogProvider logProvider) : base(cacheProvider, logProvider) { }
+        public Commits(ICacheProvider CacheProvider, ILogProvider LogProvider) : base(CacheProvider, LogProvider) { }
 
         public IEnumerable<Commit> CommitsForBranch(
             string Username,
@@ -38,7 +35,7 @@ namespace GithubSharp.Core.API
             string BranchName,
             string FilePath)
         {
-            LogProvider.LogMessage(string.Format("Commits.Commits - Username : '{0}', RepositoryName : '{1}', Branch : '{2}', Path : '{3}'",
+            LogProvider.LogMessage(string.Format("Commits.CommitsForFile - Username : '{0}', RepositoryName : '{1}', Branch : '{2}', Path : '{3}'",
                 Username,
                 RepositoryName,
                 BranchName,
@@ -61,7 +58,7 @@ namespace GithubSharp.Core.API
             string RepositoryName,
             string CommitShaId)
         {
-            LogProvider.LogMessage(string.Format("Commits.Commits - Username : '{0}', RepositoryName : '{1}', CommitShaId : '{2}'",
+            LogProvider.LogMessage(string.Format("Commits.CommitForSingleFile - Username : '{0}', RepositoryName : '{1}', CommitShaId : '{2}'",
                 Username,
                 RepositoryName,
                 CommitShaId));

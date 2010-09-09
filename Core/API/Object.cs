@@ -1,15 +1,12 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using GithubSharp.Core.Services;
 using GithubSharp.Core.Models;
 
 namespace GithubSharp.Core.API
 {
-    public class Object : Base.BaseAPI, Base.IBaseAPI
+    public class Object : Base.BaseAPI
     {
-        public Object(ICacheProvider cacheProvider, ILogProvider logProvider) : base(cacheProvider, logProvider) { }
+        public Object(ICacheProvider CacheProvider, ILogProvider LogProvider) : base(CacheProvider, LogProvider) { }
 
         public IEnumerable<Models.Object> Trees(
             string Username,
