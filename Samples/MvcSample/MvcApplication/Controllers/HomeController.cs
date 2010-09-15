@@ -1,56 +1,51 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.IO;
-using System.Text;
 using GithubSharp.Core.Services;
+using GithubSharp.Samples.MvcSample.MvcApplication.Models.ViewModels;
 
-namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
+namespace GithubSharp.MvcSample.MvcApplication.Controllers
 {
     public class HomeController : BaseController
     {
-        public HomeController(ICacheProvider cacheProvider, ILogProvider logProvider) : base(cacheProvider, logProvider)
+        public HomeController(ICacheProvider Cache, ILogProvider Log)
+            : base(Cache, Log)
         {
-        
         }
 
-        public ActionResult Login(string id)
+        public ActionResult Login(string Id)
         {
-            var model = new Models.ViewModels.LoginViewModel { ReturnURL = id };
+            var model = new LoginViewModel { ReturnURL = Id };
             if (Request.IsAjaxRequest())
                 return PartialView("LoginControl", model);
             return View(GetBaseView(model));
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Login(string user, string apitoken, string returnURL)
+        public ActionResult Login(string user, string Apitoken, string ReturnURL)
         {
-            var userAPI = new GithubSharp.Core.API.User(CacheProvider, LogProvider);
-            userAPI.Authenticate(new GithubSharp.Core.Models.GithubUser { Name = user, APIToken = apitoken });
+            var userAPI = new Core.API.User(CacheProvider, LogProvider);
+            userAPI.Authenticate(new Core.Models.GithubUser { Name = user, APIToken = Apitoken });
             try
             {
                 var privateuser = userAPI.Get();
-                if (privateuser != null)
-                {
-                    CurrentUser = new GithubSharp.Core.Models.GithubUser { Name = user, APIToken = apitoken };
+                if (privateuser == null)
+                    throw new Exception("Invalid user");
 
-                    SetTemporaryNotification("Login succeded");
+                CurrentUser = new Core.Models.GithubUser { Name = user, APIToken = Apitoken };
 
-                    if (Request.IsAjaxRequest())
-                        return Json(new { success = true, Name = user });
-                    if (string.IsNullOrEmpty(returnURL))
-                        return View("Index");
-                    return Redirect(returnURL);
-                }
-                else throw new Exception("Invalid user");
+                SetTemporaryNotification("Login succeded");
+
+                if (Request.IsAjaxRequest())
+                    return Json(new { success = true, Name = user });
+                if (string.IsNullOrEmpty(ReturnURL))
+                    return View("Index");
+                return Redirect(ReturnURL);
             }
             catch (Exception error)
             {
                 if (Request.IsAjaxRequest())
                     return Json(new { success = false, message = error.Message });
-                return View(GetBaseView(new Models.ViewModels.LoginViewModel { Message = error.Message, ReturnURL = returnURL }));
+                return View(GetBaseView(new LoginViewModel { Message = error.Message, ReturnURL = ReturnURL }));
             }
         }
     }

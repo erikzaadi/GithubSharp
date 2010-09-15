@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.master" Inherits="System.Web.Mvc.ViewPage<GithubSharp.Samples.MvcSample.MvcApplication.Models.ViewModels.BaseViewModel<IEnumerable<GithubSharp.Core.Models.Repository>>>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.master" Inherits="System.Web.Mvc.ViewPage<GithubSharp.MvcSample.MvcApplication.Models.ViewModels.BaseViewModel<System.Collections.Generic.IEnumerable<GithubSharp.Core.Models.Repository>>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     List
@@ -84,38 +84,38 @@
             <td>
                 <%= Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) %>
                 |
-                <%= Html.ActionLink("Details", "Get", new { RepositoryName = item.name, Username = item.owner })%>
-                <%= Html.If(Model.CurrentUser != null && item.owner == Model.CurrentUser.Name, ()=> Html.ActionLink("Delete", "Delete", new { RepositoryName = item.name, Username = item.owner }))%>
+                <%= Html.ActionLink("Details", "Get", new { RepositoryName = item.Name, Username = item.Owner })%>
+                <%= Html.If(Model.CurrentUser != null && item.Owner == Model.CurrentUser.Name, ()=> Html.ActionLink("Delete", "Delete", new { RepositoryName = item.Name, Username = item.Owner }))%>
             </td>
             <td>
-                <%= Html.Encode(item.url) %>
+                <%= Html.Encode(item.URL) %>
             </td>
             <td>
-                <%= Html.Encode(item.description) %>
+                <%= Html.Encode(item.Description) %>
             </td>
             <td>
-                <%= Html.Encode(item.homepage) %>
+                <%= Html.Encode(item.Homepage) %>
             </td>
             <td>
-                <%= Html.Encode(item.name) %>
+                <%= Html.Encode(item.Name) %>
             </td>
             <td>
-                <%= Html.Encode(item.owner) %>
+                <%= Html.Encode(item.Owner) %>
             </td>
             <td>
-                <%= Html.Encode(item.fork) %>
+                <%= Html.Encode(item.Fork) %>
             </td>
             <td>
-                <%= Html.Encode(item.@private) %>
+                <%= Html.Encode(item.Private) %>
             </td>
             <td>
-                <%= Html.Encode(item.open_issues) %>
+                <%= Html.Encode(item.OpenIssues) %>
             </td>
             <td>
-                <%= Html.Encode(item.watchers) %>
+                <%= Html.Encode(item.Watchers) %>
             </td>
             <td>
-                <%= Html.Encode(item.forks) %>
+                <%= Html.Encode(item.Forks) %>
             </td>
             <td>
                 <%= Html.Encode(item.WatchersURL) %>

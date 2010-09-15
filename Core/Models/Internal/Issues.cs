@@ -1,39 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace GithubSharp.Core.Models.Internal
 {
+    [DataContract]
     internal class IssuesCollection
     {
-        public IEnumerable<Issue> issues { get; set; }
+        [DataMember(Name = "issues")]
+        public IEnumerable<Issue> Issues { get; set; }
     }
 
+    [DataContract]
     internal class IssueContainer
     {
-        public Issue issue { get; set; }
+        [DataMember(Name = "issue")]
+        public Issue Issue { get; set; }
     }
 
+    [DataContract]
     internal class LabelsCollection
     {
-        public string[] labels { get; set; }
+        [DataMember(Name = "labels")]
+        public string[] Labels { get; set; }
     }
 
+    [DataContract]
     internal class CommentsCollection
     {
-        public IEnumerable<Comment> comments { get; set; }
+        [DataMember(Name = "comments")]
+        public IEnumerable<Comment> Comments { get; set; }
     }
 
+    [DataContract]
     internal class CommentSavedContainer
     {
-        public CommentSaved comment { get; set; }
+        [DataMember(Name = "comment")]
+        public CommentSaved Comment { get; set; }
     }
 
+    [DataContract]
     internal class CommentSaved
     {
-        public string comment { get; set; }
-        public string status { get; set; }
-    }
+        [DataMember(Name = "comment")]
+        public string Comment { get; set; }
 
+        [DataMember(Name = "status")]
+        public string Status { get; set; }
+    }
 }

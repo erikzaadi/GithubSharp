@@ -57,6 +57,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions">
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>

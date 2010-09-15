@@ -8,34 +8,34 @@ namespace GithubSharp.Core.Base
 {
     internal class Url
     {
-        internal Url(ICacheProvider cacheProvider, ILogProvider logProvider)
+        internal Url(ICacheProvider Cache, ILogProvider Log)
         {
-            _CacheProvider = cacheProvider;
-            _LogProvider = logProvider;
+            CacheProvider = Cache;
+            LogProvider = Log;
         }
 
-        internal ICacheProvider _CacheProvider;
-        internal ILogProvider _LogProvider;
+        internal ICacheProvider CacheProvider;
+        internal ILogProvider LogProvider;
 
         internal string GithubBaseURL { get { return "http://github.com/api/v2/json/"; } }
 
-        internal string GithubAuthenticationQueryString(GithubSharp.Core.Models.GithubUser User)
+        internal string GithubAuthenticationQueryString(Models.GithubUser User)
         {
             return User != null ? string.Format("?login={0}&token={1}", User.Name, User.APIToken) : string.Empty;
         }
 
         internal byte[] GetBinaryFromURL(string URL)
         {
-            _LogProvider.LogMessage(string.Format("Url.GetBinaryFromURL - '{0}'", URL));
+            LogProvider.LogMessage(string.Format("Url.GetBinaryFromURL - '{0}'", URL));
             string cacheKey = string.Format("GetBinaryFromURL_{0}", URL);
 
-            var cached = _CacheProvider.Get<byte[]>(cacheKey);
+            var cached = CacheProvider.Get<byte[]>(cacheKey);
             if (cached != null)
             {
-                _LogProvider.LogMessage("Url.GetBinaryFromURL  :  Returning cached result");
+                LogProvider.LogMessage("Url.GetBinaryFromURL  :  Returning cached result");
                 return cached;
             }
-            _LogProvider.LogMessage("Url.GetBinaryFromURL  :  Cached result unavailable, fetching url content");
+            LogProvider.LogMessage("Url.GetBinaryFromURL  :  Cached result unavailable, fetching url content");
 
             var webClient = new System.Net.WebClient();
             byte[] result;
@@ -45,12 +45,12 @@ namespace GithubSharp.Core.Base
             }
             catch (Exception error)
             {
-                if (_LogProvider.HandleAndReturnIfToThrowError(error))
-					throw;
+                if (LogProvider.HandleAndReturnIfToThrowError(error))
+                    throw;
                 return null;
             }
 
-            _CacheProvider.Set(result, cacheKey);
+            CacheProvider.Set(result, cacheKey);
             return result;
         }
 
@@ -60,7 +60,7 @@ namespace GithubSharp.Core.Base
         }
         internal byte[] UploadValuesAndGetBinary(string URL, NameValueCollection FormValues, string Method)
         {
-            _LogProvider.LogMessage(
+            LogProvider.LogMessage(
               string.Format("Url.UploadValuesAndGetBinary ({0}) {1}",
               URL,
               string.Join(":", FormValues.AllKeys.ToList().Select(Key => string.Format("\nKey : {0} , Value : {1}", Key, FormValues[Key])).ToArray())));
@@ -72,14 +72,14 @@ namespace GithubSharp.Core.Base
                 string.Join(":", FormValues.AllKeys.ToList().Select(Key => FormValues[Key]).ToArray())
                 );
 
-            var cached = _CacheProvider.Get<byte[]>(cacheKey);
+            var cached = CacheProvider.Get<byte[]>(cacheKey);
             if (cached != null)
             {
-                _LogProvider.LogMessage("Url.UploadValuesAndGetBinary  :  Returning cached result");
+                LogProvider.LogMessage("Url.UploadValuesAndGetBinary  :  Returning cached result");
                 return cached;
             }
 
-            _LogProvider.LogMessage("Url.UploadValuesAndGetBinary  :  Cached result unavailable, fetching url content");
+            LogProvider.LogMessage("Url.UploadValuesAndGetBinary  :  Cached result unavailable, fetching url content");
 
 
             var webClient = new System.Net.WebClient();
@@ -90,12 +90,12 @@ namespace GithubSharp.Core.Base
             }
             catch (Exception error)
             {
-                if (_LogProvider.HandleAndReturnIfToThrowError(error))
-					throw;
+                if (LogProvider.HandleAndReturnIfToThrowError(error))
+                    throw;
                 return null;
             }
 
-            _CacheProvider.Set(result, cacheKey);
+            CacheProvider.Set(result, cacheKey);
             return result;
         }
 
@@ -106,7 +106,7 @@ namespace GithubSharp.Core.Base
 
         internal string UploadValuesAndGetString(string URL, NameValueCollection FormValues, string Method)
         {
-            _LogProvider.LogMessage("Url.UploadValuesAndGetString - Calling UploadValuesAndGetBinary...");
+            LogProvider.LogMessage("Url.UploadValuesAndGetString - Calling UploadValuesAndGetBinary...");
 
             var result = UploadValuesAndGetBinary(URL, FormValues, Method);
 
@@ -116,14 +116,14 @@ namespace GithubSharp.Core.Base
         internal string GetStringFromURL(string URL)
         {
             string cacheKey = string.Format("GetStringFromURL_{0}", URL);
-            var cached = _CacheProvider.Get<string>(cacheKey);
+            var cached = CacheProvider.Get<string>(cacheKey);
             if (cached != null)
             {
-                _LogProvider.LogMessage("Url.GetStringFromURL  :  Returning cached result");
+                LogProvider.LogMessage("Url.GetStringFromURL  :  Returning cached result");
                 return cached;
             }
 
-            _LogProvider.LogMessage("Url.GetStringFromURL  :  Cached result unavailable, fetching url content");
+            LogProvider.LogMessage("Url.GetStringFromURL  :  Cached result unavailable, fetching url content");
 
             var webClient = new System.Net.WebClient();
             string result;
@@ -133,12 +133,12 @@ namespace GithubSharp.Core.Base
             }
             catch (Exception error)
             {
-                if (_LogProvider.HandleAndReturnIfToThrowError(error))
-					throw;
+                if (LogProvider.HandleAndReturnIfToThrowError(error))
+                    throw;
                 return null;
             }
 
-            _CacheProvider.Set(result, cacheKey);
+            CacheProvider.Set(result, cacheKey);
             return result;
         }
 

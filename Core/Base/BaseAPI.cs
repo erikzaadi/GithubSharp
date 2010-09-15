@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using GithubSharp.Core.Services;
 using System.Collections.Specialized;
 
@@ -10,43 +7,34 @@ namespace GithubSharp.Core.Base
     public interface IBaseAPI
     {
         void Authenticate();
-        void Authenticate(Models.GithubUser CurrentUser);
+        void Authenticate(Models.GithubUser User);
         ILogProvider LogProvider { get; set; }
         ICacheProvider CacheProvider { get; set; }
     }
 
     public class BaseAPI : IBaseAPI
     {
-        public BaseAPI(ICacheProvider cacheProvider, ILogProvider logProvider)
+        public BaseAPI(ICacheProvider Cache, ILogProvider Log)
         {
-            CacheProvider = cacheProvider;
-            LogProvider = logProvider;
+            CacheProvider = Cache;
+            LogProvider = Log;
         }
 
-        private Models.GithubUser _CurrentUser { get; set; }
-        private Base.Url UrlConsumer
+        private Models.GithubUser CurrentUser { get; set; }
+        private Url UrlConsumer
         {
-            get
-            {
-                if (_Url == null)
-                    _Url = new Url(CacheProvider, LogProvider);
-                return _Url;
-            }
-            set
-            {
-                _Url = value;
-            }
+            get { return _Url ?? (_Url = new Url(CacheProvider, LogProvider)); }
         }
-        private Base.Url _Url;
+        private Url _Url;
 
-        public void Authenticate(Models.GithubUser CurrentUser)
+        public void Authenticate(Models.GithubUser User)
         {
-            if (CurrentUser == null)
+            if (User == null)
                 LogProvider.LogMessage("Authenticate => Null user");
             else
-                LogProvider.LogMessage("Authenticate => Name : {0}, APIToken : {1}", CurrentUser.Name, CurrentUser.APIToken);
+                LogProvider.LogMessage("Authenticate => Name : {0}, APIToken : {1}", User.Name, User.APIToken);
 
-            _CurrentUser = CurrentUser;
+            CurrentUser = User;
         }
 
         public ICacheProvider CacheProvider { get; set; }
@@ -75,8 +63,8 @@ namespace GithubSharp.Core.Base
         {
             var url = string.Format("{0}{1}{2}",
                 Url.StartsWith("http") ? Url : UrlConsumer.GithubBaseURL,
-                Url,
-                UrlConsumer.GithubAuthenticationQueryString(_CurrentUser));
+                Url.StartsWith("http") ? "" : Url,
+                UrlConsumer.GithubAuthenticationQueryString(CurrentUser));
             return url;
         }
 
@@ -106,7 +94,7 @@ namespace GithubSharp.Core.Base
                 return null;
             try
             {
-                return Base.JsonConverter.FromJson<T>(result);
+                return JsonConverter.FromJson<T>(result);
             }
             catch (Exception error)
             {
@@ -128,7 +116,7 @@ namespace GithubSharp.Core.Base
                 return null;
             try
             {
-                return Base.JsonConverter.FromJson<T>(result);
+                return JsonConverter.FromJson<T>(result);
             }
             catch (Exception error)
             {
@@ -148,8 +136,8 @@ namespace GithubSharp.Core.Base
             }
         }
 
-        public string CurrentUsername { get { return HasUser ? _CurrentUser.Name : string.Empty; } }
+        public string CurrentUsername { get { return HasUser ? CurrentUser.Name : string.Empty; } }
 
-        public bool HasUser { get { return _CurrentUser != null && !string.IsNullOrEmpty(_CurrentUser.Name) && !string.IsNullOrEmpty(_CurrentUser.APIToken); } }
+        public bool HasUser { get { return CurrentUser != null && !string.IsNullOrEmpty(CurrentUser.Name) && !string.IsNullOrEmpty(CurrentUser.APIToken); } }
     }
 }

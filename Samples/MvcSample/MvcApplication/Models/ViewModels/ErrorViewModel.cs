@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using GithubSharp.MvcSample.MvcApplication.Models.ViewModels;
 
 namespace GithubSharp.Samples.MvcSample.MvcApplication.Models.ViewModels
 {

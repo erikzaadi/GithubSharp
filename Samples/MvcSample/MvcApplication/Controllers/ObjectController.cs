@@ -1,19 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Mvc.Ajax;
 using GithubSharp.Core.Services;
 
-namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
+namespace GithubSharp.MvcSample.MvcApplication.Controllers
 {
-    public class ObjectController : BaseAPIController<Core.API.Object>
+    public sealed class ObjectController : BaseAPIController<Core.API.Object>
     {
-        public ObjectController(ICacheProvider cacheProvider, ILogProvider logProvider)
-            : base(cacheProvider, logProvider)
+        public ObjectController(ICacheProvider Cache, ILogProvider Log)
+            : base(Cache, Log)
         {
-            BaseAPI = new GithubSharp.Core.API.Object(cacheProvider, logProvider);
+            BaseAPI = new Core.API.Object(Cache, Log);
         }
     }
 }

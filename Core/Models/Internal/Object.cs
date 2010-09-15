@@ -1,22 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace GithubSharp.Core.Models.Internal
 {
+    [DataContract]
     internal class ObjectContainer
     {
-        public IEnumerable<Object> tree { get; set; }
+        [DataMember(Name = "tree")]
+        public IEnumerable<Object> Tree { get; set; }
     }
 
+    [DataContract]
     internal class BlobContainer
     {
-        public Blob blob { get; set; }
+        [DataMember(Name = "blob")]
+        public Blob Blob { get; set; }
     }
 
+    [DataContract]
     internal class BlobListContainer
     {
-        public Dictionary<string, string> blobs { get; set; }
+        [DataMember(Name = "blobs")]
+        public Dictionary<string, string> Blobs { get; set; }
     }
 }

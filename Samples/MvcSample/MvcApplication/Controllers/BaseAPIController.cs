@@ -1,31 +1,26 @@
-
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Mvc.Ajax;
 using GithubSharp.Core.Services;
 
-namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
+namespace GithubSharp.MvcSample.MvcApplication.Controllers
 {
-    public class BaseAPIController<ApiType> : BaseController where ApiType : Core.Base.IBaseAPI
+    public class BaseAPIController<TApiType> : BaseController where TApiType : Core.Base.IBaseAPI
     {
-        public BaseAPIController(ICacheProvider cacheProvider, ILogProvider logProvider)
-            : base(cacheProvider, logProvider)
+        public BaseAPIController(ICacheProvider Cache, ILogProvider Log)
+            : base(Cache, Log)
         {
         }
 
-        protected virtual ApiType BaseAPI { get; set; }
-        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        protected virtual TApiType BaseAPI { get; set; }
+        protected override void OnActionExecuting(ActionExecutingContext FilterContext)
         {
             BaseAPI.Authenticate(CurrentUser);
-            base.OnActionExecuting(filterContext);
+            base.OnActionExecuting(FilterContext);
         }
 
         protected virtual bool Authenticate()
         {
-            var userAPI = new GithubSharp.Core.API.User(CacheProvider, LogProvider);
+            var userAPI = new Core.API.User(CacheProvider, LogProvider);
             userAPI.Authenticate(CurrentUser);
             try
             {
@@ -34,10 +29,9 @@ namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
             catch (Exception error)
             {
                 if (LogProvider.HandleAndReturnIfToThrowError(error))
-                    throw error;
+                    throw;
                 return false;
             }
         }
-
     }
 }

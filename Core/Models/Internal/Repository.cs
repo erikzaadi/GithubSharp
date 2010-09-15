@@ -1,45 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace GithubSharp.Core.Models.Internal
 {
-    internal class RepositoryCollection<RepoType>
+    [DataContract]
+    internal class RepositoryCollection<TRepoType>
     {
-        public IEnumerable<RepoType> repositories { get; set; }
+        [DataMember(Name = "repositories")]
+        public IEnumerable<TRepoType> Repositories { get; set; }
     }
 
-    internal class RepositoryContainer<RepoType>
+    [DataContract]
+    internal class RepositoryContainer<TRepoType>
     {
-        public RepoType repository { get; set; }
+        [DataMember(Name = "repository")]
+        public TRepoType Repository { get; set; }
     }
 
+    [DataContract]
     internal class RepositoryFromNetworkContainer
     {
-        public IEnumerable<Models.Repository> network { get; set; }
+        [DataMember(Name = "network")]
+        public IEnumerable<Repository> Network { get; set; }
 
     }
+
+    [DataContract]
     internal class RepositoryDelete
     {
-        public string delete_token { get; set; }
+        [DataMember(Name = "delete_token")]
+        public string DeleteToken { get; set; }
     }
 
+    [DataContract]
     internal class RepositoryDeleted
     {
-        public string status { get; set; }
+        [DataMember(Name = "status")]
+        public string Status { get; set; }
     }
 
+    [DataContract]
     internal class LanguagesCollection
     {
-        public Dictionary<string, int> languages { get; set; }
+        [DataMember(Name = "languages")]
+        public Dictionary<string, int> Languages { get; set; }
     }
+
+    [DataContract]
     internal class TagCollection
     {
-        public Dictionary<string, string> tags { get; set; }
+        [DataMember(Name = "tags")]
+        public Dictionary<string, string> Tags { get; set; }
     }
+
+    [DataContract]
     internal class BranchesCollection
     {
-        public Dictionary<string, string> branches { get; set; }
+        [DataMember(Name = "branches")]
+        public Dictionary<string, string> Branches { get; set; }
     }
 }

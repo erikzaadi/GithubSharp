@@ -1,28 +1,24 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Mvc.Ajax;
 using GithubSharp.Core.Services;
+using GithubSharp.MvcSample.MvcApplication.Models.ViewModels;
 
-namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
+namespace GithubSharp.MvcSample.MvcApplication.Controllers
 {
     [HandleError]
     public class BaseController : Controller
     {
-        public BaseController(ICacheProvider cacheProvider, ILogProvider logProvider)
+        public BaseController(ICacheProvider Cache, ILogProvider Log)
         {
-            CacheProvider = cacheProvider;
-            LogProvider = logProvider;
+            CacheProvider = Cache;
+            LogProvider = Log;
         }
 
-        protected GithubSharp.Core.Models.GithubUser CurrentUser
+        protected Core.Models.GithubUser CurrentUser
         {
             get
             {
                 var user = Session != null ? Session["GithubUser"] : null;
-                return user == null ? null : user as GithubSharp.Core.Models.GithubUser;
+                return user == null ? null : user as Core.Models.GithubUser;
             }
             set
             {
@@ -34,24 +30,24 @@ namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
 
         protected ILogProvider LogProvider { get; set; }
 
-        protected void SetTemporaryNotification(string Notification, params object[] args)
+        protected void SetTemporaryNotification(string Notification, params object[] Args)
         {
-            TempData["Notification"] = string.Format(Notification, args);
+            TempData["Notification"] = string.Format(Notification, Args);
         }
 
-        protected Models.ViewModels.IBaseViewModel GetIBaseView(string Notification)
+        protected IBaseViewModel GetIBaseView(string Notification)
         {
             return GetBaseView<string>(null, Notification);
         }
 
-        protected Models.ViewModels.BaseViewModel<T> GetBaseView<T>(T ModelParam) where T : class
+        protected BaseViewModel<T> GetBaseView<T>(T ModelParam) where T : class
         {
-            return GetBaseView<T>(ModelParam, null);
+            return GetBaseView(ModelParam, null);
         }
 
-        protected Models.ViewModels.BaseViewModel<T> GetBaseView<T>(T ModelParam, string Notification) where T : class
+        protected BaseViewModel<T> GetBaseView<T>(T ModelParam, string Notification) where T : class
         {
-            return new GithubSharp.Samples.MvcSample.MvcApplication.Models.ViewModels.BaseViewModel<T>
+            return new BaseViewModel<T>
             {
                 CurrentUser = CurrentUser,
                 ModelParameter = ModelParam,
@@ -59,18 +55,18 @@ namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
             };
         }
 
-        protected override ViewResult View(IView view, object model)
+        protected override ViewResult View(IView ViewName, object Model)
         {
-            if (model == null)
-                model = GetBaseView("");
-            return base.View(view, model);
+            if (Model == null)
+                Model = GetBaseView("");
+            return base.View(ViewName, Model);
         }
 
-        protected override ViewResult View(string viewName, string masterName, object model)
+        protected override ViewResult View(string ViewName, string MasterName, object Model)
         {
-            if (model == null)
-                model = GetBaseView("");
-            return base.View(viewName, masterName, model);
+            if (Model == null)
+                Model = GetBaseView("");
+            return base.View(ViewName, MasterName, Model);
         }
 
 

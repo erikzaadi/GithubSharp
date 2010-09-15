@@ -1,19 +1,22 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Mvc.Ajax;
+using GithubSharp.Core.API;
 using GithubSharp.Core.Services;
 
-namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
+namespace GithubSharp.MvcSample.MvcApplication.Controllers
 {
-    public class NetworkController : BaseAPIController<Core.API.Network>
+    public sealed class NetworkController : BaseAPIController<Network>
     {
-        public NetworkController(ICacheProvider cacheProvider, ILogProvider logProvider)
-            : base(cacheProvider, logProvider)
+        public NetworkController(ICacheProvider CacheProvider, ILogProvider LogProvider)
+            : base(CacheProvider, LogProvider)
         {
-            BaseAPI = new GithubSharp.Core.API.Network(cacheProvider, logProvider);
+            BaseAPI = new Network(CacheProvider, LogProvider);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult Index()
+        {
+            var meta = BaseAPI.Meta(CurrentUser.Name, "Swahili");
+            return View();
         }
     }
 }

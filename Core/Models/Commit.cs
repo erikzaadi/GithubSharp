@@ -1,44 +1,78 @@
-
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace GithubSharp.Core.Models
 {
-	
-	public class Commit
-	{
-		public IEnumerable<CommmitParent> parents { get; set; }
-		public Person author {get;set;}
-		public string url { get; set; }
-		public string id { get; set; }
-		public DateTime committed_date { get; set; }
-		public DateTime authored_date { get; set; }
-		public string message { get; set; }
-		public string tree { get; set; }
-		public Person committer {get;set;}
-	}
+    [DataContract]
+    public class Commit
+    {
+        [DataMember(Name = "parents")]
+        public IEnumerable<CommmitParent> Parents { get; set; }
 
+        [DataMember(Name = "author")]
+        public Person Author { get; set; }
+
+        [DataMember(Name = "url")]
+        public string URL { get; set; }
+
+
+        [DataMember(Name = "id")]
+        public string Id { get; set; }
+
+        [DataMember(Name = "comitted_date")]
+        public DateTime CommittedDate { get; set; }
+
+        [DataMember(Name = "authored_date")]
+        public DateTime AuthoredDate { get; set; }
+
+        [DataMember(Name = "message")]
+        public string Message { get; set; }
+
+        [DataMember(Name = "tree")]
+        public string Tree { get; set; }
+
+        [DataMember(Name = "comitter")]
+        public Person Committer { get; set; }
+    }
+
+    [DataContract]
     public class CommmitParent
     {
-        public string id { get; set; }
+        [DataMember(Name = "id")]
+        public string Id { get; set; }
     }
-	
-	public class Person
-	{
-		public string name { get; set; }
-		public string login { get; set; }
-		public string email { get; set; }
-	}
 
+    [DataContract]
+    public class Person
+    {
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
+
+        [DataMember(Name = "login")]
+        public string Login { get; set; }
+
+        [DataMember(Name = "email")]
+        public string Email { get; set; }
+    }
+
+    [DataContract]
     public class SingleFileCommit : Commit
     {
-        public IEnumerable<SingleFileCommitFileReference> added { get; set; }
-        public IEnumerable<SingleFileCommitFileReference> removed { get; set; }
-        public IEnumerable<SingleFileCommitFileReference> modified { get; set; }
+        [DataMember(Name = "added")]
+        public IEnumerable<SingleFileCommitFileReference> Added { get; set; }
+
+        [DataMember(Name = "removed")]
+        public IEnumerable<SingleFileCommitFileReference> Removed { get; set; }
+
+        [DataMember(Name = "modified")]
+        public IEnumerable<SingleFileCommitFileReference> Modified { get; set; }
     }
 
+    [DataContract]
     public class SingleFileCommitFileReference
     {
-        public string filename { get; set; }
+        [DataMember(Name = "filename")]
+        public string Filename { get; set; }
     }
 }

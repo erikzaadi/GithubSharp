@@ -1,41 +1,40 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Mvc.Ajax;
+using GithubSharp.Core.Models;
 using GithubSharp.Core.Services;
+using GithubSharp.Samples.MvcSample.MvcApplication.Models.ViewModels;
+using Repository = GithubSharp.Core.API.Repository;
 
-namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
+namespace GithubSharp.MvcSample.MvcApplication.Controllers
 {
-    public class RepositoryController : BaseAPIController<Core.API.Repository>
+    public sealed class RepositoryController : BaseAPIController<Repository>
     {
-        public RepositoryController(ICacheProvider cacheProvider, ILogProvider logProvider)
-            : base(cacheProvider, logProvider)
+        public RepositoryController(ICacheProvider Cache, ILogProvider Log)
+            : base(Cache, Log)
         {
-            BaseAPI = new GithubSharp.Core.API.Repository(cacheProvider, logProvider);
+            BaseAPI = new Repository(Cache, Log);
         }
 
         public ActionResult Index()
         {
-            return View("Search", GetBaseView<IEnumerable<GithubSharp.Core.Models.RepositoryFromSearch>>(new List<GithubSharp.Core.Models.RepositoryFromSearch>()));
+            return View("Search", GetBaseView<IEnumerable<RepositoryFromSearch>>(new List<RepositoryFromSearch>()));
         }
 
-        public ActionResult Search(string id)
+        public ActionResult Search(string Id)
         {
-            var repos = BaseAPI.Search(id);
+            IEnumerable<RepositoryFromSearch> repos = BaseAPI.Search(Id);
             return View(GetBaseView(repos));
         }
 
         public ActionResult Get(string RepositoryName, string Username)
         {
-            var repo = BaseAPI.Get(Username, RepositoryName);
+            Core.Models.Repository repo = BaseAPI.Get(Username, RepositoryName);
             return View(GetBaseView(repo));
         }
 
-        public ActionResult List(string id)
+        public ActionResult List(string Id)
         {
-            var repos = BaseAPI.List(id);
+            IEnumerable<Core.Models.Repository> repos = BaseAPI.List(Id);
 
             return View(GetBaseView(repos));
         }
@@ -44,12 +43,13 @@ namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
         {
             if (!Authenticate())
                 return View("Login",
-                            GetBaseView(new Models.ViewModels.LoginViewModel
-                                        {
-                                            Message = "You need to authenticate before being able to fork a project",
-                                            ReturnURL = Url.Action("Fork", "Repository", new { RepositoryName = RepositoryName, Username = Username })
-                                        }));
-            var repo = BaseAPI.Fork(Username, RepositoryName);
+                            GetBaseView(new LoginViewModel
+                                            {
+                                                Message = "You need to authenticate before being able to fork a project",
+                                                ReturnURL =
+                                                    Url.Action("Fork", "Repository", new {RepositoryName, Username})
+                                            }));
+            Core.Models.Repository repo = BaseAPI.Fork(Username, RepositoryName);
 
             return View("Get", GetBaseView(repo));
         }
@@ -58,7 +58,7 @@ namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
         {
             if (!Authenticate())
                 return View("Login", GetBaseView("You need to authenticate before being able to watch a project"));
-            var repo = BaseAPI.Watch(Username, RepositoryName);
+            Core.Models.Repository repo = BaseAPI.Watch(Username, RepositoryName);
 
             return View("Get", GetBaseView(repo));
         }
@@ -67,7 +67,7 @@ namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
         {
             if (!Authenticate())
                 return View("Login", GetBaseView("You need to authenticate before being able to unwatch a project"));
-            var repo = BaseAPI.Unwatch(Username, RepositoryName);
+            Core.Models.Repository repo = BaseAPI.Unwatch(Username, RepositoryName);
 
             return View("Get", GetBaseView(repo));
         }
@@ -75,11 +75,12 @@ namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
         public ActionResult Create()
         {
             if (!Authenticate())
-                return View("Login", GetBaseView(new Models.ViewModels.LoginViewModel
-                {
-                    Message = "You need to authenticate before being able to create a project",
-                    ReturnURL = Url.Action("Create", "Repository")
-                }));
+                return View("Login", GetBaseView(new LoginViewModel
+                                                     {
+                                                         Message =
+                                                             "You need to authenticate before being able to create a project",
+                                                         ReturnURL = Url.Action("Create", "Repository")
+                                                     }));
 
             return View();
         }
@@ -88,26 +89,29 @@ namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
         public ActionResult Create(string RepositoryName, string Description, string HomePage, bool Public)
         {
             if (!Authenticate())
-                return View("Login", GetBaseView(new Models.ViewModels.LoginViewModel
-                {
-                    Message = "You need to authenticate before being able to create a project",
-                    ReturnURL = Url.Action("Create", "Repository")
-                }));
+                return View("Login", GetBaseView(new LoginViewModel
+                                                     {
+                                                         Message =
+                                                             "You need to authenticate before being able to create a project",
+                                                         ReturnURL = Url.Action("Create", "Repository")
+                                                     }));
 
-            var repo = BaseAPI.Create(RepositoryName, Description, HomePage, Public);
+            Core.Models.Repository repo = BaseAPI.Create(RepositoryName, Description, HomePage, Public);
 
-            return RedirectToAction("Get", new { RepositoryName = repo.name, Username = repo.owner });
+            return RedirectToAction("Get", new {RepositoryName = repo.Name, Username = repo.Owner});
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Delete(string RepositoryName)
         {
             if (!Authenticate())
-                return View("Login", GetBaseView(new Models.ViewModels.LoginViewModel
-                {
-                    Message = "You need to authenticate before being able to delete a project",
-                    ReturnURL = Url.Action("Delete", "Repository", new { RepositoryName = RepositoryName })
-                }));
+                return View("Login", GetBaseView(new LoginViewModel
+                                                     {
+                                                         Message =
+                                                             "You need to authenticate before being able to delete a project",
+                                                         ReturnURL =
+                                                             Url.Action("Delete", "Repository", new {RepositoryName})
+                                                     }));
 
             return View(GetBaseView(RepositoryName));
         }
@@ -116,11 +120,13 @@ namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
         public ActionResult Delete(string RepositoryName, bool Delete)
         {
             if (!Authenticate())
-                return View("Login", GetBaseView(new Models.ViewModels.LoginViewModel
-                {
-                    Message = "You need to authenticate before being able to create a project",
-                    ReturnURL = Url.Action("Delete", "Repository", new { RepositoryName = RepositoryName })
-                }));
+                return View("Login", GetBaseView(new LoginViewModel
+                                                     {
+                                                         Message =
+                                                             "You need to authenticate before being able to create a project",
+                                                         ReturnURL =
+                                                             Url.Action("Delete", "Repository", new {RepositoryName})
+                                                     }));
 
             if (!Delete)
             {
@@ -128,7 +134,7 @@ namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
 
                 return RedirectToAction("Index");
             }
-            var success = BaseAPI.Delete(RepositoryName);
+            bool success = BaseAPI.Delete(RepositoryName);
 
             SetTemporaryNotification("Repository '{0}' was {1}deleted", RepositoryName, success ? string.Empty : "not ");
 
@@ -138,41 +144,43 @@ namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
         public ActionResult PublicKeys(string RepositoryName)
         {
             if (!Authenticate())
-                return View("Login", GetBaseView(new Models.ViewModels.LoginViewModel
-                {
-                    Message = "You need to authenticate before being able to view public keys for a project",
-                    ReturnURL = Url.Action("PublicKeys", "Repository", new { RepositoryName = RepositoryName })
-                }));
+                return View("Login", GetBaseView(new LoginViewModel
+                                                     {
+                                                         Message =
+                                                             "You need to authenticate before being able to view public keys for a project",
+                                                         ReturnURL =
+                                                             Url.Action("PublicKeys", "Repository", new {RepositoryName})
+                                                     }));
 
-            var keys = BaseAPI.PublicKeys(RepositoryName);
+            IEnumerable<PublicKey> keys = BaseAPI.PublicKeys(RepositoryName);
 
             return View(GetBaseView(keys));
         }
 
         public ActionResult Languages(string RepositoryName, string Username)
         {
-            var languages = BaseAPI.LanguageBreakDown(RepositoryName, Username);
+            IEnumerable<Language> languages = BaseAPI.LanguageBreakDown(RepositoryName, Username);
 
             return View(GetBaseView(languages));
         }
 
         public ActionResult Tags(string RepositoryName, string Username)
         {
-            var tags = BaseAPI.Tags(RepositoryName, Username);
+            IEnumerable<TagOrBranch> tags = BaseAPI.Tags(RepositoryName, Username);
 
             return View(GetBaseView(tags));
         }
 
         public ActionResult Branches(string RepositoryName, string Username)
         {
-            var tags = BaseAPI.Branches(RepositoryName, Username);
+            IEnumerable<TagOrBranch> tags = BaseAPI.Branches(RepositoryName, Username);
 
             return View(GetBaseView(tags));
         }
 
         public ActionResult Network(string RepositoryName, string Username)
         {
-            var network = BaseAPI.Network(RepositoryName, Username);
+            IEnumerable<Core.Models.Repository> network = BaseAPI.Network(RepositoryName, Username);
 
             return View(GetBaseView(network));
         }

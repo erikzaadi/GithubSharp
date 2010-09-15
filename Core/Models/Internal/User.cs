@@ -1,32 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace GithubSharp.Core.Models.Internal
 {
-    internal class PublicKeyCollection<PublicKeyType>
+    [DataContract]
+    internal class PublicKeyCollection<TPublicKeyType>
     {
-        public IEnumerable<PublicKeyType> public_keys { get; set; }
+        [DataMember(Name = "public_keys")]
+        public IEnumerable<TPublicKeyType> PublicKeys { get; set; }
     }
 
-    internal class UsersCollection<UserType>
+    [DataContract]
+    internal class UsersCollection<TUserType>
     {
-        public IEnumerable<UserType> users { get; set; }
+        [DataMember(Name = "users")]
+        public IEnumerable<TUserType> Users { get; set; }
     }
 
+    [DataContract]
     internal class EmailCollection
     {
-        public IEnumerable<string> emails { get; set; }
+        [DataMember(Name = "emails")]
+        public IEnumerable<string> Emails { get; set; }
     }
 
-    internal class UserContainer<UserType>
+    [DataContract]
+    internal class UserContainer<TUserType>
     {
-        public UserType user { get; set; }
+        [DataMember(Name = "user")]
+        public TUserType User { get; set; }
     }
 
+    [DataContract]
     internal class CollaboratorsCollection
     {
-        public IEnumerable<string> collaborators { get; set; }
+        [DataMember(Name = "collaborators")]
+        public IEnumerable<string> Collaborators { get; set; }
     }
 }

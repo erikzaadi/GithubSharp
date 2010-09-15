@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<GithubSharp.Samples.MvcSample.MvcApplication.Models.ViewModels.BaseViewModel<IEnumerable<GithubSharp.Core.Models.PublicKey>>>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<GithubSharp.MvcSample.MvcApplication.Models.ViewModels.BaseViewModel<System.Collections.Generic.IEnumerable<GithubSharp.Core.Models.PublicKey>>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     PublicKeys
@@ -26,17 +26,17 @@
            { %>
         <tr>
             <td>
-                <%= Html.ActionLink("Edit", "EditPublicKey", new { id = item.id })%>
+                <%= Html.ActionLink("Edit", "EditPublicKey", new { id = item.Id })%>
                 |
             </td>
             <td>
-                <%= Html.Encode(item.title)%>
+                <%= Html.Encode(item.Title)%>
             </td>
             <td>
-                <%= Html.Encode(item.id)%>
+                <%= Html.Encode(item.Id)%>
             </td>
             <td>
-                <%= Html.Encode(item.key)%>
+                <%= Html.Encode(item.Key)%>
             </td>
         </tr>
         <% } %>

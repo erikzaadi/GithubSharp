@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GithubSharp.Core.Models
+﻿namespace GithubSharp.Core.Models
 {
     public class GithubUser
     {

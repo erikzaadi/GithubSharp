@@ -1,4 +1,4 @@
-<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<GithubSharp.Samples.MvcSample.MvcApplication.Models.ViewModels.IBaseViewModel>" %>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<GithubSharp.MvcSample.MvcApplication.Models.ViewModels.IBaseViewModel>" %>
 <div id="logindisplay">
     &nbsp;
     <% if (ViewContext.RouteData.GetRequiredString("action") != "Login")

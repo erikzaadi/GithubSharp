@@ -14,7 +14,7 @@ namespace GithubSharp.Core.API
             Models.IssueState State,
             string Search)
         {
-            string state = State == Models.IssueState.open ? "open" : "closed";
+            string state = State == Models.IssueState.Open ? "open" : "closed";
             LogProvider.LogMessage(string.Format("Issues.Search - '{0}', RepositoryName : '{1}', Username : '{2}', State : '{3}'", Search, RepositoryName, Username, state));
 
             var url = string.Format("issues/search/{0}/{1}/{2}/{3}",
@@ -25,7 +25,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Models.Internal.IssuesCollection>(url);
 
-            return result == null ? null : result.issues;
+            return result == null ? null : result.Issues;
         }
 
 
@@ -34,7 +34,7 @@ namespace GithubSharp.Core.API
          string Username,
          Models.IssueState State)
         {
-            string state = State == Models.IssueState.open ? "open" : "closed";
+            string state = State == Models.IssueState.Open ? "open" : "closed";
             LogProvider.LogMessage(string.Format("Issues.List - RepositoryName : '{0}', Username : '{1}', State : '{2}'", RepositoryName, Username, state));
 
             var url = string.Format("issues/list/{0}/{1}/{2}",
@@ -44,7 +44,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Models.Internal.IssuesCollection>(url);
 
-            return result == null ? null : result.issues;
+            return result == null ? null : result.Issues;
         }
 
         public Models.Issue View(
@@ -61,7 +61,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Models.Internal.IssueContainer>(url);
 
-            return result != null ? result.issue : null;
+            return result != null ? result.Issue : null;
         }
 
         public Models.Issue Open(string RepositoryName, string Username, string Title, string Body)
@@ -80,7 +80,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrlAndPostData<Models.Internal.IssueContainer>(url, formValues);
 
-            return result != null ? result.issue : null;
+            return result != null ? result.Issue : null;
         }
 
         public Models.Issue ReOpen(string RepositoryName, string Username, int Id)
@@ -98,7 +98,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrlAndPostData<Models.Internal.IssueContainer>(url, formValues);
 
-            return result != null ? result.issue : null;
+            return result != null ? result.Issue : null;
         }
 
         public Models.Issue Close(string RepositoryName, string Username, int Id)
@@ -116,7 +116,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrlAndPostData<Models.Internal.IssueContainer>(url, formValues);
 
-            return result != null ? result.issue : null;
+            return result != null ? result.Issue : null;
         }
 
 
@@ -137,7 +137,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrlAndPostData<Models.Internal.IssueContainer>(url, formValues);
 
-            return result != null ? result.issue : null;
+            return result != null ? result.Issue : null;
         }
 
         public string[] Labels(string RepositoryName, string Username)
@@ -150,7 +150,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Models.Internal.LabelsCollection>(url);
 
-            return result != null ? result.labels : null;
+            return result != null ? result.Labels : null;
         }
 
         public string[] AddLabel(string RepositoryName, string Username, int Id, string Label)
@@ -169,7 +169,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrlAndPostData<Models.Internal.LabelsCollection>(url, formValues);
 
-            return result != null ? result.labels : null;
+            return result != null ? result.Labels : null;
         }
 
         public string[] RemoveLabel(string RepositoryName, string Username, int Id, string Label)
@@ -188,7 +188,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrlAndPostData<Models.Internal.LabelsCollection>(url, formValues);
 
-            return result != null ? result.labels : null;
+            return result != null ? result.Labels : null;
         }
 
         public IEnumerable<Models.Comment> Comments(string RepositoryName, string Username, int Id)
@@ -202,7 +202,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Models.Internal.CommentsCollection>(url);
 
-            return result != null ? result.comments : null;
+            return result != null ? result.Comments : null;
         }
 
         public bool CommentOnIssue(string RepositoryName, string Username, int Id, string Comment)
@@ -221,7 +221,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrlAndPostData<Models.Internal.CommentSavedContainer>(url, formValues);
 
-            return result != null && result.comment != null ? result.comment.status == "saved" : false;
+            return result != null && result.Comment != null ? result.Comment.Status == "saved" : false;
         }
     }
 }

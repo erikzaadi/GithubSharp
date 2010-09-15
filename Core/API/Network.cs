@@ -8,40 +8,21 @@ namespace GithubSharp.Core.API
     {
         public Network(ICacheProvider CacheProvider, ILogProvider LogProvider) : base(CacheProvider, LogProvider) { }
 
-        public NetworkMeta Meta(
-            string Username,
-            string RepositoryName)
-        {
-            LogProvider.LogMessage(string.Format("Network.Meta - Username : '{0}', RepositoryName : '{1}'",
-                Username,
-                RepositoryName));
+        public NetworkMeta Meta(string Username, string RepositoryName)
+        { 
+            LogProvider.LogMessage(string.Format("Network.Meta - Username : '{0}', RepositoryName : '{1}'", Username, RepositoryName));
 
-            var url = string.Format("http://github.com/{0}/{1}/network_meta",
-                Username,
-                RepositoryName);
+            var url = string.Format("http://github.com/{0}/{1}/network_meta", Username, RepositoryName);
 
             return ConsumeJsonUrl<NetworkMeta>(url);
         }
 
-        public IEnumerable<NetworkChunk> MetaChunks(
-                   string Username,
-                   string RepositoryName,
-                   string NetworkHash)
+        public IEnumerable<NetworkChunk> MetaChunks(string Username, string RepositoryName, string NetworkHash)
         {
-            return MetaChunks(Username,
-                RepositoryName,
-                NetworkHash,
-                -1,
-                -1);
+            return MetaChunks(Username, RepositoryName, NetworkHash, -1, -1);
         }
 
-
-        public IEnumerable<NetworkChunk> MetaChunks(
-                    string Username,
-                    string RepositoryName,
-                    string NetworkHash,
-                    int Start,
-                    int End)
+        public IEnumerable<NetworkChunk> MetaChunks(string Username, string RepositoryName, string NetworkHash, int Start, int End)
         {
             LogProvider.LogMessage(string.Format("Network.MetaChunks - Username : '{0}', RepositoryName : '{1}', NetworkHash : '{2}', Start : '{3}', End : '{4}'",
                 Username,
@@ -59,7 +40,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Models.Internal.NetworkChunkContainer>(url);
 
-            return result != null ? result.commits : null;
+            return result != null ? result.Commits : null;
         }
     }
 }

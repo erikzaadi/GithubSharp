@@ -4,27 +4,27 @@
     <div class="display-label">
         url</div>
     <div class="display-field">
-        <%= Html.Encode(Model.url) %></div>
+        <%= Html.Encode(Model.URL) %></div>
     <div class="display-label">
         id</div>
     <div class="display-field">
-        <%= Html.Encode(Model.id) %></div>
+        <%= Html.Encode(Model.Id) %></div>
     <div class="display-label">
         committed_date</div>
     <div class="display-field">
-        <%= Html.Encode(String.Format("{0:g}", Model.committed_date)) %></div>
+        <%= Html.Encode(String.Format("{0:g}", Model.CommittedDate)) %></div>
     <div class="display-label">
         authored_date</div>
     <div class="display-field">
-        <%= Html.Encode(String.Format("{0:g}", Model.authored_date)) %></div>
+        <%= Html.Encode(String.Format("{0:g}", Model.AuthoredDate)) %></div>
     <div class="display-label">
         message</div>
     <div class="display-field">
-        <%= Html.Encode(Model.message) %></div>
+        <%= Html.Encode(Model.Message) %></div>
     <div class="display-label">
         tree</div>
     <div class="display-field">
-        <%= Html.Encode(Model.tree) %></div>
+        <%= Html.Encode(Model.Tree) %></div>
     <% if (Model is GithubSharp.Core.Models.SingleFileCommit)
        {
            var single = Model as GithubSharp.Core.Models.SingleFileCommit;
@@ -37,21 +37,21 @@
             <h4>
                 Added:</h4>
             <%
-                single.added.ToList().ForEach(added =>
+                single.Added.ToList().ForEach(added =>
                  Html.RenderPartial("SingleFileCommitRenderer", added)); %>
         </div>
         <div>
             <h4>
                 Removed:</h4>
             <%
-                single.removed.ToList().ForEach(removed =>
+                single.Removed.ToList().ForEach(removed =>
                  Html.RenderPartial("SingleFileCommitRenderer", removed)); %>
         </div>
         <div>
             <h4>
                 Modified:</h4>
             <%
-                single.modified.ToList().ForEach(modified =>
+                single.Modified.ToList().ForEach(modified =>
                  Html.RenderPartial("SingleFileCommitRenderer", modified)); %>
         </div>
     </div>
@@ -61,7 +61,7 @@
        {
     %>
     <div>
-        <%= Html.ActionLink("Commit details", "CommitForSingleFile", "Commit", new { Username = Model.committer.login, RepositoryName = Request["RepositoryName"], Sha = Model.id }, null)%>
+        <%= Html.ActionLink("Commit details", "CommitForSingleFile", "Commit", new { Username = Model.Committer.Login, RepositoryName = Request["RepositoryName"], Sha = Model.Id }, null)%>
     </div>
     <%
         } %>

@@ -22,7 +22,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Core.Models.Internal.ObjectContainer>(url);
 
-            return result == null ? null : result.tree;
+            return result == null ? null : result.Tree;
         }
 
         public Blob Blob(
@@ -45,7 +45,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Core.Models.Internal.BlobContainer>(url);
 
-            return result == null ? null : result.blob;
+            return result == null ? null : result.Blob;
         }
 
         public Dictionary<string, string> BlobList(
@@ -65,7 +65,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Core.Models.Internal.BlobListContainer>(url);
 
-            return result == null ? null : result.blobs;
+            return result == null ? null : result.Blobs;
         }
 
         public byte[] RawBinary(

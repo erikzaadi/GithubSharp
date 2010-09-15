@@ -20,7 +20,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Models.Internal.RepositoryCollection<Models.RepositoryFromSearch>>(url);
 
-            return result == null ? null : result.repositories;
+            return result == null ? null : result.Repositories;
         }
 
         public Models.Repository Get(string Username, string RepositoryName)
@@ -34,7 +34,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Models.Internal.RepositoryContainer<Models.Repository>>(url);
 
-            return result == null ? null : result.repository;
+            return result == null ? null : result.Repository;
         }
 
         public IEnumerable<Models.Repository> List(string Username)
@@ -47,7 +47,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Models.Internal.RepositoryCollection<Models.Repository>>(url);
 
-            return result == null ? null : result.repositories;
+            return result == null ? null : result.Repositories;
         }
 
         public Models.Repository Watch(string Username, string RepositoryName)
@@ -62,7 +62,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Models.Internal.RepositoryContainer<Models.Repository>>(url);
 
-            return result == null ? null : result.repository;
+            return result == null ? null : result.Repository;
         }
 
         public Models.Repository Unwatch(string Username, string RepositoryName)
@@ -77,7 +77,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Models.Internal.RepositoryContainer<Models.Repository>>(url);
 
-            return result == null ? null : result.repository;
+            return result == null ? null : result.Repository;
         }
 
         public Models.Repository Fork(string Username, string RepositoryName)
@@ -92,7 +92,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Models.Internal.RepositoryContainer<Models.Repository>>(url);
 
-            return result == null ? null : result.repository;
+            return result == null ? null : result.Repository;
         }
 
         public Models.Repository Create(string RepositoryName, string Description, string HomePage, bool Public)
@@ -126,7 +126,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrlAndPostData<Models.Internal.RepositoryContainer<Models.Repository>>(url, formValues);
 
-            return result == null ? null : result.repository;
+            return result == null ? null : result.Repository;
         }
 
         public bool Delete(string RepositoryName)
@@ -143,11 +143,11 @@ namespace GithubSharp.Core.API
                 return false;
 
             var formValues = new NameValueCollection();
-            formValues.Add("delete_token", result.delete_token);
+            formValues.Add("delete_token", result.DeleteToken);
 
             var status = ConsumeJsonUrlAndPostData<GithubSharp.Core.Models.Internal.RepositoryDeleted>(url, formValues);
 
-            return status != null && status.status == "deleted";
+            return status != null && status.Status == "deleted";
         }
 
         public Models.Repository SetVisibility(string RepositoryName, bool Visibility)
@@ -162,7 +162,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Models.Internal.RepositoryContainer<Models.Repository>>(url);
 
-            return result == null ? null : result.repository;
+            return result == null ? null : result.Repository;
         }
 
         public IEnumerable<Models.PublicKey> PublicKeys(string RepositoryName)
@@ -175,7 +175,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Models.Internal.PublicKeyCollection<Models.PublicKey>>(url);
 
-            return result == null ? null : result.public_keys.ToArray();
+            return result == null ? null : result.PublicKeys.ToArray();
         }
 
         public IEnumerable<Models.PublicKey> AddDeployKeys(string RepositoryName, string Title, string Key)
@@ -192,7 +192,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrlAndPostData<Models.Internal.PublicKeyCollection<Models.PublicKey>>(url, formValues);
 
-            return result == null ? null : result.public_keys.ToArray();
+            return result == null ? null : result.PublicKeys.ToArray();
         }
 
         public IEnumerable<Models.PublicKey> RemovePublicKey(string RepositoryName, int Id)
@@ -208,7 +208,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrlAndPostData<Models.Internal.PublicKeyCollection<Models.PublicKey>>(url, formValues);
 
-            return result == null ? null : result.public_keys.ToArray();
+            return result == null ? null : result.PublicKeys.ToArray();
         }
 
         public string[] GetCollaborators(string Username, string RepositoryName)
@@ -219,7 +219,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Models.Internal.CollaboratorsCollection>(url);
 
-            return result == null ? null : result.collaborators.ToArray();
+            return result == null ? null : result.Collaborators.ToArray();
         }
 
         public string[] AddCollaborator(string RepositoryName, string Username)
@@ -234,7 +234,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrlAndPostData<Models.Internal.CollaboratorsCollection>(url, formValues);
 
-            return result == null ? null : result.collaborators.ToArray();
+            return result == null ? null : result.Collaborators.ToArray();
         }
 
         public string[] RemoveCollaborator(string RepositoryName, string Username)
@@ -249,7 +249,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrlAndPostData<Models.Internal.CollaboratorsCollection>(url, formValues);
 
-            return result == null ? null : result.collaborators.ToArray();
+            return result == null ? null : result.Collaborators.ToArray();
         }
 
         public IEnumerable<Models.Repository> Network(string RepositoryName, string Username)
@@ -260,7 +260,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Models.Internal.RepositoryFromNetworkContainer>(url);
 
-            return result == null ? null : result.network.ToArray();
+            return result == null ? null : result.Network.ToArray();
         }
 
         public IEnumerable<Models.Language> LanguageBreakDown(string RepositoryName, string Username)
@@ -271,7 +271,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Models.Internal.LanguagesCollection>(url);
 
-            return result == null ? null : result.languages.ToList().Select(p => new Models.Language { Name = p.Key, CalculatedBytes = p.Value }).ToArray();
+            return result == null ? null : result.Languages.ToList().Select(p => new Models.Language { Name = p.Key, CalculatedBytes = p.Value }).ToArray();
         }
 
         public IEnumerable<Models.TagOrBranch> Tags(string RepositoryName, string Username)
@@ -282,7 +282,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Models.Internal.TagCollection>(url);
 
-            return result == null ? null : result.tags.ToList().Select(p => new Models.TagOrBranch { Name = p.Key, Sha = p.Value }).ToArray();
+            return result == null ? null : result.Tags.ToList().Select(p => new Models.TagOrBranch { Name = p.Key, Sha = p.Value }).ToArray();
         }
 
         public IEnumerable<Models.TagOrBranch> Branches(string RepositoryName, string Username)
@@ -293,7 +293,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Models.Internal.BranchesCollection>(url);
 
-            return result == null ? null : result.branches.ToList().Select(p => new Models.TagOrBranch { Name = p.Key, Sha = p.Value }).ToArray();
+            return result == null ? null : result.Branches.ToList().Select(p => new Models.TagOrBranch { Name = p.Key, Sha = p.Value }).ToArray();
         }
     }
 }

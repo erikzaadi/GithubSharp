@@ -1,35 +1,64 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Runtime.Serialization;
 
 namespace GithubSharp.Core.Models
 {
+    [DataContract]
     public class Issue
     {
-        public int number { get; set; }
-        public int votes { get; set; }
-        public DateTime created_at { get; set; }
-        public string body { get; set; }
-        public string title { get; set; }
-        public DateTime closed_at { get; set; }
-        public string user { get; set; }
-        public string[] labels { get; set; }
-        public IssueState state { get; set; }
+        [DataMember(Name = "number")]
+        public int Number { get; set; }
+
+        [DataMember(Name = "votes")]
+        public int Votes { get; set; }
+
+        [DataMember(Name = "created_at")]
+        public DateTime CreatedAt { get; set; }
+
+        [DataMember(Name = "body")]
+        public string Body { get; set; }
+
+        [DataMember(Name = "title")]
+        public string Title { get; set; }
+
+        [DataMember(Name = "closed_at")]
+        public DateTime ClosedAt { get; set; }
+
+        [DataMember(Name = "user")]
+        public string User { get; set; }
+
+        [DataMember(Name = "labels")]
+        public string[] Labels { get; set; }
+
+        [DataMember(Name = "state")]
+        public IssueState State { get; set; }
     }
 
+    [DataContract]
     public enum IssueState
     {
-        open,
-        closed
+        [DataMember(Name = "open")]
+        Open,
+        [DataMember(Name = "closed")]
+        Closed
     }
 
+    [DataContract]
     public class Comment
     {
-        public DateTime created_at { get; set; }
-        public DateTime updated_at { get; set; }
-        public string body { get; set; }
-        public int id { get; set; }
-        public string user { get; set; }
+        [DataMember(Name = "created_at")]
+        public DateTime CreatedAt { get; set; }
+
+        [DataMember(Name = "updated_at")]
+        public DateTime UpdatedAt { get; set; }
+
+        [DataMember(Name = "body")]
+        public string Body { get; set; }
+
+        [DataMember(Name = "id")]
+        public int Id { get; set; }
+
+        [DataMember(Name = "user")]
+        public string User { get; set; }
     }
 }

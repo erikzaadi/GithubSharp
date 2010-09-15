@@ -25,7 +25,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Models.Internal.CommitListContainer>(url);
 
-            return result != null ? result.commits : null;
+            return result != null ? result.Commits : null;
         }
 
 
@@ -49,7 +49,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Models.Internal.CommitListContainer>(url);
 
-            return result != null ? result.commits : null;
+            return result != null ? result.Commits : null;
         }
 
 
@@ -70,7 +70,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Models.Internal.SingleFileCommitContainer>(url);
 
-            return result != null ? result.commit : null;
+            return result != null ? result.Commit : null;
         }
     }
 }

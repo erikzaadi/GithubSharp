@@ -1,19 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Mvc.Ajax;
 using GithubSharp.Core.Services;
 
-namespace GithubSharp.Samples.MvcSample.MvcApplication.Controllers
+namespace GithubSharp.MvcSample.MvcApplication.Controllers
 {
-    public class CommitController : BaseAPIController<Core.API.Commits>
+    public sealed class CommitController : BaseAPIController<Core.API.Commits>
     {
-        public CommitController(ICacheProvider cacheProvider, ILogProvider logProvider)
-            : base(cacheProvider, logProvider)
+        public CommitController(ICacheProvider Cache, ILogProvider Log)
+            : base(Cache, Log)
         {
-            BaseAPI = new GithubSharp.Core.API.Commits(cacheProvider, logProvider);
+            BaseAPI = new Core.API.Commits(Cache, Log);
         }
 
         public ActionResult CommitsForBranch(
