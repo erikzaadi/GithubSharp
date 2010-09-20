@@ -6,34 +6,34 @@ namespace GithubSharp.Core.Models
     [DataContract]
     public class Repository
     {
-        [DataMember(Name = "number")]
+        [DataMember(Name = "url")]
         public string URL { get; set; }
 
-        [DataMember(Name = "number")]
+        [DataMember(Name = "description")]
         public string Description { get; set; }
 
-        [DataMember(Name = "number")]
+        [DataMember(Name = "homepage")]
         public string Homepage { get; set; }
 
-        [DataMember(Name = "number")]
+        [DataMember(Name = "name")]
         public string Name { get; set; }
 
-        [DataMember(Name = "number")]
+        [DataMember(Name = "owner")]
         public string Owner { get; set; }
 
-        [DataMember(Name = "number")]
+        [DataMember(Name = "fork")]
         public bool Fork { get; set; }
 
-        [DataMember(Name = "number")]
+        [DataMember(Name = "private")]
         public bool Private { get; set; }
 
-        [DataMember(Name = "number")]
+        [DataMember(Name = "open_issues")]
         public int OpenIssues { get; set; }
 
-        [DataMember(Name = "number")]
+        [DataMember(Name = "watchers")]
         public int Watchers { get; set; }
 
-        [DataMember(Name = "number")]
+        [DataMember(Name = "forks")]
         public int Forks { get; set; }
 
         public string WatchersURL { get { return string.Format("http://github.com/{0}/{1}/watchers", Owner, Name); } }
