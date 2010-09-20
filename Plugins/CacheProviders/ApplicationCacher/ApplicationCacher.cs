@@ -1,4 +1,3 @@
-
 using System;
 using GithubSharp.Core.Services;
 using System.Linq;
@@ -14,10 +13,10 @@ namespace GithubSharp.Plugins.CacheProviders.ApplicationCacher
 				throw new NullReferenceException("System.Web.HttpContext.Current is null");
 			if (HttpContext.Current.Application == null)
 				throw new NullReferenceException("System.Web.HttpContext.Current.Application is null");
-			_Application = HttpContext.Current.Application;
+		    _application = HttpContext.Current.Application;
 		}
 		
-		private readonly HttpApplicationState _Application;
+		private readonly HttpApplicationState _application;
 		private const string CachePrefix = "GithubSharp.Plugins.CacheProviders.ApplicationCacher";
 		
 		#region ICacheProvider implementation
@@ -31,7 +30,7 @@ namespace GithubSharp.Plugins.CacheProviders.ApplicationCacher
 		public T Get<T> (string Name, int CacheDurationInMinutes)
 			where T : class
 		{
-            var cached = _Application[CachePrefix + Name] as CachedObject<T>;
+            var cached = _application[CachePrefix + Name] as CachedObject<T>;
             if (cached == null)
 				return null;
 
@@ -53,31 +52,31 @@ namespace GithubSharp.Plugins.CacheProviders.ApplicationCacher
 			cacheObj.Cached = ObjectToCache;
 			cacheObj.When = DateTime.Now;
 			
-			_Application[CachePrefix + Name] = cacheObj;
+			_application[CachePrefix + Name] = cacheObj;
 		}
 		
 		
 		public void Delete (string Name)
 		{
-			_Application.Remove(CachePrefix + Name);
+			_application.Remove(CachePrefix + Name);
 		}
 		
 		
 		public void DeleteWhereStartingWith (string Name)
 		{
-			_Application.AllKeys.Where(P => P.StartsWith(CachePrefix + Name)).ToList().ForEach(Key => _Application.Remove(Key));
+			_application.AllKeys.Where(P => P.StartsWith(CachePrefix + Name)).ToList().ForEach(Key => _application.Remove(Key));
 		}
 		
 		
 		public void DeleteAll<T> ()
 			where T : class
 		{
-			_Application.AllKeys.Where(P => P.StartsWith(CachePrefix)).ToList().ForEach(Key =>
+			_application.AllKeys.Where(P => P.StartsWith(CachePrefix)).ToList().ForEach(Key =>
 		    {
-                var obj = _Application[Key] as CachedObject<T>;
+                var obj = _application[Key] as CachedObject<T>;
 				if (obj != null)
 				{
-					_Application.Remove(Key);
+					_application.Remove(Key);
 				}
 			});
 		}
