@@ -13,6 +13,11 @@ namespace GithubSharp.Core.Models
         public int Votes { get; set; }
 
         [DataMember(Name = "created_at")]
+        private string PrivateCreatedAt
+        {
+            get { return CreatedAt.ToString(); }
+            set { CreatedAt = DateTime.Parse(value); }
+        }
         public DateTime CreatedAt { get; set; }
 
         [DataMember(Name = "body")]
@@ -22,6 +27,11 @@ namespace GithubSharp.Core.Models
         public string Title { get; set; }
 
         [DataMember(Name = "closed_at")]
+        private string PrivateClosedAt
+        {
+            get { return ClosedAt.ToString(); }
+            set { ClosedAt = DateTime.Parse(value); }
+        }
         public DateTime ClosedAt { get; set; }
 
         [DataMember(Name = "user")]
@@ -47,9 +57,19 @@ namespace GithubSharp.Core.Models
     public class Comment
     {
         [DataMember(Name = "created_at")]
+        private string PrivateCreatedAt
+        {
+            get { return CreatedAt.ToString(); }
+            set { CreatedAt = DateTime.Parse(value); }
+        }
         public DateTime CreatedAt { get; set; }
 
         [DataMember(Name = "updated_at")]
+        private string PrivateUpdatedAt
+        {
+            get { return UpdatedAt.ToString(); }
+            set { UpdatedAt = DateTime.Parse(value); }
+        }
         public DateTime UpdatedAt { get; set; }
 
         [DataMember(Name = "body")]

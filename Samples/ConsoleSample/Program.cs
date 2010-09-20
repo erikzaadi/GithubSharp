@@ -1,6 +1,6 @@
 ﻿using System;
-using GithubSharp.Plugins.LogProviders.SimpleLogProvider;
 using GithubSharp.Core.API;
+using GithubSharp.Plugins.LogProviders.SimpleLogProvider;
 
 namespace ConsoleSample
 {

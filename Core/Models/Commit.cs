@@ -16,14 +16,23 @@ namespace GithubSharp.Core.Models
         [DataMember(Name = "url")]
         public string URL { get; set; }
 
-
         [DataMember(Name = "id")]
         public string Id { get; set; }
 
         [DataMember(Name = "comitted_date")]
+        private string PrivateCommittedDate
+        {
+            get { return CommittedDate.ToString(); }
+            set { CommittedDate = DateTime.Parse(value); }
+        }
         public DateTime CommittedDate { get; set; }
 
         [DataMember(Name = "authored_date")]
+        private string PrivateAuthoredDate
+        {
+            get { return AuthoredDate.ToString(); }
+            set { AuthoredDate = DateTime.Parse(value); }
+        }
         public DateTime AuthoredDate { get; set; }
 
         [DataMember(Name = "message")]

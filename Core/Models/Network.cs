@@ -17,9 +17,6 @@ namespace GithubSharp.Core.Models
         [DataMember(Name = "nethash")]
         public string Nethash { get; set; }
 
-        //        [DataMember(Name = "dates")]
-        //        public string Dates { get; set; }
-
         [DataMember(Name = "dates")]
         private List<string> PrivateCreated
         {
@@ -89,7 +86,12 @@ namespace GithubSharp.Core.Models
         public string Id { get; set; }
 
         [DataMember(Name = "date")]
-        public DateTime Date { get; set; }
+        private string PrivateDate
+        {
+            get { return Date.ToString(); }
+            set { Date = DateTime.Parse(value); }
+        }
+        public DateTime Date{ get; set; }
 
         [DataMember(Name = "gravatar")]
         public string Gravatar { get; set; }
