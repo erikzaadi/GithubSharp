@@ -26,8 +26,10 @@ namespace BasicCacher
             if (!_cache.ContainsKey(CachePrefix + Name)) return null;
             var cached = _cache[CachePrefix + Name] as CachedObject<T>;
             if (cached == null) return null;
-            if (cached.When.AddMinutes(CacheDurationInMinutes) > DateTime.Now)
+
+            if (cached.When.AddMinutes(CacheDurationInMinutes) < DateTime.Now)
                 return null;
+
             return cached.Cached;
         }
 

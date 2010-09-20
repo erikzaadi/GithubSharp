@@ -32,8 +32,10 @@ namespace GithubSharp.Plugins.CacheProviders.WebCache
             var cached = _Cache[CachePrefix + Name] as CachedObject<T>;
             if (cached == null)
                 return null;
-            if (cached.When.AddMinutes(CacheDurationInMinutes) > DateTime.Now)
+
+            if (cached.When.AddMinutes(CacheDurationInMinutes) < DateTime.Now)
                 return null;
+
             return cached.Cached;
         }
 

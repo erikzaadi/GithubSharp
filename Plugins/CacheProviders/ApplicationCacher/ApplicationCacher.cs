@@ -34,7 +34,10 @@ namespace GithubSharp.Plugins.CacheProviders.ApplicationCacher
             if (cached == null)
 				return null;
 
-			return cached.When.AddMinutes(CacheDurationInMinutes) > DateTime.Now ? null : cached.Cached;
+            if (cached.When.AddMinutes(CacheDurationInMinutes) < DateTime.Now)
+                return null;
+
+            return cached.Cached;
 		}
 		
 		

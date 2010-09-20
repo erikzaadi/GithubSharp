@@ -11,6 +11,8 @@ namespace ConsoleSample
             var user = new User(new BasicCacher.BasicCacher(), new SimpleLogProvider());
             var u = user.Get("rumpl");
             Console.WriteLine(u.Blog);
+            u = user.Get("rumpl");
+            Console.WriteLine(u.Blog);
         }
     }
 }
