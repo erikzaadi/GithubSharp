@@ -36,6 +36,12 @@ namespace GithubSharp.Core.Models
         [DataMember(Name = "forks")]
         public int Forks { get; set; }
 
+        [DataMember(Name = "source")]
+        public string Source { get; set; }
+
+        [DataMember(Name = "parent")]
+        public string Parent { get; set; }
+
         public string WatchersURL { get { return string.Format("http://github.com/{0}/{1}/watchers", Owner, Name); } }
         public string DownloadURL { get { return string.Format("http://github.com/{0}/{1}/zipball/master", Owner, Name); } }
         public string ForksURL { get { return string.Format("http://github.com/{0}/{1}/network/members", Owner, Name); } }
