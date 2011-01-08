@@ -109,6 +109,42 @@ namespace GithubSharp.Core.Models
 
         [DataMember(Name = "diff_url")]
         public string DiffUrl { get; set; }
+
+        [DataMember(Name = "discussion")]
+        public List<DiscussionEntry> Discussion { get; set; }
+    }
+
+    [DataContract]
+    public class DiscussionEntry
+    {
+        [DataMember(Name = "type")]
+        public string Type { get; set; }
+
+        [DataMember(Name = "created_at")]
+        private string CreatedPrivate
+        { 
+            get 
+            {
+                return Created.ToString();
+            }
+            set
+            {
+                Created = DateTime.Parse(value);
+            }
+        }
+        public DateTime Created { get; set; }
+
+        [DataMember(Name = "sha")]
+        public string Sha { get; set; }
+
+        [DataMember(Name = "subject")]
+        public string Subject { get; set; }
+
+        [DataMember(Name = "body")]
+        public string Body { get; set; }
+
+        [DataMember(Name = "user")]
+        public IssueUser User { get; set; }
     }
 
     [DataContract]

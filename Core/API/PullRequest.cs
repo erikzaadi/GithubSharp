@@ -22,5 +22,13 @@ namespace GithubSharp.Core.API
             var result = ConsumeJsonUrl<Models.Internal.PullRequestCollection>(url);
             return result == null ? null : result.PullRequests;
         }
+
+        public Models.PullRequest GetById(string Username, string RepositoryName, string Id)
+        {
+            LogProvider.LogMessage(string.Format("PullRequest.GetById - {0} - {1} - {2}", Username, RepositoryName, Id));
+            var url = string.Format("pulls/{0}/{1}/{2}", Username, RepositoryName, Id);
+            var result = ConsumeJsonUrl<Models.Internal.PullRequestContainer>(url);
+            return result == null ? null : result.PullRequest;
+        }
     }
 }

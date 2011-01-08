@@ -7,9 +7,16 @@ using System.Runtime.Serialization;
 namespace GithubSharp.Core.Models.Internal
 {
     [DataContract]
-    class PullRequestCollection
+    internal class PullRequestCollection
     {
         [DataMember(Name = "pulls")]
         public IEnumerable<Models.PullRequest> PullRequests { get; set; }
+    }
+
+    [DataContract]
+    internal class PullRequestContainer
+    {
+        [DataMember(Name = "pull")]
+        public Models.PullRequest PullRequest { get; set; }
     }
 }
