@@ -36,6 +36,23 @@ namespace ConsoleSample
                 Console.WriteLine("Labels: {0}", string.Join(",", pull.Labels));
                 Console.WriteLine("Position: {0} Number: {1}", pull.Position, pull.Number);
             }
+
+            var pull2 = pullApi.GetById("cocytus", "gitextensions", "1");
+            Console.WriteLine("Pull from {1}: {0}\r\nVotes: {2}\r\nBody: {3}\r\nGravatar ID: {4}", pull2.Title, pull2.User.Login, pull2.Votes, pull2.Body, pull2.User.GravatarId);
+            foreach (var d in pull2.Discussion)
+            {
+                Console.WriteLine("Discussion: From {0} At: {1} Type: {2}", d.User.Login, d.Created, d.Type);
+                if (d.Type.ToLowerInvariant() == "commit")
+                {
+                    Console.WriteLine("SHA: {0} Subject: {1}", d.Sha, d.Subject);
+                }
+                else if (d.Type.ToLowerInvariant() == "issuecomment")
+                {
+                    Console.WriteLine("Body: {0}", d.Body);
+                }
+                else
+                    Console.WriteLine("WHAT? " + d.Type);
+            }
         }
     }
 
