@@ -145,6 +145,12 @@ namespace GithubSharp.Core.Models
 
         [DataMember(Name = "user")]
         public IssueUser User { get; set; }
+
+        [DataMember(Name = "author")]
+        public string Author { get; set; }
+
+        [DataMember(Name = "email")]
+        public string Email { get; set; }
     }
 
     [DataContract]
