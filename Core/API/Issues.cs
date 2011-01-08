@@ -221,7 +221,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrlAndPostData<Models.Internal.CommentSavedContainer>(url, formValues);
 
-            return result != null && result.Comment != null ? result.Comment.Status == "saved" : false;
+            return result != null && result.Comment != null ? !string.IsNullOrEmpty(result.Comment.Id) : false;
         }
     }
 }

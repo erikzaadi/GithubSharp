@@ -41,10 +41,7 @@ namespace GithubSharp.Core.Models.Internal
     [DataContract]
     internal class CommentSaved
     {
-        [DataMember(Name = "comment")]
-        public string Comment { get; set; }
-
-        [DataMember(Name = "status")]
-        public string Status { get; set; }
+        [DataMember(Name = "id")]
+        public string Id { get; set; }
     }
 }
