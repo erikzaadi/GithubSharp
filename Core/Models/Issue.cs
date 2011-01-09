@@ -40,16 +40,16 @@ namespace GithubSharp.Core.Models
         [DataMember(Name = "labels")]
         public string[] Labels { get; set; }
 
-        [DataMember(Name = "state")]
-        public IssueState State { get; set; }
+        [DataMember(Name = "state")] //EnumMember does not work?
+        public string State { get; set; }
     }
 
     [DataContract]
     public enum IssueState
     {
-        [DataMember(Name = "open")]
+        [EnumMember(Value = "open")]
         Open,
-        [DataMember(Name = "closed")]
+        [EnumMember(Value= "closed")]
         Closed
     }
 
