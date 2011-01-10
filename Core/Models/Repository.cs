@@ -86,7 +86,10 @@ namespace GithubSharp.Core.Models
         private string PrivatePushed
         {
             get { return Pushed.ToString(); }
-            set { Pushed = DateTime.Parse(value); }
+            set 
+            { 
+                Pushed = value != null ? DateTime.Parse(value) : default(DateTime);
+            }
         }
         public DateTime Pushed { get; set; }
 
@@ -103,7 +106,7 @@ namespace GithubSharp.Core.Models
         private string PrivateCreated
         {
             get { return Created.ToString(); }
-            set { Created = DateTime.Parse(value); }
+            set { Created = value != null ? DateTime.Parse(value) : default(DateTime); }
         }
         public DateTime Created { get; set; }
     }
