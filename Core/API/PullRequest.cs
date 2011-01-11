@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GithubSharp.Core.Services;
+using System.Collections.Specialized;
 
 namespace GithubSharp.Core.API
 {
@@ -29,6 +30,25 @@ namespace GithubSharp.Core.API
             var url = string.Format("pulls/{0}/{1}/{2}", Username, RepositoryName, Id);
             var result = ConsumeJsonUrl<Models.Internal.PullRequestContainer>(url);
             return result == null ? null : result.PullRequest;
+        }
+
+        public Models.PullRequest Create(string Username, string RepositoryName, string BaseRef, string HeadRef, string Title, string Body)
+        {
+            LogProvider.LogMessage(string.Format("PullRequest.Create - {0} - {1} - {2} - {3} - {4}", Username, RepositoryName, BaseRef, HeadRef, Title));
+            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(RepositoryName) || string.IsNullOrEmpty(BaseRef) || string.IsNullOrEmpty(HeadRef) || string.IsNullOrEmpty(Title) || string.IsNullOrEmpty(Body))
+                return null;
+
+            var url = string.Format("pulls/{0}/{1}", Username, RepositoryName);
+
+            var formValues = new NameValueCollection();
+            formValues.Add("base", BaseRef);
+            formValues.Add("head", HeadRef);
+            formValues.Add("title", Title);
+            formValues.Add("body", Body);
+
+            var result = ConsumeJsonUrlAndPostData<Models.Internal.PullRequestContainer>(url, formValues);
+
+            return result != null ? result.PullRequest : null;
         }
     }
 }
