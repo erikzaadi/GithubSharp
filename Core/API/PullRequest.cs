@@ -41,10 +41,10 @@ namespace GithubSharp.Core.API
             var url = string.Format("pulls/{0}/{1}", Username, RepositoryName);
 
             var formValues = new NameValueCollection();
-            formValues.Add("base", BaseRef);
-            formValues.Add("head", HeadRef);
-            formValues.Add("title", Title);
-            formValues.Add("body", Body);
+            formValues.Add("pull[base]", BaseRef);
+            formValues.Add("pull[head]", HeadRef);
+            formValues.Add("pull[title]", Title);
+            formValues.Add("pull[body]", Body);
 
             var result = ConsumeJsonUrlAndPostData<Models.Internal.PullRequestContainer>(url, formValues);
 
