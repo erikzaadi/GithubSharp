@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GithubSharp.Core.Services;
 using System.Collections.Specialized;
+using GithubSharp.Core.Base;
 
 namespace GithubSharp.Core.API
 {
@@ -285,7 +286,7 @@ namespace GithubSharp.Core.API
             return result == null ? null : result.Tags.ToList().Select(p => new Models.TagOrBranch { Name = p.Key, Sha = p.Value }).ToArray();
         }
 
-        public IEnumerable<Models.TagOrBranch> Branches(string RepositoryName, string Username)
+        public Models.TagOrBranch[] Branches(string RepositoryName, string Username)
         {
             LogProvider.LogMessage(string.Format("Repository.Branches - RepositoryName : '{0}' , Username : '{1}' ", RepositoryName, Username));
 
@@ -293,7 +294,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Models.Internal.BranchesCollection>(url);
 
-            return result == null ? null : result.Branches.ToList().Select(p => new Models.TagOrBranch { Name = p.Key, Sha = p.Value }).ToArray();
+            return result == null ? null : result.Branches.Dict.Select(p => new Models.TagOrBranch { Name = p.Key, Sha = p.Value }).ToArray();
         }
     }
 }

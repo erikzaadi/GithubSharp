@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System;
 
 namespace GithubSharp.Core.Models.Internal
 {
@@ -22,7 +23,6 @@ namespace GithubSharp.Core.Models.Internal
     {
         [DataMember(Name = "network")]
         public IEnumerable<Repository> Network { get; set; }
-
     }
 
     [DataContract]
@@ -57,6 +57,6 @@ namespace GithubSharp.Core.Models.Internal
     internal class BranchesCollection
     {
         [DataMember(Name = "branches")]
-        public Dictionary<string, string> Branches { get; set; }
+        public JsonSimpleDictionary Branches { get; set; }
     }
 }
