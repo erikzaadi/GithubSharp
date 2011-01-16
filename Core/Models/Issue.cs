@@ -30,9 +30,13 @@ namespace GithubSharp.Core.Models
         private string PrivateClosedAt
         {
             get { return ClosedAt.ToString(); }
-            set { ClosedAt = DateTime.Parse(value); }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                    ClosedAt = DateTime.Parse(value);
+            }
         }
-        public DateTime ClosedAt { get; set; }
+        public DateTime? ClosedAt { get; set; }
 
         [DataMember(Name = "user")]
         public string User { get; set; }

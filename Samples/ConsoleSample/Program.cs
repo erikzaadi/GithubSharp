@@ -14,8 +14,13 @@ namespace ConsoleSample
             Console.WriteLine(u.Blog);
             u = user.Get("rumpl");
             Console.WriteLine(u.Blog);
-            
-            TestPullRequest();
+
+            var issuesAPI = new Issues(new BasicCacher.BasicCacher(), new SimpleLogProvider());
+
+            var closedIssues = issuesAPI.List("GithubSharp", "erikzaadi", GithubSharp.Core.Models.IssueState.Closed);
+            var openIssues = issuesAPI.List("GithubSharp", "erikzaadi", GithubSharp.Core.Models.IssueState.Open);
+
+            //TestPullRequest();
 
             Console.ReadKey();
         }

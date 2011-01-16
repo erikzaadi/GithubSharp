@@ -9,5 +9,6 @@
         Created :
         <%= Model.CreatedAt%>
         , State :
-        <%= Model.State == GithubSharp.Core.Models.IssueState.Closed ? "closed" : "open"%></div>
+        <%= Model.State %>
+        <%-- == GithubSharp.Core.Models.IssueState.Closed ? "closed" : "open" --%></div>
 </div>
