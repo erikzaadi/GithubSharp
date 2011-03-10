@@ -9,6 +9,8 @@ namespace ConsoleSample
     {
         static void Main()
         {
+            TestPullRequest();
+
             var user = new User(new BasicCacher.BasicCacher(), new SimpleLogProvider());
             var u = user.Get("rumpl");
             Console.WriteLine(u.Blog);
@@ -20,7 +22,6 @@ namespace ConsoleSample
             var closedIssues = issuesAPI.List("GithubSharp", "erikzaadi", GithubSharp.Core.Models.IssueState.Closed);
             var openIssues = issuesAPI.List("GithubSharp", "erikzaadi", GithubSharp.Core.Models.IssueState.Open);
 
-            //TestPullRequest();
 
             Console.ReadKey();
         }
@@ -29,7 +30,7 @@ namespace ConsoleSample
         {
             var cocytusUser = new GithubSharp.Core.Models.GithubUser { Name = "cocytus", APIToken = "XXXXXXXXXXXXXXXXXXXXXXXXXXXX" };
             PullRequest pullApi = new PullRequest(new BasicCacher.BasicCacher(), new ConsoleLogger());
-            var pulls = pullApi.List("cocytus", "gitextensions");
+            var pulls = pullApi.List("spdr870", "gitextensions");
             foreach (var pull in pulls)
             {
                 Console.WriteLine("Pull from {1}: {0}\r\nVotes: {2}\r\nBody: {3}\r\nGravatar ID: {4}", pull.Title, pull.User.Login, pull.Votes, pull.Body, pull.User.GravatarId);
@@ -49,7 +50,7 @@ namespace ConsoleSample
                 Console.WriteLine("Discussion: From {0} At: {1} Type: {2}", d.User.Login, d.Created, d.Type);
                 if (d.Type.ToLowerInvariant() == "commit")
                 {
-                    Console.WriteLine("SHA: {0} Subject: {1}", d.Sha, d.Subject);
+                    Console.WriteLine("SHA/ID: {0} Body: {1}", d.Id, d.Body);
                 }
                 else if (d.Type.ToLowerInvariant() == "issuecomment")
                 {

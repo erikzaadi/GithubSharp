@@ -120,8 +120,8 @@ namespace GithubSharp.Core.Models
         [DataMember(Name = "type")]
         public string Type { get; set; }
 
-        [DataMember(Name = "created_at")]
-        private string CreatedPrivate
+        [DataMember(Name = "authored_date")]
+        private string AuthoredDatePrivate
         { 
             get 
             {
@@ -134,23 +134,34 @@ namespace GithubSharp.Core.Models
         }
         public DateTime Created { get; set; }
 
-        [DataMember(Name = "sha")]
-        public string Sha { get; set; }
+        //Same backend. authored_date used by commit, created_at used by IssueComment
+        [DataMember(Name = "created_at")]
+        private string CreatedAtPrivate
+        {
+            get
+            {
+                return Created.ToString();
+            }
+            set
+            {
+                Created = DateTime.Parse(value);
+            }
+        }
 
-        [DataMember(Name = "subject")]
-        public string Subject { get; set; }
+        [DataMember(Name = "id")]
+        public string Id { get; set; }
 
         [DataMember(Name = "body")]
         public string Body { get; set; }
+
+        [DataMember(Name = "message")]
+        public string Message { get; set; }
 
         [DataMember(Name = "user")]
         public IssueUser User { get; set; }
 
         [DataMember(Name = "author")]
-        public string Author { get; set; }
-
-        [DataMember(Name = "email")]
-        public string Email { get; set; }
+        public IssueUser Author { get; set; }
     }
 
     [DataContract]
@@ -167,6 +178,9 @@ namespace GithubSharp.Core.Models
 
         [DataMember(Name = "name")]
         public string Name { get; set;}
+
+        [DataMember(Name = "email")]
+        public string Email { get; set; }
     }
 
     [DataContract]
