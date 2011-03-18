@@ -17,8 +17,9 @@ namespace GithubSharp.Core.API
             string state = State == Models.IssueState.Open ? "open" : "closed";
             LogProvider.LogMessage(string.Format("Issues.Search - '{0}', RepositoryName : '{1}', Username : '{2}', State : '{3}'", Search, RepositoryName, Username, state));
 
-            var url = string.Format("issues/search/{0}/{1}/{2}/{3}",
-                Username,
+            //var url = string.Format("issues/search/{0}/{1}/{2}/{3}",
+              //  Username,
+            var url = string.Format("issues/search/{0}/{1}/{2}",
                 RepositoryName,
                 state,
                 Search);
@@ -37,8 +38,9 @@ namespace GithubSharp.Core.API
             string state = State == Models.IssueState.Open ? "open" : "closed";
             LogProvider.LogMessage(string.Format("Issues.List - RepositoryName : '{0}', Username : '{1}', State : '{2}'", RepositoryName, Username, state));
 
-            var url = string.Format("issues/list/{0}/{1}/{2}",
-                Username,
+            //var url = string.Format("issues/list/{0}/{1}/{2}",
+            //    Username,
+            var url = string.Format("issues/list/{0}/{1}",                
                 RepositoryName,
                 state);
 
@@ -54,8 +56,9 @@ namespace GithubSharp.Core.API
         {
             LogProvider.LogMessage(string.Format("Issues.View - RepositoryName: '{0}', Username : '{1}', Id : '{2}'", RepositoryName, Username, Id));
 
-            var url = string.Format("issues/show/{0}/{1}/{2}",
-                Username,
+            //var url = string.Format("issues/show/{0}/{1}/{2}",
+            //    Username,
+            var url = string.Format("issues/show/{0}/{1}",
                 RepositoryName,
                 Id);
 
@@ -70,8 +73,9 @@ namespace GithubSharp.Core.API
 
             Authenticate();
 
-            var url = string.Format("issues/open/{0}/{1}",
-               Username,
+            //var url = string.Format("issues/open/{0}/{1}",
+            //   Username,
+            var url = string.Format("issues/open/{0}",
                RepositoryName);
 
             var formValues = new NameValueCollection();
@@ -89,8 +93,9 @@ namespace GithubSharp.Core.API
 
             Authenticate();
 
-            var url = string.Format("issues/reopen/{0}/{1}/{2}",
-               Username,
+            //var url = string.Format("issues/reopen/{0}/{1}/{2}",
+            //   Username,
+            var url = string.Format("issues/reopen/{0}/{1}",
                RepositoryName,
                Id);
 
@@ -107,8 +112,9 @@ namespace GithubSharp.Core.API
 
             Authenticate();
 
-            var url = string.Format("issues/close/{0}/{1}/{2}",
-               Username,
+            //var url = string.Format("issues/close/{0}/{1}/{2}",
+            //   Username,
+            var url = string.Format("issues/close/{0}/{1}",
                RepositoryName,
                Id);
 
@@ -126,8 +132,9 @@ namespace GithubSharp.Core.API
 
             Authenticate();
 
-            var url = string.Format("issues/edit/{0}/{1}/{2}",
-               Username,
+            //var url = string.Format("issues/edit/{0}/{1}/{2}",
+            //   Username,
+            var url = string.Format("issues/edit/{0}/{1}",            
                RepositoryName,
                Id);
 
@@ -144,8 +151,9 @@ namespace GithubSharp.Core.API
         {
             LogProvider.LogMessage(string.Format("Issues.Labels - Labels : RepositoryName '{0}', Username : '{1}'", RepositoryName, Username));
 
-            var url = string.Format("issues/labels/{0}/{1} ",
-                Username,
+//            var url = string.Format("issues/labels/{0}/{1} ",
+//                Username,
+            var url = string.Format("issues/labels/{0}",
                 RepositoryName);
 
             var result = ConsumeJsonUrl<Models.Internal.LabelsCollection>(url);
@@ -159,8 +167,9 @@ namespace GithubSharp.Core.API
 
             Authenticate();
 
-            var url = string.Format("issues/label/add/{0}/{1}/{2}/{3}",
-               Username,
+//            var url = string.Format("issues/label/add/{0}/{1}/{2}/{3}",
+//               Username,
+            var url = string.Format("issues/label/add/{0}/{1}/{2}",
                RepositoryName,
                Label,
                Id);
@@ -178,8 +187,9 @@ namespace GithubSharp.Core.API
 
             Authenticate();
 
-            var url = string.Format("issues/label/remove/{0}/{1}/{2}/{3}",
-               Username,
+//            var url = string.Format("issues/label/remove/{0}/{1}/{2}/{3}",
+//               Username,
+            var url = string.Format("issues/label/remove/{0}/{1}/{2}",
                RepositoryName,
                Label,
                Id);
@@ -195,8 +205,9 @@ namespace GithubSharp.Core.API
         {
             LogProvider.LogMessage(string.Format("Issues.Comments - RepositoryName: '{0}', Username : '{1}', Id : '{2}'", RepositoryName, Username, Id));
 
-            var url = string.Format("issues/comments/{0}/{1}/{2}",
-                Username,
+//            var url = string.Format("issues/comments/{0}/{1}/{2}",
+//                Username,
+            var url = string.Format("issues/comments/{0}/{1}",
                 RepositoryName,
                 Id);
 
@@ -211,8 +222,9 @@ namespace GithubSharp.Core.API
 
             Authenticate();
 
-            var url = string.Format("issues/comment/{0}/{1}/{2}",
-               Username,
+//            var url = string.Format("issues/comment/{0}/{1}/{2}",
+//               Username,
+            var url = string.Format("issues/comment/{0}/{1}",
                RepositoryName,
                Id);
 

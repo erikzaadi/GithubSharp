@@ -4,42 +4,42 @@ using System.Runtime.Serialization;
 namespace GithubSharp.Core.Models.Internal
 {
     [DataContract]
-    internal class IssuesCollection
+    public class IssuesCollection
     {
         [DataMember(Name = "issues")]
         public IEnumerable<Issue> Issues { get; set; }
     }
 
     [DataContract]
-    internal class IssueContainer
+    public class IssueContainer
     {
         [DataMember(Name = "issue")]
         public Issue Issue { get; set; }
     }
 
     [DataContract]
-    internal class LabelsCollection
+    public class LabelsCollection
     {
         [DataMember(Name = "labels")]
         public string[] Labels { get; set; }
     }
 
     [DataContract]
-    internal class CommentsCollection
+    public class CommentsCollection
     {
         [DataMember(Name = "comments")]
         public IEnumerable<Comment> Comments { get; set; }
     }
 
     [DataContract]
-    internal class CommentSavedContainer
+    public class CommentSavedContainer
     {
         [DataMember(Name = "comment")]
         public CommentSaved Comment { get; set; }
     }
 
     [DataContract]
-    internal class CommentSaved
+    public class CommentSaved
     {
         [DataMember(Name = "id")]
         public string Id { get; set; }

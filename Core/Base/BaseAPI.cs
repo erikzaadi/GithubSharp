@@ -80,14 +80,14 @@ namespace GithubSharp.Core.Base
             return ConsumeUrlToStringAndPostData(Url, new NameValueCollection());
         }
 
-        internal string ConsumeUrlToStringAndPostData(string Url, NameValueCollection FormValues)
+        public string ConsumeUrlToStringAndPostData(string Url, NameValueCollection FormValues)
         {
             var url = GetAuthenticatedUrl(Url);
 
             return UrlConsumer.UploadValuesAndGetString(url, FormValues);
         }
 
-        internal T ConsumeJsonUrl<T>(string Url) where T : class
+        public T ConsumeJsonUrl<T>(string Url) where T : class
         {
             var result = ConsumeUrlToString(Url);
             if (result == null)
@@ -104,12 +104,12 @@ namespace GithubSharp.Core.Base
             }
         }
 
-        internal T ConsumeJsonUrlAndPostData<T>(string Url) where T : class
+        public T ConsumeJsonUrlAndPostData<T>(string Url) where T : class
         {
             return ConsumeJsonUrlAndPostData<T>(Url, new NameValueCollection());
         }
 
-        internal T ConsumeJsonUrlAndPostData<T>(string Url, NameValueCollection FormValues) where T : class
+        public T ConsumeJsonUrlAndPostData<T>(string Url, NameValueCollection FormValues) where T : class
         {
             var result = ConsumeUrlToStringAndPostData(Url, FormValues);
             if (result == null)
