@@ -42,10 +42,20 @@ namespace GithubSharp.Core.Models
         public string User { get; set; }
 
         [DataMember(Name = "labels")]
-        public string[] Labels { get; set; }
+        public string[] Labels { get; set; }                
 
         [DataMember(Name = "state")] //EnumMember does not work?
         public string State { get; set; }
+
+        [DataMember(Name = "comments")]
+        public int Comments { get; set; }
+
+        [DataMember(Name = "position")]
+        public double Position { get; set; }
+
+        [DataMember(Name = "html_url")]
+        public string HtmlUrl { get; set; }
+        
     }
 
     [DataContract]
