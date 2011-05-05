@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Text;
+using System.Web.WebPages;
 
 namespace GithubSharp.Samples.MvcSample.MvcApplication.Models.HtmlHelpers
 {

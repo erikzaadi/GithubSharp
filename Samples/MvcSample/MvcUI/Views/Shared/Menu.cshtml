@@ -1,16 +1,21 @@
+@{
+    var currentController = ViewContext.Controller.ValueProvider.GetValue("controller").RawValue.ToString();
+    Func<string,string> currentOrNot = (string x) => { return currentController == x ? "CurrentAPI" : ""; };
+
+}
 <ul id="menu">
     <li>
-        @Html.ActionLink("User", "Index", "User",null, new { @class = ViewContext.RouteData.GetRequiredString("controller") == "User" ? "CurrentAPI" : "" })</li>
+        @Html.ActionLink("User", "Index", "User",null, new { @class = currentOrNot("User") })</li>
     <li>
-        @Html.ActionLink("Issues", "Index", "Issues", null, new { @class = ViewContext.RouteData.GetRequiredString("controller") == "Issues" ? "CurrentAPI" : "" })</li>
+        @Html.ActionLink("Issues", "Index", "Issues", null, new { @class = currentOrNot("Issues") })</li>
     <li>
-        @Html.ActionLink("Network", "Index", "Network", null, new { @class = ViewContext.RouteData.GetRequiredString("controller") == "Network" ? "CurrentAPI" : "" })</li>
+        @Html.ActionLink("Network", "Index", "Network", null, new { @class = currentOrNot("Network")})</li>
     <li>
-        @Html.ActionLink("Repository", "Index", "Repository", null, new { @class = ViewContext.RouteData.GetRequiredString("controller") == "Repository" ? "CurrentAPI" : "" })</li>
+        @Html.ActionLink("Repository", "Index", "Repository", null, new { @class = currentOrNot("Repository") })</li>
     <li>
-        @Html.ActionLink("Commit", "Index", "Commit", null, new { @class = ViewContext.RouteData.GetRequiredString("controller") == "Commit" ? "CurrentAPI" : "" })</li>
+        @Html.ActionLink("Commit", "Index", "Commit", null, new { @class = currentOrNot("Commit")})</li>
     <li>
-        @Html.ActionLink("Object", "Index", "Object", null, new { @class = ViewContext.RouteData.GetRequiredString("controller") == "Object" ? "CurrentAPI" : "" })</li>
+        @Html.ActionLink("Object", "Index", "Object", null, new { @class = currentOrNot("Object") })</li>
     <li>
-        @Html.ActionLink("Gists", "Index", "Gists", null, new { @class = ViewContext.RouteData.GetRequiredString("controller") == "Gists" ? "CurrentAPI" : "" })</li>
+        @Html.ActionLink("Gists", "Index", "Gists", null, new { @class = currentOrNot("Gists") })</li>
 </ul>
