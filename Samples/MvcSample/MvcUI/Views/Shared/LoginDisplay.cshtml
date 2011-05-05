@@ -1,0 +1,13 @@
+@{
+	var show = ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString() != "Login";
+}
+<div id="logindisplay">
+    &nbsp;
+    @if (show) {
+    	if(Model == null || Model.CurrentUser == null){
+        	<text>@Html.ActionLink("Login", "Login", "Home")</text>
+        } else {
+        	<text>@Model.CurrentUser.Name @Html.ActionLink("Change", "Login", "Home"))</text>
+       }
+       }
+</div>

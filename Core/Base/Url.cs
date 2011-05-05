@@ -125,11 +125,10 @@ namespace GithubSharp.Core.Base
 
             LogProvider.LogMessage("Url.GetStringFromURL  :  Cached result unavailable, fetching url content");
 
-            var webClient = new System.Net.WebClient();
             string result;
             try
             {
-                result = webClient.DownloadString(URL);
+                result = new System.Net.WebClient().DownloadString(URL);
             }
             catch (Exception error)
             {

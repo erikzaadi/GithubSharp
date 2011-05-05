@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>
+        @RenderSection("Title", "GithubSharp")
+    </title>
+    <link rel="Stylesheet" href="@Url.Content("~/css/blueprint.min.css")" media="screen" />
+    <link rel="Stylesheet" href="@Url.Content("~/css/main.min.css")" media="screen" />
+    <link rel="icon" type="image/png" href="@Url.Content("~/images/githubsharp.png")" />
+    <link rel="icon" type="image/vnd.microsoft.icon" href="@Url.Content("~/images/favicon.ico")" />
+    <link rel="apple-touch-icon" href="@Url.Content("~/images/githubsharp.png")" />
+    <!--[if lt IE 8]>
+        <link rel="Stylesheet" href="@Url.Content("~/css/ie.min.css")" />
+     <![endif]-->
+</head>
+<body>
+    <div class="container">
+        <div class="span-24 last">
+            &nbsp;</div>
+        <div id="header" class="span-24 last">
+            <div id="title" class="span-16">
+                <h1>
+                    <img src="@Url.Content("~/images/githubsharp.png")" alt="GithubSharp" />
+                    Github Sharp</h1>
+            </div>
+            <div class="span-4 append-4 last">
+                <% Html.RenderPartial("LoginDisplay");
+            </div>
+            <div id="menucontainer" class="span-20 prepend-2 append-2 last">
+                <% Html.RenderPartial("Menu");
+            </div>
+        </div>
+        <div id="main" class="span-20 prepend-2 append-2 last">
+            <div id="notificationwrapper" class="span-13 last">
+                @if (Model != null && !string.IsNullOrEmpty(Model.Notification))
+                   {
+                <span class="notice" id="notification">
+                    @Model.Notification%></span>
+                }
+            </div>
+            <div class="span-20 last">
+					@RenderBody()
+            </div>
+            <div id="footer" class="span-20 last">
+                @Html.RenderPartial("Footer")
+            </div>
+        </div>
+    </div>
+    <div id="blocker">
+        @Html.RenderPartial("LoginControl", new GithubSharp.Samples.MvcSample.MvcApplication.Models.ViewModels.LoginViewModel())
+    </div>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/js/main.min.js")"></script>
+    @RenderSection("ScriptsIncludes", false)
+    <script type="text/javascript">
+        $(document).ready(function () {
+         InitMaster('@Url.Content("~/")');
+           @RenderSection("DocumentReadies", false)
+        });
+    </script>
+</body>
+</html>

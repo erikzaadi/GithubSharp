@@ -7,16 +7,29 @@ namespace ConsoleSample
 {
     class Program
     {
-        static void Main()
+        static void Main ()
         {
-            TestPullRequest();
+        	//TestPullRequest ();
 
-            var user = new User(new BasicCacher.BasicCacher(), new SimpleLogProvider());
-            var u = user.Get("rumpl");
-            Console.WriteLine(u.Blog);
-            u = user.Get("rumpl");
-            Console.WriteLine(u.Blog);
-
+            var user = new User (new BasicCacher.BasicCacher (), new SimpleLogProvider ());
+        	var u = user.Get ("rumpl");
+        	Console.WriteLine (u.Blog);
+        	u = user.Get ("rumpl");
+        	Console.WriteLine (u.Blog);
+   
+        	user.Authenticate (new GithubSharp.Core.Models.GithubUser { Name = "erikzaadi", APIToken = "851c28811a421ea23ba14a9b32f36631" });
+        	try
+            {
+        		var privateuser = user.Get ();
+        		if (privateuser == null)
+        			throw new Exception ("Invalid user");
+        	}
+			catch (Exception e)
+			{
+        		Console.WriteLine (e.Message);
+			}
+			
+			
             var issuesAPI = new Issues(new BasicCacher.BasicCacher(), new SimpleLogProvider());
 
             var closedIssues = issuesAPI.List("GithubSharp", "erikzaadi", GithubSharp.Core.Models.IssueState.Closed);
