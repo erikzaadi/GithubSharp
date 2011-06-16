@@ -50,7 +50,7 @@ namespace GithubSharp.Core.Models.Internal
     internal class TagCollection
     {
         [DataMember(Name = "tags")]
-        public Dictionary<string, string> Tags { get; set; }
+        public JsonSimpleDictionary Tags { get; set; }
     }
 
     [DataContract]

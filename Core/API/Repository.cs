@@ -283,7 +283,7 @@ namespace GithubSharp.Core.API
 
             var result = ConsumeJsonUrl<Models.Internal.TagCollection>(url);
 
-            return result == null ? null : result.Tags.ToList().Select(p => new Models.TagOrBranch { Name = p.Key, Sha = p.Value }).ToArray();
+            return result == null ? null : result.Tags.Dict.ToList().Select(p => new Models.TagOrBranch { Name = p.Key, Sha = p.Value }).ToArray();
         }
 
         public Models.TagOrBranch[] Branches(string RepositoryName, string Username)
