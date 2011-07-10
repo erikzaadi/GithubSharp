@@ -9,9 +9,9 @@
     </description>
     <projectUrl>http://github.com/erikzaadi/GithubSharp</projectUrl>
     <iconUrl>https://github.com/erikzaadi/GithubSharp/raw/master/Samples/MvcSample/MvcUI/images/githubsharp.png</iconUrl>
-    <files>
-        <file target="lib" src="../bin/*.dll" />
-    </files>
     <tags>Github</tags>
   </metadata>
+    <files>
+        <file target="lib" src="bin\*.dll" />
+    </files>
 </package>
