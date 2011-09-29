@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>GithubSharp.Plugins.All</id>
+    <version>0.0.5.1</version>
+    <authors>Erik Zaadi</authors>
+    <description>
+        C# integration with Githubs v2 apis - Complete Plugins Module
+    </description>
+    <projectUrl>http://github.com/erikzaadi/GithubSharp</projectUrl>
+    <iconUrl>https://github.com/erikzaadi/GithubSharp/raw/master/Samples/MvcSample/MvcUI/images/githubsharp.png</iconUrl>
+    <dependencies>
+      <dependency id="GithubSharp.Core" version="0.0.5.1" />
+    </dependencies>
+    <tags>Github</tags> 
+  </metadata>
+  <files>
+    <file target="lib" src="..\bin\GithubSharp.Plugins*.dll" />
+    <file target="lib" src="..\bin\GithubSharp.Plugins*.dll" />
+  </files>
+</package>
