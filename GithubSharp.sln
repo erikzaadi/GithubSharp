@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MvcSample", "MvcSample", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcUI", "Samples\MvcSample\MvcUI\MvcUI.csproj", "{33D4B918-DCF3-4A85-A353-ED141ECF7E3B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_READMES", "_READMES", "{A80BD636-8C82-49C2-A519-D73D26A30C3E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "READMES", "READMES", "{A80BD636-8C82-49C2-A519-D73D26A30C3E}"
 	ProjectSection(SolutionItems) = preProject
 		NOTES = NOTES
 		README = README
@@ -34,6 +34,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicCacher", "Plugins\CacheProviders\BasicCacher\BasicCacher.csproj", "{5EB1DF0E-EDBD-44EB-8A63-070F13A5D0EE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleSample", "Samples\ConsoleSample\ConsoleSample.csproj", "{38C76F61-476B-4821-A054-E5FC54F9EDA5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NUGET", "NUGET", "{136D9C47-333E-46B1-B1A7-5041A338C200}"
+	ProjectSection(SolutionItems) = preProject
+		nuget\GithubSharp.Core.nuspec = nuget\GithubSharp.Core.nuspec
+		nuget\GithubSharp.nuspec = nuget\GithubSharp.nuspec
+		nuget\GithubSharp.Plugins.All.nuspec = nuget\GithubSharp.Plugins.All.nuspec
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -97,7 +97,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core\Core.csproj">
       <Project>{59C24364-8C00-46AD-9CE6-1D5630656DF9}</Project>
-      <Name>Core</Name>
+      <Name>Core %28Core\Core%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Plugins\CacheProviders\WebCache\WebCache.csproj">
       <Project>{4CF09821-4DF8-4DFE-B22E-3EBAE4A01C33}</Project>
