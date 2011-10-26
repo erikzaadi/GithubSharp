@@ -2,6 +2,7 @@
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Web.Script.Serialization;
 
 namespace GithubSharp.Core.Base
 {
@@ -12,13 +13,7 @@ namespace GithubSharp.Core.Base
         /// </summary>
         internal static string ToJson<T>(this T Obj)
         {
-            var serializer = new DataContractJsonSerializer(typeof (T));
-            using (var ms = new MemoryStream())
-            {
-                serializer.WriteObject(ms, Obj);
-                string ret = Encoding.Default.GetString(ms.ToArray());
-                return ret;
-            }
+            return new JavaScriptSerializer().Serialize(Obj);
         }
 
         /// <summary>
@@ -30,9 +25,7 @@ namespace GithubSharp.Core.Base
             if (string.IsNullOrEmpty(Json))
                 throw new ArgumentNullException("Json");
 
-            var serializer = new DataContractJsonSerializer(typeof (T));
-            using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(Json)))
-                return (T) serializer.ReadObject(ms);
+            return new JavaScriptSerializer().Deserialize<T>(Json);
         }
     }
 }
