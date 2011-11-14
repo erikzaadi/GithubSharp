@@ -63,6 +63,22 @@ namespace CoreTests
 			Assert.AreEqual("https://api.github.com/users/jenkinsci/repos?page=1&per_page=5", response.LinkFirst);
 			Assert.That(response.LinkLast.StartsWith("https://api.github.com/users/jenkinsci/repos"));
 		}
+
+        [Test()]
+            public void GithubRequestWithType()
+            {
+   			    var baseGithubRequest = new GithubSharp.Core.GithubRequestWithReturnType<GithubSharp.Core.Models.Commit>(
+				    new GithubSharp.Plugins.LogProviders.NullLogger.NullLogger(true),
+				    new GithubSharp.Plugins.CacheProviders.NullCacher.NullCacher(),
+				    new GithubSharp.Plugins.AuthProviders.NullAuthProvider.NullAuthProvider(),
+				    "repos/erikzaadi/GithubSharp/git/commits/725f7bbf87ab0979a080e4daaa8a9dd2b9d89489"
+				    );
+	             
+                var commit = baseGithubRequest.GetResponseWithReturnType();
+
+                Assert.IsNotNull(commit);
+
+            }
 	}
 }
 

@@ -27,12 +27,30 @@ namespace GithubSharp.Core
 			return CacheProvider.IsCached<TReturnType>(uri);
 		}
 		
-		public new IGithubResponseWithReturnType<TReturnType> GetResponse()
+		private new IGithubResponse GetResponse()
 		{
-			var baseResult = base.GetResponse() as IGithubResponseWithReturnType<TReturnType>;
+			return null;
+		}
+		
+		
+		public IGithubResponseWithReturnType<TReturnType> GetResponseWithReturnType()
+		{
+			var baseResult = base.GetResponse();
+			var baseWithReturnType = new GithubResponseWithReturnType<TReturnType>
+			{
+				LinkNext = baseResult.LinkNext,
+				LinkFirst = baseResult.LinkFirst,
+				LinkLast = baseResult.LinkLast,
+				LinkPrevious = baseResult.LinkPrevious,
+				RateLimitLimit = baseResult.RateLimitLimit,
+				RateLimitRemaining = baseResult.RateLimitRemaining,
+				Response = baseResult.Response
+			};
+			
 			try
             {
-                baseResult.Result = JsonConverter.FromJson<TReturnType>(baseResult.Response);
+                baseWithReturnType.Result = JsonConverter
+					.FromJson<TReturnType>(baseWithReturnType.Response);
             }
             catch (Exception error)
             {
@@ -40,7 +58,7 @@ namespace GithubSharp.Core
                     throw;
             }
 			
-			return baseResult;
+			return baseWithReturnType;
 		}
 	}
 }

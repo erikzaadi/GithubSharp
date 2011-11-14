@@ -30,11 +30,12 @@ namespace GithubSharp.Core
 		public string LinkLast { get; set; }
 	}
 	
-	public class GithubResponseWithModel<TResultType> : GithubResponse, IGithubResponseWithReturnType<TResultType>
+	public class GithubResponseWithReturnType<TResultType> : GithubResponse, IGithubResponseWithReturnType<TResultType>
 		where TResultType : class
 	{
-		public GithubResponseWithModel ()
+		public GithubResponseWithReturnType ()
 		{
+			
 		}
 		
 		public TResultType Result { 

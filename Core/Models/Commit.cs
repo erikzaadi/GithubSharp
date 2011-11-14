@@ -7,19 +7,19 @@ namespace GithubSharp.Core.Models
     [DataContract]
     public class Commit
     {
-        [DataMember(Name = "parents")]
+        /*[DataMember(Name = "parents")]
         public IEnumerable<CommmitParent> Parents { get; set; }
 
         [DataMember(Name = "author")]
         public Person Author { get; set; }
-
+		 */
         [DataMember(Name = "url")]
         public string URL { get; set; }
 
-        [DataMember(Name = "id")]
-        public string Id { get; set; }
+        [DataMember(Name = "sha")]
+        public string Sha { get; set; }
 
-        [DataMember(Name = "comitted_date")]
+        /*[DataMember(Name = "comitted_date")]
         private string PrivateCommittedDate
         {
             get { return CommittedDate.ToString(); }
@@ -34,22 +34,26 @@ namespace GithubSharp.Core.Models
             set { AuthoredDate = DateTime.Parse(value); }
         }
         public DateTime AuthoredDate { get; set; }
-
+		*/
         [DataMember(Name = "message")]
         public string Message { get; set; }
-
+		/*
         [DataMember(Name = "tree")]
-        public string Tree { get; set; }
+        public CommmitParent Tree { get; set; }
 
         [DataMember(Name = "comitter")]
         public Person Committer { get; set; }
+        */
     }
 
     [DataContract]
     public class CommmitParent
     {
-        [DataMember(Name = "id")]
-        public string Id { get; set; }
+        [DataMember(Name = "sha")]
+        public string Sha { get; set; }
+		
+        [DataMember(Name = "url")]
+        public string ApiUrl { get; set; }
     }
 
     [DataContract]
@@ -58,8 +62,16 @@ namespace GithubSharp.Core.Models
         [DataMember(Name = "name")]
         public string Name { get; set; }
 
-        [DataMember(Name = "login")]
-        public string Login { get; set; }
+        //[DataMember(Name = "login")]
+        //public string Login { get; set; }
+		
+		[DataMember(Name = "date")]
+		private string PrivateDate
+        {
+            get { return Date.ToString(); }
+            set { Date = DateTime.Parse(value); }
+        }
+        public DateTime Date { get; set; } 
 
         [DataMember(Name = "email")]
         public string Email { get; set; }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GithubSharp.Core
 {
-	public class GithubErrorResponse  : GithubResponseWithModel<GithubErrorResponseModel>
+	public class GithubErrorResponse  : GithubResponseWithReturnType<GithubErrorResponseModel>
 	{
 	}
 	
