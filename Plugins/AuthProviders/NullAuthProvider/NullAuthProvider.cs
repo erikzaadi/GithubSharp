@@ -34,6 +34,11 @@ namespace GithubSharp.Plugins.AuthProviders.NullAuthProvider
 				WebRequest = webRequest
 			};
 		}
+		
+		public string PrepareUri(string uri)
+		{
+			return uri;
+		}
 
 		public string GetToken ()
 		{

@@ -3,5 +3,3 @@ GithubSharp
 C# integration with Githubs v3 apis 
 
 Dual licensed under the MIT and GPL licenses: http://www.opensource.org/licenses/mit-license.php http://www.gnu.org/licenses/gpl.html
-
-This will be kept in a separate branch until the v3 api is out of beta

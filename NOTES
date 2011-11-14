@@ -1,4 +1,3 @@
-Finish Nuget
-    Add versioning
-    Licence File
+Test Creation + Deletion of Gist to see that GithubRequestWithInput works
 
+Think of a better way to inherit between GithubRequestWithInput and GithubRequestWithInputAndReturnType

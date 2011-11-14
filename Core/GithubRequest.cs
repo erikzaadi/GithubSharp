@@ -101,11 +101,6 @@ namespace GithubSharp.Core
 			return uri;
 		}
 		
-		public virtual string PrepareUri(string uri)
-		{
-			return uri;
-		}
-		
 		public virtual GithubResponse ParsePagingLinks(GithubResponse response, string linkHeader)
 		{
 			foreach (var header in linkHeader.Split(new char [] { ',' })){
@@ -135,7 +130,7 @@ namespace GithubSharp.Core
 			
 			uri = AddPagingToUri(uri);
 			
-			uri = PrepareUri(uri);
+			uri = AuthProvider.PrepareUri(uri);
 			
 			if (IsCached(uri))
 			{

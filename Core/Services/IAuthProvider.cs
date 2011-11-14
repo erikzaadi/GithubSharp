@@ -9,6 +9,7 @@ namespace GithubSharp.Core.Services
 		IAuthPreRequestResponse PreRequestAuth(
 			IGithubRequest githubRequest, 
 			System.Net.HttpWebRequest webRequest);
+		string PrepareUri(string uri);
 		string GetToken();
 		void RestoreFromToken(string token);
 	}

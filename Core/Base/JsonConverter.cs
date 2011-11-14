@@ -22,6 +22,11 @@ namespace GithubSharp.Core.Base
 			
 			return ServiceStack.Text.JsonSerializer.SerializeToString<T>(Obj);
 		}
+		
+		internal static void ToJsonStream<T>(this T Obj, Stream toWrite)
+		{
+			ServiceStack.Text.JsonSerializer.SerializeToStream(Obj, toWrite);
+		}
 
 		/// <summary>
 		/// Deserializes
