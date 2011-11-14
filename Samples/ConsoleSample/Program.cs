@@ -17,7 +17,7 @@ namespace ConsoleSample
         	u = user.Get ("rumpl");
         	Console.WriteLine (u.Blog);
    
-        	user.Authenticate (new GithubSharp.Core.Models.GithubUser { Name = "erikzaadi", APIToken = "851c28811a421ea23ba14a9b32f36631" });
+        	user.Authenticate (new GithubSharp.Core.Models.GithubUser { Name = "erikzaadi", APIToken = "XXXXXXXXXXXXXXXXXXXXXXXXXXXX" });
         	try
             {
         		var privateuser = user.Get ();
@@ -78,8 +78,13 @@ namespace ConsoleSample
     class ConsoleLogger : ILogProvider
     {
         public bool DebugMode { get { return true; } set{} }
-
+		
         public void LogMessage(string Message, params object[] Arguments)
+        {
+            Console.WriteLine(Message, Arguments);
+        }
+		
+        public void LogWarning(string Message, params object[] Arguments)
         {
             Console.WriteLine(Message, Arguments);
         }

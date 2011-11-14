@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EF80C27A-4AE0-4B92-8270-B44D66996801}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>CoreTests</RootNamespace>
+    <AssemblyName>CoreTests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libs\nunit\nunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GithubRequestTest.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Core.csproj">
+      <Project>{59C24364-8C00-46AD-9CE6-1D5630656DF9}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Plugins\CacheProviders\NullCacher\NullCacher.csproj">
+      <Project>{D2AA69DA-E0F8-4583-B161-48E763DB8D23}</Project>
+      <Name>NullCacher</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Plugins\LogProviders\NullLogger\NullLogger.csproj">
+      <Project>{A4F37523-CA27-4966-9BC1-51B74F77BE70}</Project>
+      <Name>NullLogger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Plugins\AuthProviders\NullAuthProvider\NullAuthProvider.csproj">
+      <Project>{3C916941-003B-480E-9981-2B9FEFFBF447}</Project>
+      <Name>NullAuthProvider</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

@@ -33,3 +33,5 @@ _ReSharper*/
 *.userprefs
 *~
 *.nupkg
+test[\-]results
+TestResult.xml

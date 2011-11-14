@@ -5,6 +5,11 @@ namespace GithubSharp.Core
 {
     public class GithubURLs
     {
+		public static string GithubApiBaseUrl  { 
+			get { return "https://api.github.com"; }
+		}
+		
+		
         public Models.GithubUser User { get; set; }
         private string _LoginString
         {

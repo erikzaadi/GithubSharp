@@ -9,6 +9,7 @@ namespace GithubSharp.Core.Services
     {
         bool DebugMode { get; set; }
         void LogMessage(string Message, params object[] Arguments);
+        void LogWarning(string Message, params object[] Arguments);
         bool HandleAndReturnIfToThrowError(Exception error);
     }
 }

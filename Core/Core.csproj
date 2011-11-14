@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -62,7 +62,6 @@
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Xml.Linq">
     </Reference>
@@ -101,6 +100,14 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Services\ICacheProvider.cs" />
     <Compile Include="Services\ILogProvider.cs" />
+    <Compile Include="GithubRequest.cs" />
+    <Compile Include="GithubResponse.cs" />
+    <Compile Include="GithubErrorResponse.cs" />
+    <Compile Include="Services\IAuthProvider.cs" />
+    <Compile Include="GithubAuthenticationException.cs" />
+    <Compile Include="GithubFailedResponse.cs" />
+    <Compile Include="GithubRequestWithBinaryFileToSend.cs" />
+    <Compile Include="GithubRequestWithReturnType.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
