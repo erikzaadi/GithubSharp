@@ -4,77 +4,37 @@ using System.Runtime.Serialization;
 
 namespace GithubSharp.Core.Models
 {
-    [DataContract]
     public class Commit
     {
-        /*[DataMember(Name = "parents")]
-        public IEnumerable<CommmitParent> Parents { get; set; }
+        public List<CommmitParent> parents { get; set; }
 
-        [DataMember(Name = "author")]
-        public Person Author { get; set; }
-		 */
-        [DataMember(Name = "url")]
-        public string URL { get; set; }
+        public Person author { get; set; }
+  
+        public string url { get; set; }
 
-        [DataMember(Name = "sha")]
-        public string Sha { get; set; }
+        public string sha { get; set; }
 
-        /*[DataMember(Name = "comitted_date")]
-        private string PrivateCommittedDate
-        {
-            get { return CommittedDate.ToString(); }
-            set { CommittedDate = DateTime.Parse(value); }
-        }
-        public DateTime CommittedDate { get; set; }
+        public string message { get; set; }
+   
+        public CommmitParent tree { get; set; }
 
-        [DataMember(Name = "authored_date")]
-        private string PrivateAuthoredDate
-        {
-            get { return AuthoredDate.ToString(); }
-            set { AuthoredDate = DateTime.Parse(value); }
-        }
-        public DateTime AuthoredDate { get; set; }
-		*/
-        [DataMember(Name = "message")]
-        public string Message { get; set; }
-		/*
-        [DataMember(Name = "tree")]
-        public CommmitParent Tree { get; set; }
-
-        [DataMember(Name = "comitter")]
-        public Person Committer { get; set; }
-        */
+        public Person committer { get; set; }
     }
 
-    [DataContract]
     public class CommmitParent
     {
-        [DataMember(Name = "sha")]
-        public string Sha { get; set; }
+        public string sha { get; set; }
 		
-        [DataMember(Name = "url")]
-        public string ApiUrl { get; set; }
+        public string url { get; set; }
     }
 
-    [DataContract]
     public class Person
     {
-        [DataMember(Name = "name")]
-        public string Name { get; set; }
-
-        //[DataMember(Name = "login")]
-        //public string Login { get; set; }
+        public string name { get; set; }
 		
-		[DataMember(Name = "date")]
-		private string PrivateDate
-        {
-            get { return Date.ToString(); }
-            set { Date = DateTime.Parse(value); }
-        }
-        public DateTime Date { get; set; } 
+	    public DateTime date { get; set; } 
 
-        [DataMember(Name = "email")]
-        public string Email { get; set; }
+        public string email { get; set; }
     }
 
     [DataContract]

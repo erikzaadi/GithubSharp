@@ -49,8 +49,10 @@ namespace GithubSharp.Core
 			
 			try
             {
-                baseWithReturnType.Result = JsonConverter
-					.FromJson<TReturnType>(baseWithReturnType.Response);
+                baseWithReturnType.Result = ServiceStack.Text.JsonSerializer
+                    .DeserializeFromString<TReturnType>(baseWithReturnType.Response);
+//                baseWithReturnType.Result = JsonConverter
+//					.FromJson<TReturnType>(baseWithReturnType.Response);
             }
             catch (Exception error)
             {

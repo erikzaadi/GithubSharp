@@ -26,22 +26,6 @@ namespace CoreTests
 				string.Format("Rate Limit should decrease: {0} should be larger than {1}", first, response.RateLimitRemaining));
 		}
 		
-		[Test()]
-		public void GithubRequestsShouldReturn5000AsLimit ()
-		{
-			var baseGithubRequest = new GithubSharp.Core.GithubRequest(
-				new GithubSharp.Plugins.LogProviders.NullLogger.NullLogger(true),
-				new GithubSharp.Plugins.CacheProviders.NullCacher.NullCacher(),
-				new GithubSharp.Plugins.AuthProviders.NullAuthProvider.NullAuthProvider(),
-				""
-				);
-			
-			var response = baseGithubRequest.GetResponse();
-			
-			
-			Assert.AreEqual(5000, response.RateLimitLimit, 
-				string.Format("Rate Limit should be 5000 and not {0}", response.RateLimitLimit));
-		}
 		
 		[Test()]
 		public void GithubRequestsPagingShouldHavePaginationLink ()
@@ -77,7 +61,13 @@ namespace CoreTests
                 var commit = baseGithubRequest.GetResponseWithReturnType();
 
                 Assert.IsNotNull(commit);
-
+                Assert.IsNotNull(commit.Result);
+                Assert.IsNotNullOrEmpty(commit.Result.sha);
+                Assert.IsNotNull(commit.Result.committer.date);
+                Assert.IsNotNull(commit.Result.author.name);
+				Assert.IsNotNull(commit.Result.message);
+                Assert.IsNotNull(commit.Result.parents);
+				Assert.IsNotNull(commit.Result.tree.sha);
             }
 	}
 }
