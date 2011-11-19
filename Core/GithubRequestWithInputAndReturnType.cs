@@ -3,9 +3,10 @@ using GithubSharp.Core.Services;
 
 namespace GithubSharp.Core
 {
-	public class GithubRequestWithInput<TInputType> : GithubRequest
+	public class GithubRequestWithInputAndReturnType<TInputType,TReturnType> : GithubRequestWithReturnType<TReturnType>
+		where TReturnType : class
 	{
-		public GithubRequestWithInput (
+		public GithubRequestWithInputAndReturnType (
 			ILogProvider logProvider, 
 			ICacheProvider cacheProvider,
 			IAuthProvider authProvider,
@@ -18,8 +19,7 @@ namespace GithubSharp.Core
 		{
 			ModelToSend = input;
 		}
-		
-		public GithubRequestWithInput (
+		public GithubRequestWithInputAndReturnType (
 			ILogProvider logProvider, 
 			ICacheProvider cacheProvider,
 			IAuthProvider authProvider,
@@ -37,16 +37,20 @@ namespace GithubSharp.Core
 		
 		public TInputType ModelToSend { get;set;}
 		
+			
 		public override System.Net.HttpWebRequest PrepareWebRequest (System.Net.HttpWebRequest webRequest)
 		{
-			var toReturn = base.PrepareWebRequest (webRequest);
+			webRequest.ContentType  = "application/json"; //TODO Needed?
+			webRequest.MediaType = "UTF-8";
+			var bytes = GithubSharp.Core.Base.JsonConverter.ToJsonBytes<TInputType>
+					(ModelToSend);
 			
+			webRequest.ContentLength = bytes.Length;
+			var stream = webRequest.GetRequestStream();
+			stream.Write(bytes, 0, bytes.Length);
+			stream.Close();
 			
-			GithubSharp.Core.Base.JsonConverter.ToJsonStream<TInputType>
-					(ModelToSend, toReturn.GetRequestStream());
-			
-			
-			return toReturn;
+			return webRequest;
 		}
 	}
 }

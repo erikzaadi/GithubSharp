@@ -11,6 +11,8 @@ namespace GithubSharp.Core
 		string LinkPrevious { get; set; }
 		string LinkFirst { get; set; }
 		string LinkLast { get; set; }
+		int? StatusCode {get;set;}
+		string StatusText {get;set;}
 	}
 	
 	public interface IGithubResponseWithReturnType<TResultType> : IGithubResponse
@@ -28,6 +30,8 @@ namespace GithubSharp.Core
 		public string LinkPrevious { get; set; }
 		public string LinkFirst { get; set; }
 		public string LinkLast { get; set; }
+		public int? StatusCode {get;set;}
+		public string StatusText {get;set;}
 	}
 	
 	public class GithubResponseWithReturnType<TResultType> : GithubResponse, IGithubResponseWithReturnType<TResultType>

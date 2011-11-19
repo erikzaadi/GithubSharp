@@ -101,13 +101,18 @@
     <Compile Include="Services\ILogProvider.cs" />
     <Compile Include="GithubRequest.cs" />
     <Compile Include="GithubResponse.cs" />
-    <Compile Include="GithubErrorResponse.cs" />
     <Compile Include="Services\IAuthProvider.cs" />
     <Compile Include="GithubAuthenticationException.cs" />
     <Compile Include="GithubFailedResponse.cs" />
     <Compile Include="GithubRequestWithBinaryFileToSend.cs" />
     <Compile Include="GithubRequestWithReturnType.cs" />
-    <Compile Include="GithubRequestWithInput.cs" />
+    <Compile Include="Models\Gist.cs" />
+    <Compile Include="Models\Fork.cs" />
+    <Compile Include="Models\BasicUser.cs" />
+    <Compile Include="Models\History.cs" />
+    <Compile Include="Models\ChangeStatus.cs" />
+    <Compile Include="GithubRequestWithInputAndReturnType.cs" />
+    <Compile Include="GithubError.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

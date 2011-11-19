@@ -13,6 +13,7 @@ namespace GithubSharp.Core
 		 : base(logProvider, cacheProvider, authProvider, path)
 		{
 		}
+		
 		public GithubRequestWithReturnType (Core.Services.ILogProvider logProvider, 
 			Core.Services.ICacheProvider cacheProvider,
 			Core.Services.IAuthProvider authProvider,
@@ -32,7 +33,6 @@ namespace GithubSharp.Core
 			return null;
 		}
 		
-		
 		public IGithubResponseWithReturnType<TReturnType> GetResponseWithReturnType()
 		{
 			var baseResult = base.GetResponse();
@@ -49,10 +49,8 @@ namespace GithubSharp.Core
 			
 			try
             {
-                baseWithReturnType.Result = ServiceStack.Text.JsonSerializer
-                    .DeserializeFromString<TReturnType>(baseWithReturnType.Response);
-//                baseWithReturnType.Result = JsonConverter
-//					.FromJson<TReturnType>(baseWithReturnType.Response);
+                baseWithReturnType.Result = JsonConverter
+					.FromJson<TReturnType>(baseWithReturnType.Response);
             }
             catch (Exception error)
             {
@@ -62,6 +60,7 @@ namespace GithubSharp.Core
 			
 			return baseWithReturnType;
 		}
+		
 	}
 }
 

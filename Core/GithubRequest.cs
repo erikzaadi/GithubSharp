@@ -13,6 +13,7 @@ namespace GithubSharp.Core
 		Core.Services.ICacheProvider CacheProvider {get;set;}
 		int? PagingRequestAmount {get;set;}
 		int? PagingCurrentPage {get;set;}
+		System.Net.HttpWebRequest PrepareWebRequest(System.Net.HttpWebRequest webRequest);
 	}
 	
 	
@@ -159,15 +160,18 @@ namespace GithubSharp.Core
 			
 			webRequest = PrepareWebRequest(authResult.WebRequest);
 			
+			
 			try
 			{
-				var response = webRequest.GetResponse();
+				var response = webRequest.GetResponse() as System.Net.HttpWebResponse;
 				var responseString = new System.IO.StreamReader(response.GetResponseStream()).ReadToEnd();
 				var responseToReturn = new GithubResponse
 					{
 						RateLimitLimit = int.Parse(response.Headers["X-RateLimit-Limit"]),
 						RateLimitRemaining = int.Parse(response.Headers["X-RateLimit-Remaining"]),
-						Response = responseString
+						Response = responseString,
+						StatusCode = (int)response.StatusCode,
+						StatusText = response.StatusDescription
 					};
 				if (!string.IsNullOrEmpty(response.Headers.Get("Link")))
 				{
@@ -181,6 +185,13 @@ namespace GithubSharp.Core
 			}
 			catch (Exception error)
 			{
+				if (error is System.Net.WebException)
+				{
+					var webError = error as System.Net.WebException;
+					var githubException = new GithubError(webError.Response as System.Net.HttpWebResponse, uri); 
+					if (LogProvider.HandleAndReturnIfToThrowError(githubException))
+						throw githubException;
+				}
 				if (LogProvider.HandleAndReturnIfToThrowError(error))
 					throw;
 				return new GithubFailedResponse(uri);
