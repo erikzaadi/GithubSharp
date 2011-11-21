@@ -82,14 +82,14 @@ namespace CoreTests
 				content = "bla bla"
 			});
 			
-			var gistToCreate = new GithubSharp.Core.Models.GistToCreate
+			var gistToCreate = new GithubSharp.Core.Models.GistToCreateOrEdit
 			{
 				@public = true,
 				description = "testGist",
 				files = gistFiles
 			};
 			var baseGithubRequest = new GithubSharp.Core.GithubRequestWithInputAndReturnType
-					<GithubSharp.Core.Models.GistToCreate, GithubSharp.Core.Models.Gist>(
+					<GithubSharp.Core.Models.GistToCreateOrEdit, GithubSharp.Core.Models.Gist>(
 					    new GithubSharp.Plugins.LogProviders.NullLogger.NullLogger(true),
 					    new GithubSharp.Plugins.CacheProviders.NullCacher.NullCacher(),
 					    new GithubSharp.Plugins.AuthProviders.UserPasswordAuthProvider.UserPasswordAuthProvider

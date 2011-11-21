@@ -12,6 +12,8 @@ namespace GithubSharp.Core.Services
 		string PrepareUri(string uri);
 		string GetToken();
 		void RestoreFromToken(string token);
+		bool IsAuthenticated {get;set;}
+		string Username {get;set;}
 	}
 	
 	public interface IAuthResponse

@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="GithubRequestTest.cs" />
     <Compile Include="TestSettings.cs" />
+    <Compile Include="GistModelTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

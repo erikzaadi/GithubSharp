@@ -35,6 +35,13 @@ namespace GithubSharp.Plugins.AuthProviders.NullAuthProvider
 			};
 		}
 		
+		public bool IsAuthenticated 
+		{
+			get { return true;} 
+			set{ return;}
+		}
+		
+		
 		public string PrepareUri(string uri)
 		{
 			return uri;
@@ -47,7 +54,10 @@ namespace GithubSharp.Plugins.AuthProviders.NullAuthProvider
 
 		public void RestoreFromToken (string token)
 		{
+			
 		}
+		
+		public string Username {get;set;}
 	}
 }
 

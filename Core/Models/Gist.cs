@@ -31,7 +31,7 @@ namespace GithubSharp.Core.Models
 	}
 	
 	[Serializable]
-	public class GistToCreate
+	public class GistToCreateOrEdit
 	{
 		public string description { get;  set;}
 		public bool @public { get;set;}

@@ -1,38 +1,123 @@
 using GithubSharp.Core.Services;
+using System.Collections.Generic;
 
 namespace GithubSharp.Core.API
 {
-    public class Gist : Base.BaseAPI
+    public class Gist : Base.GithubApiBase
     {
-        public Gist(ICacheProvider CacheProvider, ILogProvider LogProvider) : base(CacheProvider, LogProvider) { }
-        //http://github.com/mattikus/pygist/blob/master/pygist.py
-        //http://github.com/miyagawa/gistp/blob/master/gistp
-        //http://github.com/defunkt/gist/blob/master/gist.rb
-        //http://gist.github.com/4277
-
-        //http://gist.github.com/api/v1/xml/search/gist
-        //http://gist.github.com/api/v1/xml/new
-
-        //Delete
-        //http://gist.github.com/delete/:id
-        // _method = delete ,authenticity_token, 
-
-        //Edit
-        //http://gist.github.com/gists/:id/edit
-        // _method = put,  authenticity_token, file_ext[fileN.ext] , file_contents[fileN.ext], file_name[fileN.ext]
-
-        //Get all gists for user
-        //http://gist.github.com/api/v1/xml/gists/erikzaadi
-
-        //Download
-        // /gists/:id/download
-
-        //Raw
-        //http://gist.github.com/{repo}.txt
-
-        //format - Parse to get the syntax highlighted html
-        //http://gist.github.com/291158.json
-
-        //http://gist.github.com/291158.js
+        public Gist(
+			ILogProvider logProvider, 
+			ICacheProvider cacheProvider, 
+			IAuthProvider authProvider) 
+		: base(
+			logProvider, 
+			cacheProvider, 
+			authProvider) { }
+		
+		public IEnumerable<Models.Gist> UserGists(string username)
+		{
+			return base.Get<IEnumerable<Models.Gist>>(
+				string.Format(
+					"users/{0}/gists", 
+					username), 
+				"GET").Result;
+		}		
+		public IEnumerable<Models.Gist> CurrentUserGists()
+		{
+			return base.Get<IEnumerable<Models.Gist>>(
+				string.Format(
+					"users/{0}/gists", 
+					base.AuthProvider.Username), 
+				"GET").Result;
+		}
+		
+		public IEnumerable<Models.Gist> PublicGists()
+		{
+			return base.Get<IEnumerable<Models.Gist>>(
+				"gists/public",
+				"GET").Result;
+		}
+		
+		public IEnumerable<Models.Gist> StarredGists()
+		{
+			return base.Get<IEnumerable<Models.Gist>>(
+				"gists/starred",
+				"GET").Result;
+		}
+		
+		public Models.Gist Get(string id)
+		{
+			return base.Get<Models.Gist>(
+				string.Format(
+					"gists/{0}", 
+					id),
+				"GET").Result;
+		}
+		
+		public Models.Gist Create(Models.GistToCreateOrEdit gist)
+		{
+			return base.Get<Models.Gist, Models.GistToCreateOrEdit>(
+				"gists", 
+				"POST",
+				gist).Result;
+		}
+		
+		public Models.Gist Edit(string id, Models.GistToCreateOrEdit gist)
+		{
+			return base.Get<Models.Gist, Models.GistToCreateOrEdit>(
+				string.Format(
+					"gists/{0}", 
+					id),
+				"PATCH",
+				gist).Result;
+		}
+		
+		public void StarGist(string id)
+		{
+			base.Get(
+				string.Format(
+					"gists/{0}/star",
+					id),
+				"PUT");
+		}
+		
+		public void UnstarGist(string id)
+		{
+			base.Get(
+				string.Format(
+					"gists/{0}/star",
+					id),
+				"DELETE");
+		}
+   
+		public bool IsGistStarred(string id)
+		{
+			return base.Get(
+				string.Format(
+					"gists/{0}/star",
+					id),
+				"GET"
+				).StatusCode == 204;
+		}
+		
+		public Models.Gist Fork(string id)
+		{
+			return base.Get<Models.Gist>(
+				string.Format(
+					"gists/{0}/fork",
+					id),
+				"POST").Result;
+		}
+		
+		public void Delete(string id)
+		{
+			base.Get(
+				string.Format(
+					"gists/{0}",
+					id),
+				"DELETE");
+				
+		}
+			
     }
 }

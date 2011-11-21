@@ -4,10 +4,6 @@ namespace GithubSharp.Plugins.AuthProviders.UserPasswordAuthProvider
 {
 	public class UserPasswordAuthProvider : GithubSharp.Core.Services.IAuthProvider
 	{
-		public string User {
-			get;
-			set;
-		}
 		public string Password {
 			get;
 			set;
@@ -20,8 +16,9 @@ namespace GithubSharp.Plugins.AuthProviders.UserPasswordAuthProvider
 		
 		public UserPasswordAuthProvider (string user, string password)
 		{
-			User = user;
+			Username = user;
 			Password = password;
+			IsAuthenticated = true;
 		}
 		
 		public GithubSharp.Core.Services.IAuthResponse Login ()
@@ -45,7 +42,7 @@ namespace GithubSharp.Plugins.AuthProviders.UserPasswordAuthProvider
 			GithubSharp.Core.IGithubRequest githubRequest, 
 			System.Net.HttpWebRequest webRequest)
 		{
-			var authInfo = string.Format("{0}:{1}",User,  Password);
+			var authInfo = string.Format("{0}:{1}",Username,  Password);
 			authInfo = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(authInfo));
 			webRequest.Headers["Authorization"] = "Basic " + authInfo;
 			return new GithubSharp.Core.Services.AuthPreRequestResponse
@@ -71,6 +68,9 @@ namespace GithubSharp.Plugins.AuthProviders.UserPasswordAuthProvider
 			//TODO : Unhash details here?
 		}
 	
+		public bool IsAuthenticated {get;set;}
+		public string Username {get;set;}
+		
 	}
 }
 
