@@ -3,3 +3,5 @@ Continue to implement models to understand the needs of the base api class
 Add attribute for an api method that needs authentication?
 Add a simple parameterized string format for methods?
 Add raw url helper methods - with content types?
+
+Check if 404 causes an exception..

@@ -14,7 +14,7 @@ namespace GithubSharp.Core.API
 			cacheProvider, 
 			authProvider) { }
 		
-		public IEnumerable<Models.Gist> UserGists(string username)
+		public IEnumerable<Models.Gist> List(string username)
 		{
 			return base.Get<IEnumerable<Models.Gist>>(
 				string.Format(
@@ -22,7 +22,7 @@ namespace GithubSharp.Core.API
 					username), 
 				"GET").Result;
 		}		
-		public IEnumerable<Models.Gist> CurrentUserGists()
+		public IEnumerable<Models.Gist> List()
 		{
 			return base.Get<IEnumerable<Models.Gist>>(
 				string.Format(
@@ -31,14 +31,14 @@ namespace GithubSharp.Core.API
 				"GET").Result;
 		}
 		
-		public IEnumerable<Models.Gist> PublicGists()
+		public IEnumerable<Models.Gist> Public()
 		{
 			return base.Get<IEnumerable<Models.Gist>>(
 				"gists/public",
 				"GET").Result;
 		}
 		
-		public IEnumerable<Models.Gist> StarredGists()
+		public IEnumerable<Models.Gist> Starred()
 		{
 			return base.Get<IEnumerable<Models.Gist>>(
 				"gists/starred",
@@ -72,7 +72,7 @@ namespace GithubSharp.Core.API
 				gist).Result;
 		}
 		
-		public void StarGist(string id)
+		public void Star(string id)
 		{
 			base.Get(
 				string.Format(
@@ -81,7 +81,7 @@ namespace GithubSharp.Core.API
 				"PUT");
 		}
 		
-		public void UnstarGist(string id)
+		public void Unstar(string id)
 		{
 			base.Get(
 				string.Format(
@@ -90,7 +90,7 @@ namespace GithubSharp.Core.API
 				"DELETE");
 		}
    
-		public bool IsGistStarred(string id)
+		public bool HasStar(string id)
 		{
 			return base.Get(
 				string.Format(
