@@ -107,9 +107,9 @@ namespace CoreTests
 			}
 			catch (Exception err)
 			{
-				if (err is GithubSharp.Core.GithubError)
+				if (err is GithubSharp.Core.GithubException)
 				{
-					var githuberr = err as GithubSharp.Core.GithubError;
+					var githuberr = err as GithubSharp.Core.GithubException;
 					Assert.Fail("StatusCode : {0}, StatusText : {1}, Message : {2}",
 						githuberr.StatusCode, githuberr.StatusText, githuberr.GithubErrorResult.message);
 					return;

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace GithubSharp.Core
 {
-	public class GithubError  : Exception
+	public class GithubException  : Exception
 	{
-		public GithubError(System.Net.HttpWebResponse response, string uri)
+		public GithubException(System.Net.HttpWebResponse response, string uri)
 			:base(string.Format("Github error when retrieving {0}", uri))
 		{
 			var responseString = new System.IO.StreamReader(response.GetResponseStream()).ReadToEnd();
@@ -18,6 +18,13 @@ namespace GithubSharp.Core
 		public int StatusCode { get;set;}
 		public string StatusText { get;set;}
 	}
+	
+	
+	public class GithubErrorResponse : GithubResponseWithReturnType<GithubErrorModel>
+	{
+		
+	}
+	
 	
 	public class GithubErrorModel
 	{

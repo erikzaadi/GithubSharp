@@ -42,12 +42,35 @@ namespace GithubSharp.Core
 				Core.Services.IAuthProvider authProvider,
 				string path,
 				string method)
+			:this(
+				logProvider,
+				cacheProvider,
+				authProvider,
+				path,
+				method,
+				null,
+				null)
+		{
+			
+		}
+		
+		
+		public GithubRequest(
+				Core.Services.ILogProvider logProvider,
+				Core.Services.ICacheProvider cacheProvider,
+				Core.Services.IAuthProvider authProvider,
+				string path,
+				string method, 
+				int? pagingLimit,
+				int? currentPage)
 		{
 			LogProvider = logProvider;
 			CacheProvider = cacheProvider;
 			AuthProvider = authProvider;
 			Path = path;
 			Method = method;
+			PagingCurrentPage = currentPage;
+			PagingRequestAmount = pagingLimit;
 		}
 		
 		public virtual bool IsCached(string uri)
@@ -164,21 +187,7 @@ namespace GithubSharp.Core
 			try
 			{
 				var response = webRequest.GetResponse() as System.Net.HttpWebResponse;
-				var responseString = new System.IO.StreamReader(response.GetResponseStream()).ReadToEnd();
-				var responseToReturn = new GithubResponse
-					{
-						RateLimitLimit = int.Parse(response.Headers["X-RateLimit-Limit"]),
-						RateLimitRemaining = int.Parse(response.Headers["X-RateLimit-Remaining"]),
-						Response = responseString,
-						StatusCode = (int)response.StatusCode,
-						StatusText = response.StatusDescription
-					};
-				if (!string.IsNullOrEmpty(response.Headers.Get("Link")))
-				{
-					responseToReturn = ParsePagingLinks(
-						responseToReturn, 
-						response.Headers.Get("Link"));
-				}
+				var responseToReturn = GetGithubResponseFromWebResponse(response);
 				Cache(responseToReturn, uri);
 				return responseToReturn;
 				
@@ -187,8 +196,16 @@ namespace GithubSharp.Core
 			{
 				if (error is System.Net.WebException)
 				{
+					//Might be a valid response with 404 etc
 					var webError = error as System.Net.WebException;
-					var githubException = new GithubError(webError.Response as System.Net.HttpWebResponse, uri); 
+					var webErrorResponse = webError.Response as System.Net.HttpWebResponse;
+					if (IsGithubResponse(webErrorResponse))
+					{
+						var responseEvenWithError = GetGithubResponseFromWebResponse(webErrorResponse);
+						Cache(responseEvenWithError, uri);
+						return responseEvenWithError;
+					}
+					var githubException = new GithubException(webErrorResponse, uri); 
 					if (LogProvider.HandleAndReturnIfToThrowError(githubException))
 						throw githubException;
 				}
@@ -197,8 +214,35 @@ namespace GithubSharp.Core
 				return new GithubFailedResponse(uri);
 			}
 		}
+		
+		public bool IsGithubResponse(System.Net.HttpWebResponse response)
+		{
+			return response.Headers.Count > 0 
+				&& 
+					!string.IsNullOrEmpty(
+					response.Headers["X-RateLimit-Limit"]
+						);
+		}
 
-
+		public GithubResponse GetGithubResponseFromWebResponse(System.Net.HttpWebResponse response)
+		{
+			var responseString = new System.IO.StreamReader(response.GetResponseStream()).ReadToEnd();
+			var responseToReturn = new GithubResponse
+				{
+					RateLimitLimit = int.Parse(response.Headers["X-RateLimit-Limit"]),
+					RateLimitRemaining = int.Parse(response.Headers["X-RateLimit-Remaining"]),
+					Response = responseString,
+					StatusCode = (int)response.StatusCode,
+					StatusText = response.StatusDescription
+				};
+			if (!string.IsNullOrEmpty(response.Headers.Get("Link")))
+			{
+				responseToReturn = ParsePagingLinks(
+					responseToReturn, 
+					response.Headers.Get("Link"));
+			}
+			return responseToReturn;
+		}
 	}
 	
 	

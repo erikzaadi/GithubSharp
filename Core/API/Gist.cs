@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace GithubSharp.Core.API
 {
     public class Gist : Base.GithubApiBase
-    {
+    {    	
         public Gist(
 			ILogProvider logProvider, 
 			ICacheProvider cacheProvider, 
@@ -118,6 +118,55 @@ namespace GithubSharp.Core.API
 				"DELETE");
 				
 		}
+		
+		public IEnumerable<Models.GistComment> ListComments (string gistid)
+		{
+			return base.Get<IEnumerable<Models.GistComment>>(
+				string.Format(
+					"gists/{0}/comments",
+					gistid),
+				"GET").Result;
+		}
+		
+		public Models.GistComment CreateComment(string gistid, Models.GistCommentForCreationOrEdit comment)
+		{
+			return base.Get<Models.GistComment, Models.GistCommentForCreationOrEdit>(
+				string.Format(
+					"gists/{0}/comments",
+					gistid),
+				"POST",
+				comment).Result;
+		}
+		
+		
+		public Models.GistComment GetComment(string gistcommentid)
+		{
+			return base.Get<Models.GistComment>(
+				string.Format(
+					"gists/comments/{0}",
+					gistcommentid),
+				"GET").Result;
+		}
+		
+		public Models.GistComment EditComment(string gistcommentid, Models.GistCommentForCreationOrEdit comment)
+		{
+			return base.Get<Models.GistComment, Models.GistCommentForCreationOrEdit>(
+				string.Format(
+					"gists/comments/{0}",
+					gistcommentid),
+				"PATCH",
+				comment).Result;
+		}
+		
+		public void DeleteComment(string gistcommentid)
+		{
+			base.Get(
+				string.Format(
+					"gists/comments/{0}",
+					gistcommentid),
+				"DELETE");
+		}
+
 			
     }
 }

@@ -112,8 +112,8 @@
     <Compile Include="Models\History.cs" />
     <Compile Include="Models\ChangeStatus.cs" />
     <Compile Include="GithubRequestWithInputAndReturnType.cs" />
-    <Compile Include="GithubError.cs" />
     <Compile Include="Base\GithubApiBase.cs" />
+    <Compile Include="GithubException.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
