@@ -1,5 +1,6 @@
 using System;
 using GithubSharp.Core.Services;
+using GithubSharp.Core.Base;
 
 namespace GithubSharp.Core
 {
@@ -24,7 +25,7 @@ namespace GithubSharp.Core
 			ICacheProvider cacheProvider,
 			IAuthProvider authProvider,
 			string path,
-			string method,
+			GithubSharpHttpVerbs method,
 			TInputType input)
 			:base(logProvider,
 				cacheProvider,

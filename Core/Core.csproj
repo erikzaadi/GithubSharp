@@ -114,6 +114,8 @@
     <Compile Include="GithubRequestWithInputAndReturnType.cs" />
     <Compile Include="Base\GithubApiBase.cs" />
     <Compile Include="GithubException.cs" />
+    <Compile Include="Base\Enums.cs" />
+    <Compile Include="Models\Comment.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

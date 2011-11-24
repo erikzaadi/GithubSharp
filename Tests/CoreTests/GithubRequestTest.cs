@@ -1,12 +1,31 @@
 using System;
 using NUnit.Framework;
 using System.Collections.Generic;
+using GithubSharp.Core.Base;
 
 namespace CoreTests
 {
 	[TestFixture()]
 	public class GithubRequestTest
 	{
+		[Test]
+		public void GithubRequestShouldHaveTheCorrectMimeTypeAndHttpMethod()
+		{
+			var baseGithubRequest = new GithubSharp.Core.GithubRequest(
+				new GithubSharp.Plugins.LogProviders.NullLogger.NullLogger(true),
+				new GithubSharp.Plugins.CacheProviders.NullCacher.NullCacher(),
+				new GithubSharp.Plugins.AuthProviders.NullAuthProvider.NullAuthProvider(),
+				""
+				);
+			
+			Assert.AreEqual(baseGithubRequest.GithubSharpMimeType, GithubSharpMimeTypes.Json);
+			Assert.AreEqual(baseGithubRequest.Method, GithubSharpHttpVerbs.GET);
+			
+			Assert.AreEqual(EnumHelper.ToString(baseGithubRequest.GithubSharpMimeType), "application/vnd.github.json");
+			Assert.AreEqual(EnumHelper.ToString(baseGithubRequest.Method), "GET");
+				
+		}
+		
 		[Test()]
 		public void GithubRequestsShouldAffectTheRateLimitRemaining ()
 		{
@@ -95,7 +114,7 @@ namespace CoreTests
 					    new GithubSharp.Plugins.AuthProviders.UserPasswordAuthProvider.UserPasswordAuthProvider
 								(TestSettings.Username, TestSettings.Password),
 					    "gists",
-						"POST",
+						GithubSharpHttpVerbs.POST,
 						gistToCreate
 			    );
 			
@@ -132,7 +151,7 @@ namespace CoreTests
 					    new GithubSharp.Plugins.AuthProviders.UserPasswordAuthProvider.UserPasswordAuthProvider
 								(TestSettings.Username, TestSettings.Password),
 						string.Format("gists/{0}", response.Result.id),
-						"DELETE"
+						GithubSharpHttpVerbs.DELETE
 				
 				);
 			

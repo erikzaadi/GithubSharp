@@ -10,7 +10,11 @@ namespace GithubSharp.Core
 			Core.Services.ICacheProvider cacheProvider,
 			Core.Services.IAuthProvider authProvider,
 			string path) 
-		 : base(logProvider, cacheProvider, authProvider, path)
+		 : base(
+				logProvider, 
+				cacheProvider, 
+				authProvider, 
+				path)
 		{
 		}
 		
@@ -18,7 +22,7 @@ namespace GithubSharp.Core
 			Core.Services.ICacheProvider cacheProvider,
 			Core.Services.IAuthProvider authProvider,
 			string path,
-			string method) 
+			GithubSharpHttpVerbs method) 
 		 : base(logProvider, cacheProvider, authProvider, path, method)
 		{
 		}

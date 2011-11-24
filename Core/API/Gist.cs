@@ -1,5 +1,6 @@
 using GithubSharp.Core.Services;
 using System.Collections.Generic;
+using GithubSharp.Core.Base;
 
 namespace GithubSharp.Core.API
 {
@@ -20,7 +21,7 @@ namespace GithubSharp.Core.API
 				string.Format(
 					"users/{0}/gists", 
 					username), 
-				"GET").Result;
+				GithubSharpHttpVerbs.GET).Result;
 		}		
 		public IEnumerable<Models.Gist> List()
 		{
@@ -28,21 +29,21 @@ namespace GithubSharp.Core.API
 				string.Format(
 					"users/{0}/gists", 
 					base.AuthProvider.Username), 
-				"GET").Result;
+				GithubSharpHttpVerbs.GET).Result;
 		}
 		
 		public IEnumerable<Models.Gist> Public()
 		{
 			return base.Get<IEnumerable<Models.Gist>>(
 				"gists/public",
-				"GET").Result;
+				GithubSharpHttpVerbs.GET).Result;
 		}
 		
 		public IEnumerable<Models.Gist> Starred()
 		{
 			return base.Get<IEnumerable<Models.Gist>>(
 				"gists/starred",
-				"GET").Result;
+				GithubSharpHttpVerbs.GET).Result;
 		}
 		
 		public Models.Gist Get(string id)
@@ -51,14 +52,14 @@ namespace GithubSharp.Core.API
 				string.Format(
 					"gists/{0}", 
 					id),
-				"GET").Result;
+				GithubSharpHttpVerbs.GET).Result;
 		}
 		
 		public Models.Gist Create(Models.GistToCreateOrEdit gist)
 		{
 			return base.Get<Models.Gist, Models.GistToCreateOrEdit>(
 				"gists", 
-				"POST",
+				GithubSharpHttpVerbs.POST,
 				gist).Result;
 		}
 		
@@ -68,7 +69,7 @@ namespace GithubSharp.Core.API
 				string.Format(
 					"gists/{0}", 
 					id),
-				"PATCH",
+				GithubSharpHttpVerbs.PATCH,
 				gist).Result;
 		}
 		
@@ -78,7 +79,7 @@ namespace GithubSharp.Core.API
 				string.Format(
 					"gists/{0}/star",
 					id),
-				"PUT");
+				GithubSharpHttpVerbs.PUT);
 		}
 		
 		public void Unstar(string id)
@@ -87,7 +88,7 @@ namespace GithubSharp.Core.API
 				string.Format(
 					"gists/{0}/star",
 					id),
-				"DELETE");
+				GithubSharpHttpVerbs.DELETE);
 		}
    
 		public bool HasStar(string id)
@@ -96,7 +97,7 @@ namespace GithubSharp.Core.API
 				string.Format(
 					"gists/{0}/star",
 					id),
-				"GET"
+				GithubSharpHttpVerbs.GET
 				).StatusCode == 204;
 		}
 		
@@ -106,7 +107,7 @@ namespace GithubSharp.Core.API
 				string.Format(
 					"gists/{0}/fork",
 					id),
-				"POST").Result;
+				GithubSharpHttpVerbs.POST).Result;
 		}
 		
 		public void Delete(string id)
@@ -115,46 +116,46 @@ namespace GithubSharp.Core.API
 				string.Format(
 					"gists/{0}",
 					id),
-				"DELETE");
+				GithubSharpHttpVerbs.DELETE);
 				
 		}
 		
-		public IEnumerable<Models.GistComment> ListComments (string gistid)
+		public IEnumerable<Models.Comment> ListComments (string gistid)
 		{
-			return base.Get<IEnumerable<Models.GistComment>>(
+			return base.Get<IEnumerable<Models.Comment>>(
 				string.Format(
 					"gists/{0}/comments",
 					gistid),
-				"GET").Result;
+				GithubSharpHttpVerbs.GET).Result;
 		}
 		
-		public Models.GistComment CreateComment(string gistid, Models.GistCommentForCreationOrEdit comment)
+		public Models.Comment CreateComment(string gistid, Models.CommentForCreationOrEdit comment)
 		{
-			return base.Get<Models.GistComment, Models.GistCommentForCreationOrEdit>(
+			return base.Get<Models.Comment, Models.CommentForCreationOrEdit>(
 				string.Format(
 					"gists/{0}/comments",
 					gistid),
-				"POST",
+				GithubSharpHttpVerbs.POST,
 				comment).Result;
 		}
 		
 		
-		public Models.GistComment GetComment(string gistcommentid)
+		public Models.Comment GetComment(string gistcommentid)
 		{
-			return base.Get<Models.GistComment>(
+			return base.Get<Models.Comment>(
 				string.Format(
 					"gists/comments/{0}",
 					gistcommentid),
-				"GET").Result;
+				GithubSharpHttpVerbs.GET).Result;
 		}
 		
-		public Models.GistComment EditComment(string gistcommentid, Models.GistCommentForCreationOrEdit comment)
+		public Models.Comment EditComment(string gistcommentid, Models.CommentForCreationOrEdit comment)
 		{
-			return base.Get<Models.GistComment, Models.GistCommentForCreationOrEdit>(
+			return base.Get<Models.Comment, Models.CommentForCreationOrEdit>(
 				string.Format(
 					"gists/comments/{0}",
 					gistcommentid),
-				"PATCH",
+				GithubSharpHttpVerbs.PATCH,
 				comment).Result;
 		}
 		
@@ -164,7 +165,7 @@ namespace GithubSharp.Core.API
 				string.Format(
 					"gists/comments/{0}",
 					gistcommentid),
-				"DELETE");
+				GithubSharpHttpVerbs.DELETE);
 		}
 
 			

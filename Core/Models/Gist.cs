@@ -44,21 +44,5 @@ namespace GithubSharp.Core.Models
 		public string content {get;set;}
 	}
 	
-	[Serializable]
-	public class GistComment
-	{
-		public string id {get;set;}
-		public string url {get;set;}
-		public string body {get;set;}
-		public BasicUser user {get;set;}
-		public DateTime created_at {get;set;}
-	}
-	
-	[Serializable]
-	public class GistCommentForCreationOrEdit
-	{
-		public string body {get;set;}
-	}
-	
 }
 

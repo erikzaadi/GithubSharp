@@ -84,17 +84,17 @@ namespace CoreTests
 			
 			var gistComments = gistAPI.ListComments(createdGist.id);
 			
-			Assert.IsTrue(gistComments == null || new List<GithubSharp.Core.Models.GistComment>(gistComments).Count == 0);
+			Assert.IsTrue(gistComments == null || new List<GithubSharp.Core.Models.Comment>(gistComments).Count == 0);
 			
-			var gistComment = new GithubSharp.Core.Models.GistCommentForCreationOrEdit { body = System.Guid.NewGuid().ToString()};
+			var gistComment = new GithubSharp.Core.Models.CommentForCreationOrEdit { body = System.Guid.NewGuid().ToString()};
 			
 			var createdGistComment = gistAPI.CreateComment(createdGist.id,gistComment);
 			
 			Assert.AreEqual(createdGistComment.body, gistComment.body);
 			
-			Assert.IsTrue(new List<GithubSharp.Core.Models.GistComment>(gistAPI.ListComments(createdGist.id)).Count == 1);
+			Assert.IsTrue(new List<GithubSharp.Core.Models.Comment>(gistAPI.ListComments(createdGist.id)).Count == 1);
 			
-			var editedGistCommentToSend = new GithubSharp.Core.Models.GistCommentForCreationOrEdit { body = createdGistComment.body + " aha!"};
+			var editedGistCommentToSend = new GithubSharp.Core.Models.CommentForCreationOrEdit { body = createdGistComment.body + " aha!"};
 			
 			var editedGistComment = gistAPI.EditComment(createdGistComment.id, 
 				editedGistCommentToSend);
@@ -115,7 +115,7 @@ namespace CoreTests
 			
 			gistAPI.DeleteComment(retrievedComment.id);
 			
-			Assert.IsTrue(new List<GithubSharp.Core.Models.GistComment>(gistAPI.ListComments(createdGist.id)).Count == 0);
+			Assert.IsTrue(new List<GithubSharp.Core.Models.Comment>(gistAPI.ListComments(createdGist.id)).Count == 0);
 		}
 		
 		private GithubSharp.Core.API.Gist GetAuthenticatedGistAPI()

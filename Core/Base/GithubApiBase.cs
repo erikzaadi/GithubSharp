@@ -20,7 +20,7 @@ namespace GithubSharp.Core.Base
 		
 		protected IGithubResponse Get(
 			string Path, 
-			string Method)
+			GithubSharpHttpVerbs Method)
 		{
 			return new GithubRequest(
 				LogProvider, 
@@ -32,7 +32,7 @@ namespace GithubSharp.Core.Base
 		
 		protected IGithubResponseWithReturnType<TReturnType> Get<TReturnType>(
 			string Path, 
-			string Method)
+			GithubSharpHttpVerbs Method)
 			where TReturnType : class
 		{
 			return new GithubRequestWithReturnType<TReturnType>(
@@ -46,7 +46,7 @@ namespace GithubSharp.Core.Base
 		
 		protected IGithubResponseWithReturnType<TReturnType> Get<TReturnType, TInputType>(
 			string Path, 
-			string Method,
+			GithubSharpHttpVerbs Method,
 			TInputType ToSend)
 			where TReturnType : class
 		{

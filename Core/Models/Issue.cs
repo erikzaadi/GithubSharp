@@ -68,7 +68,7 @@ namespace GithubSharp.Core.Models
     }
 
     [DataContract]
-    public class Comment
+    public class CommentForIssue
     {
         [DataMember(Name = "created_at")]
         private string PrivateCreatedAt

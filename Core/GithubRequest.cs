@@ -5,7 +5,7 @@ namespace GithubSharp.Core
 {
 	public interface IGithubRequest
 	{
-		string Method { get;}
+		GithubSharpHttpVerbs Method { get;}
 		string Path {get;set;}
 		IGithubResponse GetResponse();
 		Core.Services.ILogProvider LogProvider {get;set;}
@@ -14,6 +14,7 @@ namespace GithubSharp.Core
 		int? PagingRequestAmount {get;set;}
 		int? PagingCurrentPage {get;set;}
 		System.Net.HttpWebRequest PrepareWebRequest(System.Net.HttpWebRequest webRequest);
+		GithubSharpMimeTypes GithubSharpMimeType {get;set;}
 	}
 	
 	
@@ -22,17 +23,23 @@ namespace GithubSharp.Core
 		public Core.Services.ILogProvider LogProvider {get;set;}
 		public Core.Services.IAuthProvider AuthProvider {get;set;}
 		public Core.Services.ICacheProvider CacheProvider {get;set;}
-		public virtual string Method { get;set; 	}
+		public virtual GithubSharpHttpVerbs Method { get;set; 	}
 		public virtual string Path { 	get;set; }
 		public virtual int? PagingRequestAmount { get;set; }
 		public virtual int? PagingCurrentPage { get;set; }
+		public virtual GithubSharpMimeTypes GithubSharpMimeType {get;set;}
 		
 		public GithubRequest(
 				Core.Services.ILogProvider logProvider,
 				Core.Services.ICacheProvider cacheProvider,
 				Core.Services.IAuthProvider authProvider,
 				string path)
-			:this(logProvider, cacheProvider, authProvider, path, "GET")
+			:this(
+				logProvider, 
+				cacheProvider, 
+				authProvider, 
+				path, 
+				GithubSharpHttpVerbs.GET)
 		{
 		}
 		
@@ -41,7 +48,7 @@ namespace GithubSharp.Core
 				Core.Services.ICacheProvider cacheProvider,
 				Core.Services.IAuthProvider authProvider,
 				string path,
-				string method)
+				GithubSharpHttpVerbs method)
 			:this(
 				logProvider,
 				cacheProvider,
@@ -60,9 +67,32 @@ namespace GithubSharp.Core
 				Core.Services.ICacheProvider cacheProvider,
 				Core.Services.IAuthProvider authProvider,
 				string path,
-				string method, 
+				GithubSharpHttpVerbs method, 
 				int? pagingLimit,
 				int? currentPage)
+			:this(
+				logProvider,
+				cacheProvider,
+				authProvider,
+				path,
+				method,
+				pagingLimit,
+				currentPage,
+				GithubSharpMimeTypes.Json
+				)
+		{
+			
+		}
+		
+		public GithubRequest(
+				Core.Services.ILogProvider logProvider,
+				Core.Services.ICacheProvider cacheProvider,
+				Core.Services.IAuthProvider authProvider,
+				string path,
+				GithubSharpHttpVerbs method, 
+				int? pagingLimit,
+				int? currentPage,
+				GithubSharpMimeTypes mime)
 		{
 			LogProvider = logProvider;
 			CacheProvider = cacheProvider;
@@ -71,6 +101,7 @@ namespace GithubSharp.Core
 			Method = method;
 			PagingCurrentPage = currentPage;
 			PagingRequestAmount = pagingLimit;
+			GithubSharpMimeType = mime;
 		}
 		
 		public virtual bool IsCached(string uri)
@@ -91,7 +122,7 @@ namespace GithubSharp.Core
 		
 		public virtual System.Net.HttpWebRequest PrepareWebRequest(System.Net.HttpWebRequest webRequest)
 		{
-			webRequest.Accept = "application/vnd.github+json";
+			webRequest.Accept = EnumHelper.ToString(GithubSharpMimeType);
 			
 			return webRequest;
 		}
@@ -167,7 +198,7 @@ namespace GithubSharp.Core
 			
 			var webRequest = System.Net.HttpWebRequest.Create(new Uri(uri)) as System.Net.HttpWebRequest;
 			
-			webRequest.Method = Method;
+			webRequest.Method = EnumHelper.ToString(Method);
 			
 			var authResult = AuthProvider.PreRequestAuth(this, webRequest);
 			
