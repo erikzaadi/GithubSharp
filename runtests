@@ -1,1 +1,1 @@
-nunit-console Tests/CoreTests/bin/Debug/CoreTests.dll
+nunit-console Tests/CoreTests/bin/Debug/GithubSharp.Tests.CoreTests.dll

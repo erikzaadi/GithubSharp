@@ -1,48 +1,32 @@
 ﻿using System;
-using System.IO;
-using System.Runtime.Serialization.Json;
-using System.Text;
-using System.Web.Script.Serialization;
 
 namespace GithubSharp.Core.Base
 {
-	internal static class JsonConverter
-	{
-		/// <summary>
-		/// Serializes the object to a Json string 
-		/// </summary>
-		internal static string ToJson<T> (this T Obj)
-		{
-//			var serializer = new DataContractJsonSerializer (typeof(T));
-//			using (var ms = new MemoryStream()) {
-//				serializer.WriteObject (ms, Obj);
-//				string ret = Encoding.Default.GetString (ms.ToArray ());
-//				return ret;
-//			}
-			
-			return ServiceStack.Text.JsonSerializer.SerializeToString<T>(Obj);
-		}
-		
-		internal static byte[] ToJsonBytes<T>(this T TObj)
-		{
-			var jsonString = ToJson<T>(TObj);
-			return System.Text.Encoding.UTF8.GetBytes(jsonString);
-		}
+    internal static class JsonConverter
+    {
+        /// <summary>
+        /// Serializes the object to a Json string 
+        /// </summary>
+        internal static string ToJson<T>(this T Obj)
+        {
+            return ServiceStack.Text.JsonSerializer.SerializeToString<T>(Obj);
+        }
 
-		/// <summary>
-		/// Deserializes
-		/// </summary>
-		/// <returns></returns>
-		internal static T FromJson<T> (string Json)
-		{
-			if (string.IsNullOrEmpty (Json))
-				throw new ArgumentNullException ("Json");
+        internal static byte[] ToJsonBytes<T>(this T TObj)
+        {
+            var jsonString = ToJson<T>(TObj);
+            return System.Text.Encoding.UTF8.GetBytes(jsonString);
+        }
 
-//			var serializer = new DataContractJsonSerializer (typeof(T));
-//			using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(Json)))
-//				return (T)serializer.ReadObject (ms);
-			
-			return ServiceStack.Text.JsonSerializer.DeserializeFromString<T>(Json);
-		}
-	}
+        /// <summary>
+        /// Deserializes
+        /// </summary>
+        /// <returns></returns>
+        internal static T FromJson<T>(string Json)
+        {
+            if (string.IsNullOrEmpty(Json))
+                throw new ArgumentNullException("Json");
+            return ServiceStack.Text.JsonSerializer.DeserializeFromString<T>(Json);
+        }
+    }
 }

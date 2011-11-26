@@ -7,7 +7,7 @@ using System.Collections.Specialized;
 
 namespace GithubSharp.Core.API
 {
-    public class PullRequest : Base.BaseAPI
+    public class PullRequest : Base.BaseApi
     {
         public PullRequest(ICacheProvider CacheProvider, ILogProvider LogProvider) : base(CacheProvider, LogProvider) { }
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -67,7 +67,6 @@
     <Compile Include="Controllers\BaseAPIController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CommitController.cs" />
-    <Compile Include="Controllers\GistsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IssuesController.cs" />
     <Compile Include="Controllers\NetworkController.cs" />
@@ -87,7 +86,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core\Core.csproj">
       <Project>{59C24364-8C00-46AD-9CE6-1D5630656DF9}</Project>
-      <Name>Core</Name>
+      <Name>Core %28Core\Core%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Plugins\CacheProviders\WebCache\WebCache.csproj">
       <Project>{4CF09821-4DF8-4DFE-B22E-3EBAE4A01C33}</Project>

@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 
 namespace GithubSharp.Core.API
 {
-    public class Issues : Base.BaseAPI
+    public class Issues : Base.BaseApi
     {
         public Issues(ICacheProvider CacheProvider, ILogProvider LogProvider) : base(CacheProvider, LogProvider) { }
 

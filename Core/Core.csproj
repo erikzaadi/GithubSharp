@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\PullRequest.cs" />
+    <Compile Include="Base\IBaseApi.cs" />
     <Compile Include="Models\Internal\Commit.cs" />
     <Compile Include="Models\Internal\Issues.cs" />
     <Compile Include="Models\Internal\JsonSimpleDictionary.cs" />
@@ -104,7 +105,6 @@
     <Compile Include="Services\IAuthProvider.cs" />
     <Compile Include="GithubAuthenticationException.cs" />
     <Compile Include="GithubFailedResponse.cs" />
-    <Compile Include="GithubRequestWithBinaryFileToSend.cs" />
     <Compile Include="GithubRequestWithReturnType.cs" />
     <Compile Include="Models\Gist.cs" />
     <Compile Include="Models\Fork.cs" />

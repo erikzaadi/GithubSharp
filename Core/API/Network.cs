@@ -4,7 +4,7 @@ using GithubSharp.Core.Models;
 
 namespace GithubSharp.Core.API
 {
-    public class Network : Base.BaseAPI
+    public class Network : Base.BaseApi
     {
         public Network(ICacheProvider CacheProvider, ILogProvider LogProvider) : base(CacheProvider, LogProvider) { }
 

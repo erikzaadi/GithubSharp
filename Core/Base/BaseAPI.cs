@@ -4,28 +4,20 @@ using System.Collections.Specialized;
 
 namespace GithubSharp.Core.Base
 {
-    public interface IBaseAPI
+    public class BaseApi : IBaseApi
     {
-        void Authenticate();
-        void Authenticate(Models.GithubUser User);
-        ILogProvider LogProvider { get; set; }
-        ICacheProvider CacheProvider { get; set; }
-    }
-
-    public class BaseAPI : IBaseAPI
-    {
-        public BaseAPI(ICacheProvider Cache, ILogProvider Log)
+        public BaseApi(ICacheProvider cache, ILogProvider log)
         {
-            CacheProvider = Cache;
-            LogProvider = Log;
+            CacheProvider = cache;
+            LogProvider = log;
         }
 
         private Models.GithubUser CurrentUser { get; set; }
         private Url UrlConsumer
         {
-            get { return _Url ?? (_Url = new Url(CacheProvider, LogProvider)); }
+            get { return _url ?? (_url = new Url(CacheProvider, LogProvider)); }
         }
-        private Url _Url;
+        private Url _url;
 
         public void Authenticate(Models.GithubUser User)
         {

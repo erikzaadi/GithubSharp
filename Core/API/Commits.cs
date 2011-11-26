@@ -4,7 +4,7 @@ using GithubSharp.Core.Models;
 
 namespace GithubSharp.Core.API
 {
-    public class Commits : Base.BaseAPI
+    public class Commits : Base.BaseApi
     {
         public Commits(ICacheProvider CacheProvider, ILogProvider LogProvider) : base(CacheProvider, LogProvider) { }
 

@@ -4,7 +4,7 @@ using GithubSharp.Core.Services;
 
 namespace GithubSharp.MvcSample.MvcApplication.Controllers
 {
-    public class BaseAPIController<TApiType> : BaseController where TApiType : Core.Base.IBaseAPI
+    public class BaseAPIController<TApiType> : BaseController where TApiType : Core.Base.IBaseApi
     {
         public BaseAPIController(ICacheProvider Cache, ILogProvider Log)
             : base(Cache, Log)

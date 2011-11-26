@@ -7,7 +7,7 @@ using GithubSharp.Core.Base;
 
 namespace GithubSharp.Core.API
 {
-    public class Repository : Base.BaseAPI
+    public class Repository : Base.BaseApi
     {
         public Repository(ICacheProvider CacheProvider, ILogProvider LogProvider) : base(CacheProvider, LogProvider) { }
 

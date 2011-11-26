@@ -9,13 +9,13 @@ namespace GithubSharp.Core.Models
         public List<CommmitParent> parents { get; set; }
 
         public Person author { get; set; }
-  
+
         public string url { get; set; }
 
         public string sha { get; set; }
 
         public string message { get; set; }
-   
+
         public CommmitParent tree { get; set; }
 
         public Person committer { get; set; }
@@ -24,15 +24,15 @@ namespace GithubSharp.Core.Models
     public class CommmitParent
     {
         public string sha { get; set; }
-		
+
         public string url { get; set; }
     }
 
     public class Person
     {
         public string name { get; set; }
-		
-	    public DateTime date { get; set; } 
+
+        public DateTime date { get; set; }
 
         public string email { get; set; }
     }

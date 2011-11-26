@@ -6,20 +6,20 @@ using System.Collections.Specialized;
 
 namespace GithubSharp.Core.API
 {
-    public class User : Base.BaseAPI
+    public class User : Base.BaseApi
     {
-        public User(ICacheProvider CacheProvider, ILogProvider LogProvider) : base(CacheProvider, LogProvider) { }
+        public User(ICacheProvider cacheProvider, ILogProvider logProvider) : base(cacheProvider, logProvider) { }
         /// <summary>
         /// Search for users
         /// </summary>
-        /// <param name="Search">search string</param>
+        /// <param name="search">search string</param>
         /// <returns>Stripped down details of the users</returns>
-        public IEnumerable<Models.UserInCollection> Search(string Search)
+        public IEnumerable<Models.UserInCollection> Search(string search)
         {
-            LogProvider.LogMessage(string.Format("User.Search - '{0}'", Search));
+            LogProvider.LogMessage(string.Format("User.Search - '{0}'", search));
             var url = string.Format("{0}{1}",
                 "user/search/",
-                Search);
+                search);
             var result = ConsumeJsonUrl<Models.Internal.UsersCollection<Models.UserInCollection>>(url);
             return result == null ? null : result.Users;
         }
@@ -133,12 +133,12 @@ namespace GithubSharp.Core.API
 
             if (formValues.Count == 0)
             {
-				var error = new Exception("User.Update : At least one parameter needs to either be and empty string or with content, all parameters were null");
-				if (LogProvider.HandleAndReturnIfToThrowError(error))
-					throw error;
-			
-				return null;
-			}
+                var error = new Exception("User.Update : At least one parameter needs to either be and empty string or with content, all parameters were null");
+                if (LogProvider.HandleAndReturnIfToThrowError(error))
+                    throw error;
+
+                return null;
+            }
 
             var result = ConsumeJsonUrlAndPostData<Models.Internal.UserContainer<Models.UserAuthenticated>>(url, formValues);
 

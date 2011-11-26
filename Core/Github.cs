@@ -2,23 +2,23 @@
 
 namespace GithubSharp.Core
 {
-	public class Github
-	{
+    public class Github
+    {
 
         public Models.GithubUser _User { get; set; }
         public GithubURLs _GithubURLs { get; set; }
 
         public Github(Services.ICacheProvider CacheProvider, Models.GithubUser user)
-		{
+        {
             _User = user;
             _GithubURLs = new GithubURLs { User = user };
-		}
-		/*
-		#region Public Methods
+        }
+        /*
+        #region Public Methods
 		
-		public IList<Domain.Models.Commit> GetCommits(string Repository)
-		{
-			string cacheKey = string.Format("_CacheProvider_Commits_{0}_{1}_{2}", _User.Name, Repository, _User.APIToken);
+        public IList<Domain.Models.Commit> GetCommits(string Repository)
+        {
+            string cacheKey = string.Format("_CacheProvider_Commits_{0}_{1}_{2}", _User.Name, Repository, _User.APIToken);
             var cached = _CacheProvider.Get<IList<Domain.Models.Commit>>(
                 cacheKey);
             if (cached != null)
@@ -31,13 +31,13 @@ namespace GithubSharp.Core
                 return null;
 
             var commitArray = result.Descendants("commit");
-			var commits = commitArray.Select(commit=>GetCommitFromXMLNode(commit)).ToList();
+            var commits = commitArray.Select(commit=>GetCommitFromXMLNode(commit)).ToList();
             _CacheProvider.Set(commits, cacheKey);
 			
-			return commits;
-		}
+            return commits;
+        }
 		
-   		public IList<Domain.Models.Repository> GetRepositories()
+        public IList<Domain.Models.Repository> GetRepositories()
         {
             string cacheKey = string.Format("_CacheProvider_Repositories_{0}_{1}", _User.Name, _User.APIToken);
             var cached = _CacheProvider.Get<IList<Domain.Models.Repository>>(
@@ -65,62 +65,62 @@ namespace GithubSharp.Core
                 cacheKey);
             if (cached != null)
                 return cached;
-			Domain.Models.Repository current = null;
+            Domain.Models.Repository current = null;
 			 
-			//If we have all repositories cached, fetch the repository from the cached collection
-			string ReposCacheKey = string.Format("_CacheProvider_Repositories_{0}", Username);
+            //If we have all repositories cached, fetch the repository from the cached collection
+            string ReposCacheKey = string.Format("_CacheProvider_Repositories_{0}", Username);
             var cachedRepos = _CacheProvider.Get<IList<Domain.Models.Repository>>(
                 ReposCacheKey);
             if (cachedRepos != null)
-			{
-				current = cachedRepos.SingleOrDefault(repo => repo.Name == RepositoryName);
-			}
-			else
-			{
-				string url = string.Format(GithubURLs.GetRepo, Username, RepositoryName);
-	            var result = _GetXMLFromURL(url);
-	            if (result == null)
-	                return null;
-				current = GetRepositoryFromXMLNode(result.Element("repository"));
-			}
+            {
+                current = cachedRepos.SingleOrDefault(repo => repo.Name == RepositoryName);
+            }
+            else
+            {
+                string url = string.Format(GithubURLs.GetRepo, Username, RepositoryName);
+                var result = _GetXMLFromURL(url);
+                if (result == null)
+                    return null;
+                current = GetRepositoryFromXMLNode(result.Element("repository"));
+            }
 		
-			if (current == null)
-				return null;
+            if (current == null)
+                return null;
 			
-			_CacheProvider.Set(current, cacheKey);
+            _CacheProvider.Set(current, cacheKey);
 
             return current;
         }
 		
-		public byte[] GetBlobBinaryContent(string RepositoryName, string BlobSha)
-		{
-			var url = string.Format(GithubURLs.BlobOrTree, Username, RepositoryName, BlobSha);
-			if (!_VerifyURL(url))
-			{
-				return null;
-			}
-			return _GetBytesFromURL(url);
-		}
+        public byte[] GetBlobBinaryContent(string RepositoryName, string BlobSha)
+        {
+            var url = string.Format(GithubURLs.BlobOrTree, Username, RepositoryName, BlobSha);
+            if (!_VerifyURL(url))
+            {
+                return null;
+            }
+            return _GetBytesFromURL(url);
+        }
 		
-		public string GetBlobURL(string RepositoryName, string BlobSha)
-		{
-			var url = string.Format(GithubURLs.BlobOrTree, Username, RepositoryName, BlobSha);
-			if (!_VerifyURL(url))
-			{
-				return null;
-			}
-			return url;
-		}
+        public string GetBlobURL(string RepositoryName, string BlobSha)
+        {
+            var url = string.Format(GithubURLs.BlobOrTree, Username, RepositoryName, BlobSha);
+            if (!_VerifyURL(url))
+            {
+                return null;
+            }
+            return url;
+        }
 		
-		public string GetBlobStringContent(string RepositoryName, string BlobSha)
-		{
-			var url = string.Format(GithubURLs.BlobOrTree, Username, RepositoryName, BlobSha);
-			if (!_VerifyURL(url))
-			{
-				return null;
-			}
-			return _GetStringFromURL(url);
-		}
+        public string GetBlobStringContent(string RepositoryName, string BlobSha)
+        {
+            var url = string.Format(GithubURLs.BlobOrTree, Username, RepositoryName, BlobSha);
+            if (!_VerifyURL(url))
+            {
+                return null;
+            }
+            return _GetStringFromURL(url);
+        }
 
         public string GetFileContent(string RepositoryName, string FileName)
         {
@@ -146,34 +146,34 @@ namespace GithubSharp.Core
             return _VerifyURL(assetURL) ? assetURL : null;
         }
 		
-		public Domain.Models.Tree GetTree(string RepositoryName, string TreeSHA)
-		{
-			 string cacheKey = string.Format("_CacheProvider_GetTree_{0}_{1}_{1}", Username, RepositoryName, TreeSHA);
+        public Domain.Models.Tree GetTree(string RepositoryName, string TreeSHA)
+        {
+             string cacheKey = string.Format("_CacheProvider_GetTree_{0}_{1}_{1}", Username, RepositoryName, TreeSHA);
             var cached = _CacheProvider.Get<Domain.Models.Tree>(
                 cacheKey);
             if (cached != null)
                 return cached;
-			Domain.Models.Tree current = null;
+            Domain.Models.Tree current = null;
 			
-			string url = string.Format(GithubURLs.BlobOrTree, Username, RepositoryName, TreeSHA);
+            string url = string.Format(GithubURLs.BlobOrTree, Username, RepositoryName, TreeSHA);
             var result = _GetStringFromURL(url);
             if (result == null)
                 return null;
-			current = GetTreeFromYaml(result);
+            current = GetTreeFromYaml(result);
 			
-			if (current == null)
-				return null;
-			current.RepositoryName = RepositoryName;
-			current.Sha = TreeSHA;
+            if (current == null)
+                return null;
+            current.RepositoryName = RepositoryName;
+            current.Sha = TreeSHA;
 			
-			_CacheProvider.Set(current, cacheKey);
+            _CacheProvider.Set(current, cacheKey);
 
             return current;
-		}
+        }
 
-		#endregion Public Methods
+        #endregion Public Methods
 		
-		#region Private Helpers
+        #region Private Helpers
 
         private bool _VerifyURL(string url)
         {
@@ -187,8 +187,8 @@ namespace GithubSharp.Core
             {
                 var webRequest = WebRequest.Create(url);
                 webRequest.Method = "HEAD";
-				if (!webRequest.GetResponse().Headers["Status"].ToLower().Contains("200"))
-					return false;
+                if (!webRequest.GetResponse().Headers["Status"].ToLower().Contains("200"))
+                    return false;
             }
             catch 
             {
@@ -277,9 +277,9 @@ namespace GithubSharp.Core
             return element.Element(name) != null && !string.IsNullOrEmpty(element.Element(name).Value) ? element.Element(name).Value : "";
         }
 		
-		private Domain.Models.Repository GetRepositoryFromXMLNode(XElement RepNode)
-		{
-			return new Domain.Models.Repository
+        private Domain.Models.Repository GetRepositoryFromXMLNode(XElement RepNode)
+        {
+            return new Domain.Models.Repository
                   {
                       Url = ElementValueSingleOrDefault(RepNode, "url"),
                       Description = ElementValueSingleOrDefault(RepNode, "description"),
@@ -292,57 +292,57 @@ namespace GithubSharp.Core
                       Fork = bool.Parse(ElementValueSingleOrDefault(RepNode, "fork")),
                       IsPrivate = bool.Parse(ElementValueSingleOrDefault(RepNode, "private"))
                   };
-		}
+        }
 		
-		private Domain.Models.Person GetPersonFromXMLNode(XElement personNode)
-		{
-			return new Domain.Models.Person
-			{
-				Email = ElementValueSingleOrDefault(personNode, "email"),
-				Login = ElementValueSingleOrDefault(personNode, "login"),
-				Name = ElementValueSingleOrDefault(personNode, "name")
-			};
-		}
+        private Domain.Models.Person GetPersonFromXMLNode(XElement personNode)
+        {
+            return new Domain.Models.Person
+            {
+                Email = ElementValueSingleOrDefault(personNode, "email"),
+                Login = ElementValueSingleOrDefault(personNode, "login"),
+                Name = ElementValueSingleOrDefault(personNode, "name")
+            };
+        }
 		
-		private Domain.Models.Commit GetCommitFromXMLNode(XElement commitNode)
-		{
-			return new Domain.Models.Commit
+        private Domain.Models.Commit GetCommitFromXMLNode(XElement commitNode)
+        {
+            return new Domain.Models.Commit
                   {
                       Url = ElementValueSingleOrDefault(commitNode, "url"),                     
                       ID = ElementValueSingleOrDefault(commitNode, "id"),
                       Message = ElementValueSingleOrDefault(commitNode, "message"),
                       Tree = ElementValueSingleOrDefault(commitNode, "tree"),
-					  Committed = DateTime.Parse( ElementValueSingleOrDefault(commitNode, "committed-date")),
-					  Authored = DateTime.Parse( ElementValueSingleOrDefault(commitNode, "authored-date")),
-					  Author = GetPersonFromXMLNode(commitNode.Element("author")),
-					  Committer = GetPersonFromXMLNode(commitNode.Element("committer"))//,
-					  //ParentCommitIDs = commitNode.Element("parents").Elements("parent").Select(p=> int.Parse(ElementValueSingleOrDefault(p,"id"))).ToList()
+                      Committed = DateTime.Parse( ElementValueSingleOrDefault(commitNode, "committed-date")),
+                      Authored = DateTime.Parse( ElementValueSingleOrDefault(commitNode, "authored-date")),
+                      Author = GetPersonFromXMLNode(commitNode.Element("author")),
+                      Committer = GetPersonFromXMLNode(commitNode.Element("committer"))//,
+                      //ParentCommitIDs = commitNode.Element("parents").Elements("parent").Select(p=> int.Parse(ElementValueSingleOrDefault(p,"id"))).ToList()
                   };
-		}
+        }
 		
-		private Domain.Models.Tree GetTreeFromYaml (string result)
-		{
-			var toReturn = new Domain.Models.Tree();
-			var items = new List<Domain.Models.BlobItem>();
-			foreach (string line in result.Split(new char[]{'\n'}))
-			{
-				var yammeld = line.Split(new char[]{'\t'});
-				var details = yammeld[0].Split(new char[]{' '});
+        private Domain.Models.Tree GetTreeFromYaml (string result)
+        {
+            var toReturn = new Domain.Models.Tree();
+            var items = new List<Domain.Models.BlobItem>();
+            foreach (string line in result.Split(new char[]{'\n'}))
+            {
+                var yammeld = line.Split(new char[]{'\t'});
+                var details = yammeld[0].Split(new char[]{' '});
 				
-				items.Add(new Domain.Models.BlobItem
-				          {
-					Name = yammeld[1],
-					Sha = details[2],
-					Type = details[1] == "tree" ? Domain.Models.BlobItemType.Tree : Domain.Models.BlobItemType.Blob
-				});
-			}
+                items.Add(new Domain.Models.BlobItem
+                          {
+                    Name = yammeld[1],
+                    Sha = details[2],
+                    Type = details[1] == "tree" ? Domain.Models.BlobItemType.Tree : Domain.Models.BlobItemType.Blob
+                });
+            }
 			
-			toReturn.BlobItems = items;
+            toReturn.BlobItems = items;
 			
-			return toReturn;
-		}
+            return toReturn;
+        }
 		
-		#endregion Private Helpers
+        #endregion Private Helpers
 */
-	}
+    }
 }
