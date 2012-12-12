@@ -1,7 +1,8 @@
 using System;
-using NUnit.Framework;
 using System.Collections.Generic;
+using CoreTests;
 using GithubSharp.Core.Base;
+using NUnit.Framework;
 
 namespace GithubSharp.Tests.CoreTests
 {
