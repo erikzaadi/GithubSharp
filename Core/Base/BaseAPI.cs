@@ -1,6 +1,7 @@
 using System;
 using GithubSharp.Core.Services;
 using System.Collections.Specialized;
+using Newtonsoft.Json;
 
 namespace GithubSharp.Core.Base
 {
@@ -86,7 +87,8 @@ namespace GithubSharp.Core.Base
                 return null;
             try
             {
-                return JsonConverter.FromJson<T>(result);
+                var jsonResult = JsonConvert.DeserializeObject<T>(result);
+                return jsonResult;
             }
             catch (Exception error)
             {
@@ -108,7 +110,7 @@ namespace GithubSharp.Core.Base
                 return null;
             try
             {
-                return JsonConverter.FromJson<T>(result);
+                return JsonConvert.DeserializeObject<T>(result);
             }
             catch (Exception error)
             {

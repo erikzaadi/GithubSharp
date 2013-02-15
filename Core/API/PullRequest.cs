@@ -19,9 +19,9 @@ namespace GithubSharp.Core.API
         public IEnumerable<Models.PullRequest> List(string Username, string RepositoryName, string State)
         {
             LogProvider.LogMessage(string.Format("PullRequest.List - {0} - {1} - {2}", Username, RepositoryName, State));
-            var url = string.Format("pulls/{0}/{1}{2}", Username, RepositoryName, string.IsNullOrEmpty(State) ? "" : "/" + State);
-            var result = ConsumeJsonUrl<Models.Internal.PullRequestCollection>(url);
-            return result == null ? null : result.PullRequests;
+            var url = string.Format("repos/{0}/{1}/pulls{2}", Username, RepositoryName, string.IsNullOrEmpty(State) ? "" : "/" + State);
+            var result = ConsumeJsonUrl<Models.PullRequest[]>(url);
+            return result;
         }
 
         public Models.PullRequest GetById(string Username, string RepositoryName, string Id)

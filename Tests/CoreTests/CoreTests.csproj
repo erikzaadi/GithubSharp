@@ -38,8 +38,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GithubRequestTest.cs" />
+    <Compile Include="PullRequestFixture.cs" />
+    <Compile Include="RepositoryFixture.cs" />
     <Compile Include="TestSettings.cs" />
     <Compile Include="GistModelTest.cs" />
+    <Compile Include="UserFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Core.csproj">
@@ -54,6 +57,10 @@
       <Project>{61EFFFA9-0713-47CA-95D9-193E16BBA3B9}</Project>
       <Name>UserPasswordAuthProvider</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Plugins\CacheProviders\BasicCacher\BasicCacher.csproj">
+      <Project>{5EB1DF0E-EDBD-44EB-8A63-070F13A5D0EE}</Project>
+      <Name>BasicCacher</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Plugins\CacheProviders\NullCacher\NullCacher.csproj">
       <Project>{D2AA69DA-E0F8-4583-B161-48E763DB8D23}</Project>
       <Name>NullCacher</Name>
@@ -61,6 +68,10 @@
     <ProjectReference Include="..\..\Plugins\LogProviders\NullLogger\NullLogger.csproj">
       <Project>{A4F37523-CA27-4966-9BC1-51B74F77BE70}</Project>
       <Name>NullLogger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Plugins\LogProviders\SimpleLogProvider\SimpleLogProvider.csproj">
+      <Project>{26AB1C43-34F7-446C-A514-EB0E38730631}</Project>
+      <Name>SimpleLogProvider</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

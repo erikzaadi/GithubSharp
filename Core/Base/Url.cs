@@ -17,7 +17,7 @@ namespace GithubSharp.Core.Base
         internal ICacheProvider CacheProvider;
         internal ILogProvider LogProvider;
 
-        internal string GithubBaseURL { get { return "http://github.com/api/v2/json/"; } }
+        internal string GithubBaseURL { get { return "https://api.github.com/"; } }
 
         internal string GithubAuthenticationQueryString(Models.GithubUser User)
         {
