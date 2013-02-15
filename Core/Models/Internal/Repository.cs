@@ -10,7 +10,7 @@ namespace GithubSharp.Core.Models.Internal
         [DataMember(Name = "repositories")]
         public IEnumerable<TRepoType> Repositories { get; set; }
     }
-
+    [Obsolete]
     [DataContract]
     internal class RepositoryContainer<TRepoType>
     {

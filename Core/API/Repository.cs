@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GithubSharp.Core.Base;
 using GithubSharp.Core.Services;
 using System.Collections.Specialized;
-using GithubSharp.Core.Base;
 
 namespace GithubSharp.Core.API
 {
-    public class Repository : Base.BaseApi
+    public class Repository : BaseApi
     {
         public Repository(ICacheProvider CacheProvider, ILogProvider LogProvider) : base(CacheProvider, LogProvider) { }
 
@@ -28,14 +28,14 @@ namespace GithubSharp.Core.API
         {
             LogProvider.LogMessage(string.Format("Repository.Get - Username : '{0}' , RepositoryName : '{1}'", Username, RepositoryName));
 
-            var url = string.Format("{0}{1}/{2}",
-                "repos/show/",
+            var url = string.Format("{0}/{1}/{2}",
+                "repos",
                 Username,
                 RepositoryName);
 
-            var result = ConsumeJsonUrl<Models.Internal.RepositoryContainer<Models.Repository>>(url);
+            var result = ConsumeJsonUrl<Models.Repository>(url);
 
-            return result == null ? null : result.Repository;
+            return result;
         }
 
         public IEnumerable<Models.Repository> List(string Username)

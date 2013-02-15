@@ -56,8 +56,20 @@ namespace GithubSharp.Core.Models
     [DataContract]
     public class User
     {
+        [DataMember(Name = "login")]
+        public string Login { get; set; }
+
+        [DataMember(Name = "id")]
+        public string Id { get; set; }
+
+        [DataMember(Name = "avatar_url")]
+        public string AvatarUrl { get; set; }
+
         [DataMember(Name = "gravatar_id")]
         public string GravatarId { get; set; }
+
+        [DataMember(Name = "url")]
+        public string Url { get; set; }
 
         [DataMember(Name = "name")]
         public string Name { get; set; }
@@ -74,12 +86,13 @@ namespace GithubSharp.Core.Models
             get { return CreatedAt.ToString(); }
             set { CreatedAt = DateTime.Parse(value); }
         }
+
         public DateTime CreatedAt { get; set; }
 
-        [DataMember(Name = "public_gist_count")]
+        [DataMember(Name = "public_gists")]
         public int PublicGistCount { get; set; }
 
-        [DataMember(Name = "public_repo_count")]
+        [DataMember(Name = "public_repos")]
         public int PublicRepoCount { get; set; }
 
         [DataMember(Name = "blog")]
@@ -88,11 +101,8 @@ namespace GithubSharp.Core.Models
         [DataMember(Name = "following")]
         public int Following { get; set; }
 
-        [DataMember(Name = "id")]
-        public int Id { get; set; }
-
-        [DataMember(Name = "login")]
-        public string Login { get; set; }
+        [DataMember(Name = "follower")]
+        public int Followers { get; set; }
 
         [DataMember(Name = "email")]
         public string Email { get; set; }

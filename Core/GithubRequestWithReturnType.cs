@@ -1,5 +1,6 @@
 using System;
 using GithubSharp.Core.Base;
+using Newtonsoft.Json;
 
 namespace GithubSharp.Core
 {
@@ -48,8 +49,7 @@ namespace GithubSharp.Core
 
             try
             {
-                baseWithReturnType.Result = JsonConverter
-                    .FromJson<TReturnType>(baseWithReturnType.Response);
+                baseWithReturnType.Result = JsonConvert.DeserializeObject<TReturnType>(baseWithReturnType.Response);
             }
             catch (Exception error)
             {
