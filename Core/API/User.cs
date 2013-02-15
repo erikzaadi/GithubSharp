@@ -33,11 +33,11 @@ namespace GithubSharp.Core.API
         {
             LogProvider.LogMessage(string.Format("User.Get - '{0}'", Username));
             var url = string.Format("{0}{1}",
-               "user/show/",
+               "users/",
                Username);
-            var result = ConsumeJsonUrl<Models.Internal.UserContainer<Models.User>>(url);
+            var result = ConsumeJsonUrl<Models.User>(url);
 
-            return result == null ? null : result.User;
+            return result;
         }
 
         /// <summary>

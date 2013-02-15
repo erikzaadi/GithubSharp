@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace GithubSharp.Core
 {
@@ -9,7 +10,7 @@ namespace GithubSharp.Core
             : base(string.Format("Github error when retrieving {0}", uri))
         {
             var responseString = new System.IO.StreamReader(response.GetResponseStream()).ReadToEnd();
-            GithubErrorResult = Base.JsonConverter.FromJson<GithubErrorModel>(responseString);
+            GithubErrorResult = JsonConvert.DeserializeObject<GithubErrorModel>(responseString);
             StatusCode = (int)response.StatusCode;
             StatusText = response.StatusDescription;
         }

@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 
 namespace GithubSharp.Core.Models.Internal
 {
+    [Obsolete]
     [DataContract]
     internal class PullRequestCollection
     {

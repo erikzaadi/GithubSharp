@@ -1,4 +1,5 @@
 using System;
+using CoreTests;
 using NUnit.Framework;
 using System.Collections.Generic;
 using GithubSharp.Core.Base;

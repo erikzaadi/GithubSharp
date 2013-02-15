@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace GithubSharp.Core.Models.Internal
@@ -23,7 +24,7 @@ namespace GithubSharp.Core.Models.Internal
         [DataMember(Name = "emails")]
         public IEnumerable<string> Emails { get; set; }
     }
-
+    [Obsolete("not in v3")]
     [DataContract]
     internal class UserContainer<TUserType>
     {

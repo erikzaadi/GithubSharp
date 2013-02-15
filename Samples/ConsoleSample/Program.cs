@@ -7,29 +7,29 @@ namespace ConsoleSample
 {
     class Program
     {
-        static void Main ()
+        static void Main()
         {
-        	//TestPullRequest ();
+            //TestPullRequest ();
 
-            var user = new User (new BasicCacher.BasicCacher (), new SimpleLogProvider ());
-        	var u = user.Get ("rumpl");
-        	Console.WriteLine (u.Blog);
-        	u = user.Get ("rumpl");
-        	Console.WriteLine (u.Blog);
-   
-        	user.Authenticate (new GithubSharp.Core.Models.GithubUser { Name = "erikzaadi", APIToken = "XXXXXXXXXXXXXXXXXXXXXXXXXXXX" });
-        	try
+            var user = new User(new BasicCacher.BasicCacher(), new SimpleLogProvider());
+            var u = user.Get("rumpl");
+            Console.WriteLine(u.Blog);
+            u = user.Get("rumpl");
+            Console.WriteLine(u.Blog);
+
+            user.Authenticate(new GithubSharp.Core.Models.GithubUser { Name = "erikzaadi", APIToken = "XXXXXXXXXXXXXXXXXXXXXXXXXXXX" });
+            try
             {
-        		var privateuser = user.Get ();
-        		if (privateuser == null)
-        			throw new Exception ("Invalid user");
-        	}
-			catch (Exception e)
-			{
-        		Console.WriteLine (e.Message);
-			}
-			
-			
+                var privateuser = user.Get();
+                if (privateuser == null)
+                    throw new Exception("Invalid user");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+
             var issuesAPI = new Issues(new BasicCacher.BasicCacher(), new SimpleLogProvider());
 
             var closedIssues = issuesAPI.List("GithubSharp", "erikzaadi", GithubSharp.Core.Models.IssueState.Closed);
@@ -77,13 +77,13 @@ namespace ConsoleSample
 
     class ConsoleLogger : ILogProvider
     {
-        public bool DebugMode { get { return true; } set{} }
-		
+        public bool DebugMode { get { return true; } set { } }
+
         public void LogMessage(string Message, params object[] Arguments)
         {
             Console.WriteLine(Message, Arguments);
         }
-		
+
         public void LogWarning(string Message, params object[] Arguments)
         {
             Console.WriteLine(Message, Arguments);

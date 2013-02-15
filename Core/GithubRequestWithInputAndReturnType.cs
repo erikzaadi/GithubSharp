@@ -43,7 +43,7 @@ namespace GithubSharp.Core
             webRequest = base.PrepareWebRequest(webRequest);
             webRequest.ContentType = "application/json"; //Get from MimeType?
             webRequest.MediaType = "UTF-8";
-            var bytes = ModelToSend.ToJsonBytes();
+            var bytes = ToJsonBytes(ModelToSend);
 
             webRequest.ContentLength = bytes.Length;
             var stream = webRequest.GetRequestStream();
@@ -51,6 +51,12 @@ namespace GithubSharp.Core
             stream.Close();
 
             return webRequest;
+        }
+
+        internal static byte[] ToJsonBytes<T>(T obj)
+        {
+            var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+            return System.Text.Encoding.UTF8.GetBytes(jsonString);
         }
     }
 }
