@@ -1,5 +1,8 @@
 GithubSharp
 
+This project is no longer maintained.
+Please use the excellent https://github.com/octokit/octokit.net
+
 C# integration with Githubs v3 apis 
 
 Dual licensed under the MIT and GPL licenses: http://www.opensource.org/licenses/mit-license.php http://www.gnu.org/licenses/gpl.html
